@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns'
 
-export default function PostDate({ dateString }: { dateString: string }) {
+export default function AlbumDate({ dateString }: { dateString: string }) {
   if (!dateString) return null
 
   const date = parseISO(dateString)

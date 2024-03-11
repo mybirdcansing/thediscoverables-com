@@ -1,6 +1,5 @@
 import { toPlainText } from '@portabletext/react'
 import BlogMeta from 'components/BlogMeta'
-import * as demo from 'lib/demo.data'
 import { Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 
@@ -9,12 +8,8 @@ export interface IndexPageHeadProps {
 }
 
 export default function IndexPageHead({ settings }: IndexPageHeadProps) {
-  const {
-    title = demo.title,
-    description = demo.description,
-    ogImage = {},
-  } = settings
-  const ogImageTitle = ogImage?.title || demo.ogImageTitle
+  const { title, description, ogImage = {} } = settings
+  const ogImageTitle = ogImage?.title
 
   return (
     <Head>

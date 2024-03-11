@@ -1,42 +1,43 @@
+import { description } from './demo.data'
 import { groq } from 'next-sanity'
 
-const postFields = groq`
+const albumFields = groq`
   _id,
   title,
-  date,
-  _updatedAt,
-  excerpt,
+  description,
+  publishDate,
   coverImage,
+  _updatedAt,
   "slug": slug.current,
-  "author": author->{name, picture},
+  "songs": songs[]->,
 `
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
 export const indexQuery = groq`
-*[_type == "post"] | order(date desc, _updatedAt desc) {
-  ${postFields}
+*[_type == "album"] | order(date desc, _updatedAt desc) {
+  ${albumFields}
 }`
 
-export const postAndMoreStoriesQuery = groq`
+export const albumAndMoreStoriesQuery = groq`
 {
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
+  "album": *[_type == "album" && slug.current == $slug] | order(_updatedAt desc) [0] {
     content,
-    ${postFields}
+    ${albumFields}
   },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+  "moreAlbums": *[_type == "album" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
     content,
-    ${postFields}
+    ${albumFields}
   }
 }`
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
+export const albumSlugsQuery = groq`
+*[_type == "album" && defined(slug.current)][].slug.current
 `
 
-export const postBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
-  ${postFields}
+export const albumBySlugQuery = groq`
+*[_type == "album" && slug.current == $slug][0] {
+  ${albumFields}
 }
 `
 
@@ -45,7 +46,25 @@ export interface Author {
   picture?: any
 }
 
-export interface Post {
+export interface Song {
+  _id: string
+  title?: string
+  url?: string
+  description?: string
+  duration?: number
+}
+
+export interface Album {
+  _id: string
+  slug?: string
+  title?: string
+  description?: string
+  songs?: Array<Song>
+  coverImage?: any
+  publishDate?: string
+}
+
+export interface Album {
   _id: string
   title?: string
   coverImage?: any

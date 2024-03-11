@@ -11,14 +11,15 @@ import {
   projectId,
 } from 'lib/sanity.api'
 import { locate } from 'plugins/locate'
+import { media } from 'sanity-plugin-media'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-import authorType from 'schemas/author'
-import postType from 'schemas/post'
+import albumType from 'schemas/album'
+import songType from 'schemas/song'
 import settingsType from 'schemas/settings'
 
 const title =
@@ -31,7 +32,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [authorType, postType, settingsType],
+    types: [songType, albumType, settingsType],
   },
   plugins: [
     structureTool({
@@ -47,6 +48,7 @@ export default defineConfig({
         },
       },
     }),
+    media(),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     settingsPlugin({ type: settingsType.name }),
     // Add an image asset source for Unsplash

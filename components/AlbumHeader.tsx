@@ -1,16 +1,16 @@
 import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
-import Date from 'components/PostDate'
-import PostTitle from 'components/PostTitle'
-import type { Post } from 'lib/sanity.queries'
+import Date from 'components/AlbumDate'
+import AlbumTitle from 'components/AlbumTitle'
+import type { Album } from 'lib/sanity.queries'
 
-export default function PostHeader(
-  props: Pick<Post, 'title' | 'coverImage' | 'date' | 'author' | 'slug'>,
+export default function AlbumHeader(
+  props: Pick<Album, 'title' | 'coverImage' | 'date' | 'author' | 'slug'>,
 ) {
   const { title, coverImage, date, author, slug } = props
   return (
     <>
-      <PostTitle>{title}</PostTitle>
+      <AlbumTitle>{title}</AlbumTitle>
       <div className="hidden md:mb-12 md:block">
         {author && <Avatar name={author.name} picture={author.picture} />}
       </div>

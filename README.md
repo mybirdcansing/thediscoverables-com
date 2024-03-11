@@ -15,7 +15,7 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ## Features
 
-- A performant, static blog with editable posts, authors, and site settings
+- A performant, static blog with editable albums, authors, and site settings
 - A native and customizable authoring environment, accessible on `yourblog.com/studio`
 - Real-time and collaborative content editing with fine-grained revision history
 - Side-by-side instant content preview that works across your whole site
@@ -113,7 +113,7 @@ npx vercel --prod
 
 ### It doesn't work! Where can I get help?
 
-In case of any issues or questions, you can post:
+In case of any issues or questions, you can album:
 
 - [GitHub Discussions for Next.js][vercel-github]
 - [Sanity's GitHub Discussions][sanity-github]

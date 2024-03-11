@@ -8,7 +8,7 @@ import { DRAFT_MODE_ROUTE } from 'lib/sanity.api'
 import type { DefaultDocumentNodeResolver } from 'sanity/structure'
 import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import authorType from 'schemas/author'
-import postType from 'schemas/post'
+import albumType from 'schemas/album'
 
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 
@@ -20,9 +20,9 @@ const iframeOptions = {
         return new Error('Missing document')
       }
       switch (document._type) {
-        case 'post':
+        case 'album':
           return (document as any)?.slug?.current
-            ? `/posts/${(document as any).slug.current}`
+            ? `/albums/${(document as any).slug.current}`
             : new Error('Missing slug')
         default:
           return new Error(`Unknown document type: ${document?._type}`)
@@ -49,7 +49,7 @@ export const previewDocumentNode = (): DefaultDocumentNodeResolver => {
             .title('Preview'),
         ])
 
-      case postType.name:
+      case albumType.name:
         return S.document().views([
           S.view.form(),
           S.view.component(Iframe).options(iframeOptions).title('Preview'),

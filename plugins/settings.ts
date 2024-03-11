@@ -30,8 +30,6 @@ export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   }
 })
 
-// The StructureResolver is how we're changing the DeskTool structure to linking to a single "Settings" document, instead of rendering "settings" in a list
-// like how "Post" and "Author" is handled.
 export const settingsStructure = (
   typeDef: DocumentDefinition,
 ): StructureResolver => {
@@ -49,12 +47,35 @@ export const settingsStructure = (
         )
 
     // The default root list items (except custom ones)
+    // const defaultListItems = S.documentTypeListItems().filter(
+    //   (listItem) => listItem.getId() !== typeDef.name,
+    // )
     const defaultListItems = S.documentTypeListItems().filter(
-      (listItem) => listItem.getId() !== typeDef.name,
+      (listItem) => listItem.getId() === 'sanity.previewUrlSecret',
     )
 
     return S.list()
       .title('Content')
-      .items([settingsListItem, S.divider(), ...defaultListItems])
+      .items([
+        settingsListItem,
+        S.divider(),
+        ...defaultListItems,
+        S.listItem()
+          .title('Songs')
+          .child(
+            S.documentList()
+              .title('Songs')
+              .schemaType('song')
+              .filter('_type == "song"'),
+          ),
+        S.listItem()
+          .title('Albums')
+          .child(
+            S.documentList()
+              .title('Albums')
+              .schemaType('album')
+              .filter('_type == "album"'),
+          ),
+      ])
   }
 }

@@ -12,7 +12,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
     } satisfies DocumentLocationsState
   }
 
-  if (params.type === 'post') {
+  if (params.type === 'album') {
     // Listen to the query and fetch the draft and published document
     const doc$ = context.documentStore.listenQuery(
       `*[_id == $id && defined(slug.current)][0]{slug,title}`,
@@ -29,7 +29,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
           locations: [
             {
               title: doc.title || 'Untitled',
-              href: `/posts/${doc.slug.current}`,
+              href: `/albums/${doc.slug.current}`,
             },
             {
               title: 'Home',
@@ -42,9 +42,9 @@ export const locate: DocumentLocationResolver = (params, context) => {
   }
 
   if (params.type === 'author') {
-    // Fetch all posts that reference the viewed author, if the post has a slug defined
+    // Fetch all albums that reference the viewed author, if the album has a slug defined
     const doc$ = context.documentStore.listenQuery(
-      `*[_type == "post" && references($id) && defined(slug.current)]{slug,title}`,
+      `*[_type == "album" && references($id) && defined(slug.current)]{slug,title}`,
       params,
       { perspective: 'previewDrafts' },
     ) as Observable<
@@ -59,7 +59,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
         return {
           locations: docs?.map((doc) => ({
             title: doc.title || 'Untitled',
-            href: `/posts/${doc.slug.current}`,
+            href: `/albums/${doc.slug.current}`,
           })),
         }
       }),

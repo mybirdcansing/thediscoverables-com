@@ -1,5 +1,5 @@
 /**
- * This component uses Portable Text to render a post body.
+ * This component uses Portable Text to render a album body.
  *
  * You can learn more about Portable Text on:
  * https://www.sanity.io/docs/block-content
@@ -12,7 +12,7 @@ import {
   type PortableTextReactComponents,
 } from '@portabletext/react'
 
-import styles from './PostBody.module.css'
+import styles from './AlbumBody.module.css'
 import { SanityImage } from './SanityImage'
 
 const myPortableTextComponents: Partial<PortableTextReactComponents> = {
@@ -23,7 +23,7 @@ const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   },
 }
 
-export default function PostBody({ content }) {
+export default function AlbumBody({ content }) {
   return (
     <div className={`mx-auto max-w-2xl ${styles.portableText}`}>
       <PortableText value={content} components={myPortableTextComponents} />

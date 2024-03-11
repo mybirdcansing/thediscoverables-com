@@ -7,10 +7,10 @@ import {
 } from 'lib/sanity.api'
 import {
   indexQuery,
-  type Post,
-  postAndMoreStoriesQuery,
-  postBySlugQuery,
-  postSlugsQuery,
+  type Album,
+  albumAndMoreStoriesQuery,
+  albumBySlugQuery,
+  albumSlugsQuery,
   type Settings,
   settingsQuery,
 } from 'lib/sanity.queries'
@@ -48,26 +48,26 @@ export async function getSettings(client: SanityClient): Promise<Settings> {
   return (await client.fetch(settingsQuery)) || {}
 }
 
-export async function getAllPosts(client: SanityClient): Promise<Post[]> {
+export async function getAllAlbums(client: SanityClient): Promise<Album[]> {
   return (await client.fetch(indexQuery)) || []
 }
 
-export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
+export async function getAllAlbumsSlugs(): Promise<Pick<Album, 'slug'>[]> {
   const client = getClient()
-  const slugs = (await client.fetch<string[]>(postSlugsQuery)) || []
+  const slugs = (await client.fetch<string[]>(albumSlugsQuery)) || []
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function getPostBySlug(
+export async function getAlbumBySlug(
   client: SanityClient,
   slug: string,
-): Promise<Post> {
-  return (await client.fetch(postBySlugQuery, { slug })) || ({} as any)
+): Promise<Album> {
+  return (await client.fetch(albumBySlugQuery, { slug })) || ({} as any)
 }
 
-export async function getPostAndMoreStories(
+export async function getAlbumAndMoreStories(
   client: SanityClient,
   slug: string,
-): Promise<{ post: Post; morePosts: Post[] }> {
-  return await client.fetch(postAndMoreStoriesQuery, { slug })
+): Promise<{ album: Album; moreAlbums: Album[] }> {
+  return await client.fetch(albumAndMoreStoriesQuery, { slug })
 }

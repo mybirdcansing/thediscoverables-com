@@ -1,17 +1,17 @@
 import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
-import Date from 'components/PostDate'
-import type { Post } from 'lib/sanity.queries'
+import Date from 'components/AlbumDate'
+import type { Album } from 'lib/sanity.queries'
 import Link from 'next/link'
 
-export default function PostPreview({
+export default function AlbumPreview({
   title,
   coverImage,
   date,
   excerpt,
   author,
   slug,
-}: Omit<Post, '_id'>) {
+}: Omit<Album, '_id'>) {
   return (
     <div>
       <div className="mb-5">
@@ -23,7 +23,7 @@ export default function PostPreview({
         />
       </div>
       <h3 className="mb-3 text-3xl leading-snug text-balance">
-        <Link href={`/posts/${slug}`} className="hover:underline">
+        <Link href={`/albums/${slug}`} className="hover:underline">
           {title}
         </Link>
       </h3>

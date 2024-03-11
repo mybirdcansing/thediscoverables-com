@@ -5,20 +5,26 @@ import { defineField, defineType } from 'sanity'
 import authorType from './author'
 
 /**
- * This file is the schema definition for a post.
+ * This file is the schema definition for a album.
  *
  * Here you'll be able to edit the different fields that appear when you 
- * create or edit a post in the studio.
+ * create or edit a album in the studio.
  * 
  * Here you can see the different schema types that are available:
 
   https://www.sanity.io/docs/schema-types
 
+
+  title
+description
+songs
+artworkImage
+publishDate
  */
 
 export default defineType({
-  name: 'post',
-  title: 'Post',
+  name: 'album',
+  title: 'Album',
   icon: BookIcon,
   type: 'document',
   fields: [
@@ -40,8 +46,8 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
+      name: 'description',
+      title: 'Description',
       type: 'array',
       of: [
         { type: 'block' },
@@ -68,11 +74,6 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
-      type: 'text',
-    }),
-    defineField({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
@@ -81,29 +82,32 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'date',
-      title: 'Date',
-      type: 'datetime',
+      name: 'publishDate',
+      title: 'Publish Date',
+      type: 'date',
       initialValue: () => new Date().toISOString(),
     }),
     defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{ type: authorType.name }],
+      title: 'Songs',
+      name: 'songs',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'song' }],
+        },
+      ],
     }),
   ],
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
-      date: 'date',
+      publishDate: 'publishDate',
       media: 'coverImage',
     },
-    prepare({ title, media, author, date }) {
+    prepare({ title, media, publishDate }) {
       const subtitles = [
-        author && `by ${author}`,
-        date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
+        publishDate && `on ${format(parseISO(publishDate), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
       return { title, media, subtitle: subtitles.join(' ') }
