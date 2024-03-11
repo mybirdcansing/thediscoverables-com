@@ -15,15 +15,13 @@ type SitemapLocation = {
 }
 
 // Use this to manually add routes to the sitemap
-const defaultUrls: SitemapLocation[] = [
+const defaultUrls: Array<SitemapLocation> = [
   {
     url: '/',
     changefreq: 'daily',
     priority: 1,
     lastmod: new Date(), // or custom date: '2023-06-12T00:00:00.000Z',
   },
-  //   { url: '/about', priority: 0.5 },
-  //   { url: '/blog', changefreq: 'weekly', priority: 0.7 },
 ]
 
 const createSitemap = (locations: SitemapLocation[]) => {

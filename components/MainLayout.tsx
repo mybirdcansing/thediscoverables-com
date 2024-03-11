@@ -1,4 +1,6 @@
 import AlertBanner from 'components/AlertBanner'
+import Link from 'next/link'
+import React from 'react'
 
 export default function MainLayout({
   preview,
@@ -9,13 +11,18 @@ export default function MainLayout({
   loading?: boolean
   children: React.ReactNode
 }) {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <AlertBanner preview={preview} loading={loading} />
-      <div>Header navigation</div>
+  const [ticker, setTicker] = React.useState(0)
 
-      <main>{children}</main>
-      <div className="place-items-end">footer navigation</div>
+  React.useEffect(() => {
+    setTimeout(() => {
+      setTicker(ticker + 1)
+    }, 1000)
+  }, [ticker])
+
+  return (
+    <div>
+      <AlertBanner preview={preview} loading={loading} />
+      <main className="min-h-screen">{children}</main>
     </div>
   )
 }

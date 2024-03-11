@@ -1,4 +1,4 @@
-import AlbumPage, { AlbumPageProps } from 'components/AlbumPage'
+import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
 import {
   type Album,
   albumAndMoreStoriesQuery,

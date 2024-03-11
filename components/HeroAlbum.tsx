@@ -1,4 +1,4 @@
-import Date from 'components/AlbumDate'
+import Date from 'components/album/AlbumDate'
 import AuthorAvatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
 import type { Album } from 'lib/sanity.queries'

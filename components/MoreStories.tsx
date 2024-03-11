@@ -1,4 +1,4 @@
-import AlbumPreview from 'components/AlbumPreview'
+import AlbumPreview from 'components/album/AlbumPreview'
 import type { Album } from 'lib/sanity.queries'
 
 export default function MoreStories({ albums }: { albums: Album[] }) {

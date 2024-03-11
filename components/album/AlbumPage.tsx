@@ -1,11 +1,11 @@
-import AlbumBody from 'components/AlbumBody'
-import AlbumHeader from 'components/AlbumHeader'
-import AlbumPageHead from 'components/AlbumPageHead'
-import AlbumTitle from 'components/AlbumTitle'
-import Container from 'components/BlogContainer'
-import BlogHeader from 'components/BlogHeader'
+import AlbumBody from 'components/album/AlbumBody'
+import AlbumHeader from 'components/album/AlbumHeader'
+import AlbumPageHead from 'components/album/AlbumPageHead'
+import AlbumTitle from 'components/album/AlbumTitle'
 import Layout from 'components/MainLayout'
 import MoreStories from 'components/MoreStories'
+import Container from 'components/PageContainer'
+import PageHeader from 'components/PageHeader'
 import SectionSeparator from 'components/SectionSeparator'
 import type { Album, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
@@ -36,7 +36,7 @@ export default function AlbumPage(props: AlbumPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Container>
-          <BlogHeader title={title} level={2} />
+          <PageHeader title={title} level={2} />
           {preview && !album ? (
             <AlbumTitle>Loading…</AlbumTitle>
           ) : (

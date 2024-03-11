@@ -1,19 +1,10 @@
-/**
- * This component uses Portable Text to render a album body.
- *
- * You can learn more about Portable Text on:
- * https://www.sanity.io/docs/block-content
- * https://github.com/portabletext/react-portabletext
- * https://portabletext.org/
- *
- */
 import {
   PortableText,
   type PortableTextReactComponents,
 } from '@portabletext/react'
 
+import { SanityImage } from '../SanityImage'
 import styles from './AlbumBody.module.css'
-import { SanityImage } from './SanityImage'
 
 const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
