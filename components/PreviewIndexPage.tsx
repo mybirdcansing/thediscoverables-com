@@ -1,4 +1,4 @@
-import IndexPage, { type IndexPageProps } from 'components/IndexPage'
+import Homepage, { type IndexPageProps } from 'components/IndexPage'
 import {
   type Album,
   indexQuery,
@@ -18,7 +18,7 @@ export default function PreviewIndexPage(props: IndexPageProps) {
   )
 
   return (
-    <IndexPage
+    <Homepage
       preview
       loading={loadingAlbums || loadingSettings}
       albums={albums || []}

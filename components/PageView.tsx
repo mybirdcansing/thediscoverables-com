@@ -1,6 +1,6 @@
 import React from 'react'
 import PreviewIndexPage from './PreviewIndexPage'
-import IndexPage from './IndexPage'
+import Homepage from './IndexPage'
 import PreviewAlbumPage from './PreviewAlbumPage'
 import AlbumPage from './album/AlbumPage'
 import { Album, Settings } from 'lib/sanity.queries'
@@ -25,26 +25,31 @@ export function PageView({
 }: {
   props: HomepageViewProps | AlbumViewProps
 }): React.ReactNode {
-  switch (props.type) {
-    case 'album':
-      return renderAlbumView(props)
-
-    default:
-      return renderHomepageView(props)
-  }
+  const { type: pageType } = props
+  return (
+    <>
+      <nav>header nav</nav>
+      {pageType === 'album' ? (
+        <AlbumView props={props} />
+      ) : (
+        <HomepageView props={props} />
+      )}
+      <nav>footer</nav>
+    </>
+  )
 }
 
-const renderHomepageView = (props: HomepageViewProps) => {
+const HomepageView = ({ props }: { props: HomepageViewProps }) => {
   const { albums, settings, draftMode } = props
 
   if (draftMode) {
     return <PreviewIndexPage albums={albums} settings={settings} />
   }
 
-  return <IndexPage albums={albums} settings={settings} />
+  return <Homepage albums={albums} settings={settings} />
 }
 
-const renderAlbumView = (props: AlbumViewProps) => {
+const AlbumView = ({ props }: { props: AlbumViewProps }) => {
   const { settings, album, moreAlbums, draftMode } = props
 
   if (draftMode) {
