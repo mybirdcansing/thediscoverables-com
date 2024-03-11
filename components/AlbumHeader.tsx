@@ -1,7 +1,7 @@
-import Avatar from 'components/AuthorAvatar'
-import CoverImage from 'components/CoverImage'
 import Date from 'components/AlbumDate'
 import AlbumTitle from 'components/AlbumTitle'
+import Avatar from 'components/AuthorAvatar'
+import CoverImage from 'components/CoverImage'
 import type { Album } from 'lib/sanity.queries'
 
 export default function AlbumHeader(

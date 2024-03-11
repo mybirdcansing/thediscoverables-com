@@ -1,6 +1,6 @@
+import Date from 'components/AlbumDate'
 import AuthorAvatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
-import Date from 'components/AlbumDate'
 import type { Album } from 'lib/sanity.queries'
 import Link from 'next/link'
 

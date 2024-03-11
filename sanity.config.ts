@@ -11,16 +11,16 @@ import {
   projectId,
 } from 'lib/sanity.api'
 import { locate } from 'plugins/locate'
-import { media } from 'sanity-plugin-media'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+import { media } from 'sanity-plugin-media'
 import albumType from 'schemas/album'
-import songType from 'schemas/song'
 import settingsType from 'schemas/settings'
+import songType from 'schemas/song'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'

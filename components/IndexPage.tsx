@@ -1,7 +1,7 @@
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
-import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
+import Layout from 'components/MainLayout'
 import type { Album, Settings } from 'lib/sanity.queries'
 
 export interface IndexPageProps {
@@ -17,10 +17,9 @@ export default function IndexPage(props: IndexPageProps) {
 
   return (
     <>
-      <IndexPageHead settings={settings} />
-
       <Layout preview={preview} loading={loading}>
         <Container>
+          <IndexPageHead settings={settings} />
           <BlogHeader title={title} description={description} level={1} />
         </Container>
       </Layout>

@@ -6,11 +6,11 @@ import {
   useCdn,
 } from 'lib/sanity.api'
 import {
-  indexQuery,
   type Album,
   albumAndMoreStoriesQuery,
   albumBySlugQuery,
   albumSlugsQuery,
+  indexQuery,
   type Settings,
   settingsQuery,
 } from 'lib/sanity.queries'

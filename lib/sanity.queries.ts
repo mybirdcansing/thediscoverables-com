@@ -1,4 +1,3 @@
-import { description } from './demo.data'
 import { groq } from 'next-sanity'
 
 const albumFields = groq`

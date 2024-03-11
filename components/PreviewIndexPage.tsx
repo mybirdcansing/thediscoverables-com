@@ -1,7 +1,7 @@
 import IndexPage, { type IndexPageProps } from 'components/IndexPage'
 import {
-  indexQuery,
   type Album,
+  indexQuery,
   type Settings,
   settingsQuery,
 } from 'lib/sanity.queries'

@@ -2,9 +2,9 @@ import AlbumPage from 'components/AlbumPage'
 import PreviewAlbumPage from 'components/PreviewAlbumPage'
 import { readToken } from 'lib/sanity.api'
 import {
+  getAlbumAndMoreStories,
   getAllAlbumsSlugs,
   getClient,
-  getAlbumAndMoreStories,
   getSettings,
 } from 'lib/sanity.client'
 import { Album, Settings } from 'lib/sanity.queries'
