@@ -1,5 +1,5 @@
 import { toPlainText } from '@portabletext/react'
-import BlogMeta from 'components/BlogMeta'
+import Meta from 'components/Meta'
 import { Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 
@@ -14,7 +14,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
   return (
     <Head>
       <title>{title}</title>
-      <BlogMeta />
+      <Meta />
       <meta
         key="description"
         name="description"

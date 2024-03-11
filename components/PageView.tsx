@@ -25,17 +25,10 @@ export function PageView({
 }: {
   props: HomepageViewProps | AlbumViewProps
 }): React.ReactNode {
-  const { type: pageType } = props
-  return (
-    <>
-      <nav>header nav</nav>
-      {pageType === 'album' ? (
-        <AlbumView props={props} />
-      ) : (
-        <HomepageView props={props} />
-      )}
-      <nav>footer</nav>
-    </>
+  return props.type === 'album' ? (
+    <AlbumView props={props} />
+  ) : (
+    <HomepageView props={props} />
   )
 }
 

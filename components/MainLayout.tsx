@@ -22,7 +22,10 @@ export default function MainLayout({
   return (
     <div>
       <AlertBanner preview={preview} loading={loading} />
-      <main className="min-h-screen">{children}</main>
+      <header>Header</header>
+      <main>{children}</main>
+      <footer>footer</footer>
+      <div>player</div>
     </div>
   )
 }

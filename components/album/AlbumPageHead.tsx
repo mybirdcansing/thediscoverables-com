@@ -1,4 +1,4 @@
-import BlogMeta from 'components/BlogMeta'
+import Meta from 'components/Meta'
 import { urlForImage } from 'lib/sanity.image'
 import { Album, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
@@ -13,7 +13,7 @@ export default function AlbumPageHead({ settings, album }: AlbumPageHeadProps) {
   return (
     <Head>
       <title>{album.title ? `${album.title} | ${title}` : title}</title>
-      <BlogMeta />
+      <Meta />
       {album.coverImage?.asset?._ref && (
         <meta
           property="og:image"
