@@ -1,10 +1,11 @@
-import React from 'react'
-import PreviewIndexPage from './PreviewIndexPage'
-import Homepage from './IndexPage'
-import PreviewAlbumPage from './PreviewAlbumPage'
-import AlbumPage from './album/AlbumPage'
 import { Album, Settings } from 'lib/sanity.queries'
 import { SharedPageProps } from 'pages/_app'
+import React from 'react'
+
+import AlbumPage from './album/AlbumPage'
+import Homepage from './IndexPage'
+import PreviewAlbumPage from './PreviewAlbumPage'
+import PreviewIndexPage from './PreviewIndexPage'
 
 export type PageViewProps = HomepageViewProps | AlbumViewProps
 

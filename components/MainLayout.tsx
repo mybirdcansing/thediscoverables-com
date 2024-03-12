@@ -1,5 +1,5 @@
 import AlertBanner from 'components/AlertBanner'
-import Link from 'next/link'
+import { PlayerProvider } from 'lib/pageContext'
 import React from 'react'
 
 export default function MainLayout({
@@ -22,10 +22,12 @@ export default function MainLayout({
   return (
     <div>
       <AlertBanner preview={preview} loading={loading} />
-      <header>Header</header>
-      <main>{children}</main>
-      <footer>footer</footer>
-      <div>player</div>
+      <PlayerProvider>
+        <header>Header {ticker}</header>
+        <main>{children}</main>
+        <footer>footer</footer>
+        <div>player</div>
+      </PlayerProvider>
     </div>
   )
 }

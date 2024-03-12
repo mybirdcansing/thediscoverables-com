@@ -2,7 +2,6 @@ import AlbumBody from 'components/album/AlbumBody'
 import AlbumHeader from 'components/album/AlbumHeader'
 import AlbumPageHead from 'components/album/AlbumPageHead'
 import AlbumTitle from 'components/album/AlbumTitle'
-import Layout from 'components/MainLayout'
 import MoreStories from 'components/MoreStories'
 import Container from 'components/PageContainer'
 import PageHeader from 'components/PageHeader'
@@ -21,7 +20,7 @@ export interface AlbumPageProps {
 const NO_POSTS: Album[] = []
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { preview, loading, moreAlbums = NO_POSTS, album, settings } = props
+  const { preview, moreAlbums = NO_POSTS, album, settings } = props
   const { title } = settings || {}
 
   const slug = album?.slug
@@ -34,28 +33,26 @@ export default function AlbumPage(props: AlbumPageProps) {
     <>
       <AlbumPageHead settings={settings} album={album} />
 
-      <Layout preview={preview} loading={loading}>
-        <Container>
-          <PageHeader title={title} level={2} />
-          {preview && !album ? (
-            <AlbumTitle>Loading…</AlbumTitle>
-          ) : (
-            <>
-              <article>
-                <AlbumHeader
-                  title={album.title}
-                  coverImage={album.coverImage}
-                  date={album.date}
-                  author={album.author}
-                />
-                <AlbumBody content={album.content} />
-              </article>
-              <SectionSeparator />
-              {moreAlbums?.length > 0 && <MoreStories albums={moreAlbums} />}
-            </>
-          )}
-        </Container>
-      </Layout>
+      <Container>
+        <PageHeader title={title} level={2} />
+        {preview && !album ? (
+          <AlbumTitle>Loading…</AlbumTitle>
+        ) : (
+          <>
+            <article>
+              <AlbumHeader
+                title={album.title}
+                coverImage={album.coverImage}
+                date={album.date}
+                author={album.author}
+              />
+              <AlbumBody content={album.content} />
+            </article>
+            <SectionSeparator />
+            {moreAlbums?.length > 0 && <MoreStories albums={moreAlbums} />}
+          </>
+        )}
+      </Container>
     </>
   )
 }

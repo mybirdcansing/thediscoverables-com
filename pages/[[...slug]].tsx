@@ -1,5 +1,6 @@
-import { PageView } from 'components/PageView'
+import MainLayout from 'components/MainLayout'
 import type { PageViewProps } from 'components/PageView'
+import { PageView } from 'components/PageView'
 import { readToken } from 'lib/sanity.api'
 import {
   getAlbumAndMoreStories,
@@ -8,15 +9,19 @@ import {
   getClient,
   getSettings,
 } from 'lib/sanity.client'
-
 import { GetStaticProps } from 'next'
 
 interface Query {
   [key: string]: string
 }
 
-export default function RenderPage(props: PageViewProps) {
-  return <PageView props={props} />
+export default function RenderPage(props: any) {
+  const { preview, loading } = props
+  return (
+    <MainLayout preview={preview} loading={loading}>
+      <PageView props={props} />
+    </MainLayout>
+  )
 }
 
 export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
