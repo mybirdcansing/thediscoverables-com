@@ -1,5 +1,4 @@
 import MainLayout from 'components/MainLayout'
-import type { PageViewProps } from 'components/PageView'
 import { PageView } from 'components/PageView'
 import { readToken } from 'lib/sanity.api'
 import {

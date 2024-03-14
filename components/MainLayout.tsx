@@ -1,6 +1,8 @@
 import AlertBanner from 'components/AlertBanner'
-import { PlayerProvider } from 'lib/pageContext'
+import { PlayerProvider } from 'lib/playerContext'
 import React from 'react'
+
+import { HeaderView } from './HeaderView'
 
 export default function MainLayout({
   preview,
@@ -11,19 +13,12 @@ export default function MainLayout({
   loading?: boolean
   children: React.ReactNode
 }) {
-  const [ticker, setTicker] = React.useState(0)
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setTicker(ticker + 1)
-    }, 1000)
-  }, [ticker])
-
   return (
     <div>
       <AlertBanner preview={preview} loading={loading} />
       <PlayerProvider>
-        <header>Header {ticker}</header>
+        <HeaderView />
+
         <main>{children}</main>
         <footer>footer</footer>
         <div>player</div>
