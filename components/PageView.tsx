@@ -1,4 +1,4 @@
-import { Album, Settings } from 'lib/sanity.queries'
+import type { Album, Settings } from 'lib/types/content'
 import { SharedPageProps } from 'pages/_app'
 import React from 'react'
 
@@ -21,11 +21,7 @@ export interface AlbumViewProps extends SharedPageProps {
   settings?: Settings
 }
 
-export function PageView({
-  props,
-}: {
-  props: HomepageViewProps | AlbumViewProps
-}): React.ReactNode {
+export function PageView({ props }: { props: PageViewProps }): React.ReactNode {
   return props.type === 'album' ? (
     <AlbumView props={props} />
   ) : (

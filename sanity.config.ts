@@ -19,6 +19,7 @@ import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { media } from 'sanity-plugin-media'
 import albumType from 'schemas/album'
+import homepageType from 'schemas/homepage'
 import settingsType from 'schemas/settings'
 import songType from 'schemas/song'
 
@@ -32,11 +33,11 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [songType, albumType, settingsType],
+    types: [homepageType, songType, albumType, settingsType],
   },
   plugins: [
     structureTool({
-      structure: settingsStructure(settingsType),
+      structure: settingsStructure(),
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
       defaultDocumentNode: previewDocumentNode(),
     }),

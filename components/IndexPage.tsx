@@ -1,8 +1,6 @@
 import IndexPageHead from 'components/IndexPageHead'
-import Layout from 'components/MainLayout'
-import Container from 'components/PageContainer'
 import PageHeader from 'components/PageHeader'
-import type { Album, Settings } from 'lib/sanity.queries'
+import type { Album, Settings } from 'lib/types/content'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -17,12 +15,8 @@ export default function Homepage(props: IndexPageProps) {
 
   return (
     <>
-      <Layout preview={preview} loading={loading}>
-        <Container>
-          <IndexPageHead settings={settings} />
-          <PageHeader title={title} description={description} level={1} />
-        </Container>
-      </Layout>
+      <IndexPageHead settings={settings} />
+      <PageHeader title={title} description={description} level={1} />
     </>
   )
 }

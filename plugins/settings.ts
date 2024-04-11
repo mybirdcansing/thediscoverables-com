@@ -1,9 +1,7 @@
-/**
- * This plugin contains all the logic for setting up the `Settings` singleton
- */
-
 import { definePlugin, type DocumentDefinition } from 'sanity'
 import type { StructureResolver } from 'sanity/structure'
+import homepageType from 'schemas/homepage'
+import settingsType from 'schemas/settings'
 
 export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   return {
@@ -30,26 +28,23 @@ export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   }
 })
 
-export const settingsStructure = (
-  typeDef: DocumentDefinition,
-): StructureResolver => {
+const singletonStructureItem = (S, typeDef) =>
+  S.listItem()
+    .title(typeDef.title)
+    .icon(typeDef.icon)
+    .child(
+      S.editor()
+        .id(typeDef.name)
+        .schemaType(typeDef.name)
+        .documentId(typeDef.name),
+    )
+export const settingsStructure = (): StructureResolver => {
   return (S) => {
     // The `Settings` root list item
-    const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
-      S.listItem()
-        .title(typeDef.title)
-        .icon(typeDef.icon)
-        .child(
-          S.editor()
-            .id(typeDef.name)
-            .schemaType(typeDef.name)
-            .documentId(typeDef.name),
-        )
+    const settingsListItem = singletonStructureItem(S, settingsType)
+    // The `Homepage` list item
+    const homepageListItem = singletonStructureItem(S, homepageType)
 
-    // The default root list items (except custom ones)
-    // const defaultListItems = S.documentTypeListItems().filter(
-    //   (listItem) => listItem.getId() !== typeDef.name,
-    // )
     const defaultListItems = S.documentTypeListItems().filter(
       (listItem) => listItem.getId() === 'sanity.previewUrlSecret',
     )
@@ -57,9 +52,8 @@ export const settingsStructure = (
     return S.list()
       .title('Content')
       .items([
-        settingsListItem,
-        S.divider(),
-        ...defaultListItems,
+        homepageListItem,
+
         S.listItem()
           .title('Songs')
           .child(
@@ -76,6 +70,9 @@ export const settingsStructure = (
               .schemaType('album')
               .filter('_type == "album"'),
           ),
+        S.divider(),
+        settingsListItem,
+        ...defaultListItems,
       ])
   }
 }

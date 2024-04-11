@@ -14,7 +14,7 @@ const myPortableTextComponents: Partial<PortableTextReactComponents> = {
   },
 }
 
-export default function AlbumBody({ content }) {
+export default function AlbumDescription({ content }) {
   return (
     <div className={`mx-auto max-w-2xl ${styles.portableText}`}>
       <PortableText value={content} components={myPortableTextComponents} />

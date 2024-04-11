@@ -1,6 +1,6 @@
 import { toPlainText } from '@portabletext/react'
 import Meta from 'components/Meta'
-import { Settings } from 'lib/sanity.queries'
+import type { Settings } from 'lib/types/content'
 import Head from 'next/head'
 
 export interface IndexPageHeadProps {

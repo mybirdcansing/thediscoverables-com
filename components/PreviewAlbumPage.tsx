@@ -1,10 +1,6 @@
 import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
-import {
-  type Album,
-  albumAndMoreStoriesQuery,
-  Settings,
-  settingsQuery,
-} from 'lib/sanity.queries'
+import { albumAndMoreStoriesQuery, settingsQuery } from 'lib/sanity.queries'
+import type { Album, Settings } from 'lib/types/content'
 import { useLiveQuery } from 'next-sanity/preview'
 
 export default function PreviewAlbumPage(props: AlbumPageProps) {

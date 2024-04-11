@@ -1,13 +1,17 @@
 import React from 'react'
-import type { Song } from './sanity.queries'
 
-export const PlayerContext = React.createContext<
-  { activeSong: Song } | undefined
->(undefined)
+import { Song } from './types/content'
+
+export const PlayerContext = React.createContext<{
+  activeSong: Song
+  setActiveSong: (song: Song) => void
+}>(undefined)
 
 export const PlayerProvider = ({ children }) => {
+  const [activeSong, setActiveSong] = React.useState(null)
+
   return (
-    <PlayerContext.Provider value={undefined}>
+    <PlayerContext.Provider value={{ activeSong, setActiveSong }}>
       {children}
     </PlayerContext.Provider>
   )

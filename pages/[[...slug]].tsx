@@ -2,9 +2,9 @@ import MainLayout from 'components/MainLayout'
 import { PageView } from 'components/PageView'
 import { readToken } from 'lib/sanity.api'
 import {
-  getAlbumAndMoreStories,
+  getAlbumBySlug,
   getAllAlbums,
-  getAllAlbumsSlugs,
+  getAllSlugs,
   getClient,
   getSettings,
 } from 'lib/sanity.client'
@@ -15,9 +15,10 @@ interface Query {
 }
 
 export default function RenderPage(props: any) {
-  const { preview, loading } = props
+  const { loading, draftMode } = props
+
   return (
-    <MainLayout preview={preview} loading={loading}>
+    <MainLayout preview={draftMode} loading={loading}>
       <PageView props={props} />
     </MainLayout>
   )
@@ -47,9 +48,9 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
 
   if (slugRoot === 'albums') {
     const albumSlug = slugArray.slice(1).join('/')
-    const [settings, { album, moreAlbums }] = await Promise.all([
+    const [settings, album] = await Promise.all([
       getSettings(client),
-      getAlbumAndMoreStories(client, albumSlug),
+      getAlbumBySlug(client, albumSlug),
     ])
 
     if (!album) {
@@ -62,7 +63,6 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
       props: {
         type: 'album',
         album,
-        moreAlbums,
         settings,
         draftMode,
         token: draftMode ? readToken : '',
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
 }
 
 export const getStaticPaths = async () => {
-  const albumSlugs = await getAllAlbumsSlugs()
+  const albumSlugs = await getAllSlugs()
   return {
     paths: ['/', ...(albumSlugs?.map(({ slug }) => `/albums/${slug}`) || [])],
     fallback: 'blocking',

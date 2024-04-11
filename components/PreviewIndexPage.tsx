@@ -1,14 +1,10 @@
 import Homepage, { type IndexPageProps } from 'components/IndexPage'
-import {
-  type Album,
-  indexQuery,
-  type Settings,
-  settingsQuery,
-} from 'lib/sanity.queries'
+import { indexQuery, settingsQuery } from 'lib/sanity.queries'
+import type { Album, Settings } from 'lib/types/content'
 import { useLiveQuery } from 'next-sanity/preview'
 
 export default function PreviewIndexPage(props: IndexPageProps) {
-  const [albums, loadingAlbums] = useLiveQuery<Album[]>(
+  const [albums, loadingAlbums] = useLiveQuery<Array<Album>>(
     props.albums,
     indexQuery,
   )

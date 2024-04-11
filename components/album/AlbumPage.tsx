@@ -1,12 +1,10 @@
-import AlbumBody from 'components/album/AlbumBody'
+import AlbumDescription from 'components/album/AlbumBody'
 import AlbumHeader from 'components/album/AlbumHeader'
 import AlbumPageHead from 'components/album/AlbumPageHead'
 import AlbumTitle from 'components/album/AlbumTitle'
-import MoreStories from 'components/MoreStories'
 import Container from 'components/PageContainer'
 import PageHeader from 'components/PageHeader'
-import SectionSeparator from 'components/SectionSeparator'
-import type { Album, Settings } from 'lib/sanity.queries'
+import type { Album, Settings } from 'lib/types/content'
 import { notFound } from 'next/navigation'
 
 export interface AlbumPageProps {
@@ -43,13 +41,10 @@ export default function AlbumPage(props: AlbumPageProps) {
               <AlbumHeader
                 title={album.title}
                 coverImage={album.coverImage}
-                date={album.date}
-                author={album.author}
+                publishDate={album.publishDate}
               />
-              <AlbumBody content={album.content} />
+              <AlbumDescription content={album.description} />
             </article>
-            <SectionSeparator />
-            {moreAlbums?.length > 0 && <MoreStories albums={moreAlbums} />}
           </>
         )}
       </Container>

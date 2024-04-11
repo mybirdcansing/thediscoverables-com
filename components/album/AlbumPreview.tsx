@@ -1,15 +1,12 @@
 import Date from 'components/album/AlbumDate'
-import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
-import type { Album } from 'lib/sanity.queries'
+import type { Album } from 'lib/types/content'
 import Link from 'next/link'
 
 export default function AlbumPreview({
   title,
   coverImage,
-  date,
-  excerpt,
-  author,
+  publishDate,
   slug,
 }: Omit<Album, '_id'>) {
   return (
@@ -28,12 +25,8 @@ export default function AlbumPreview({
         </Link>
       </h3>
       <div className="mb-4 text-lg">
-        <Date dateString={date} />
+        <Date dateString={publishDate} />
       </div>
-      {excerpt && (
-        <p className="mb-4 text-lg leading-relaxed text-pretty">{excerpt}</p>
-      )}
-      {author && <Avatar name={author.name} picture={author.picture} />}
     </div>
   )
 }
