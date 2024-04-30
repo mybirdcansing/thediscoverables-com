@@ -18,13 +18,13 @@ export interface AlbumPageProps {
 const NO_POSTS: Album[] = []
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { preview, moreAlbums = NO_POSTS, album, settings } = props
+  const { preview, album, settings } = props
   const { title } = settings || {}
 
   const slug = album?.slug
 
   if (!slug && !preview) {
-    notFound()
+    console.error('not an album and not a preview')
   }
 
   return (

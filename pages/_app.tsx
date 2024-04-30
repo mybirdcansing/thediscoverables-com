@@ -1,12 +1,15 @@
 import 'tailwindcss/tailwind.css'
 
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
+import { Settings } from 'lib/types/content'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 
 export interface SharedPageProps {
   draftMode: boolean
   token: string
+  loading: boolean
+  settings?: Settings
 }
 
 const PreviewProvider = dynamic(() => import('components/PreviewProvider'))

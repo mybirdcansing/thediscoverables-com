@@ -41,6 +41,10 @@ export function getClient(preview?: { token: string }): SanityClient {
   return client
 }
 
+export interface Query {
+  [key: string]: string
+}
+
 export const getSanityImageConfig = () => getClient()
 
 export async function getSettings(client: SanityClient): Promise<Settings> {
@@ -53,9 +57,9 @@ export async function getAllAlbums(
   return (await client.fetch(indexQuery)) || []
 }
 
-export async function getAllSlugs(): Promise<Pick<Album, 'slug'>[]> {
+export async function getAlbumSlugs(): Promise<Pick<Album, 'slug'>[]> {
   const client = getClient()
-  const slugs = (await client.fetch<string[]>(albumSlugsQuery)) || []
+  const slugs = (await client.fetch<Array<string>>(albumSlugsQuery)) || []
   return slugs.map((slug) => ({ slug }))
 }
 

@@ -10,7 +10,7 @@ export interface IndexPageProps {
 }
 
 export default function Homepage(props: IndexPageProps) {
-  const { preview, loading, settings } = props
+  const { settings } = props
   const { title, description } = settings || {}
 
   return (

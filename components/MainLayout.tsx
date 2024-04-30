@@ -15,7 +15,7 @@ export default function MainLayout({
   children: React.ReactNode
 }) {
   return (
-    <div>
+    <>
       <AlertBanner preview={preview} loading={loading} />
       <PlayerProvider>
         <Container>
@@ -25,6 +25,6 @@ export default function MainLayout({
           <div>player</div>
         </Container>
       </PlayerProvider>
-    </div>
+    </>
   )
 }
