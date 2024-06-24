@@ -1,4 +1,6 @@
-import { getAllAlbums, getClient } from 'lib/sanity.client'
+import { getClient } from 'lib/sanity.client'
+import { getAllAlbums } from 'lib/sanity.getters'
+import { Album } from 'lib/types/content'
 
 type SitemapLocation = {
   url: string
@@ -56,7 +58,7 @@ export async function getServerSideProps({ res }) {
   const [albums = []] = await Promise.all([getAllAlbums(client)])
   const albumUrls: SitemapLocation[] = albums
     .filter(({ slug = '' }) => slug)
-    .map((album) => {
+    .map((album: Album) => {
       return {
         url: `/albums/${album.slug}`,
         priority: 0.5,

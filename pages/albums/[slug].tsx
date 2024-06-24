@@ -2,13 +2,8 @@ import AlbumPage from 'components/album/AlbumPage'
 import MainLayout from 'components/MainLayout'
 import PreviewAlbumPage from 'components/PreviewAlbumPage'
 import { readToken } from 'lib/sanity.api'
-import {
-  getAlbumBySlug,
-  getAlbumSlugs,
-  getClient,
-  getSettings,
-  Query,
-} from 'lib/sanity.client'
+import { getClient, Query } from 'lib/sanity.client'
+import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
 import type { Album } from 'lib/types/content'
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
