@@ -11,11 +11,8 @@ export interface AlbumPageProps {
   preview?: boolean
   loading?: boolean
   album: Album
-  moreAlbums: Album[]
   settings: Settings
 }
-
-const NO_POSTS: Album[] = []
 
 export default function AlbumPage(props: AlbumPageProps) {
   const { preview, album, settings } = props
