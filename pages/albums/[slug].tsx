@@ -25,13 +25,9 @@ export default function RenderPage(props: AlbumViewProps) {
   return (
     <MainLayout preview={draftMode} loading={loading}>
       {draftMode ? (
-        <PreviewAlbumPage
-          album={album}
-          moreAlbums={moreAlbums}
-          settings={settings}
-        />
+        <PreviewAlbumPage album={album} settings={settings} />
       ) : (
-        <AlbumPage album={album} moreAlbums={moreAlbums} settings={settings} />
+        <AlbumPage album={album} settings={settings} />
       )}
     </MainLayout>
   )

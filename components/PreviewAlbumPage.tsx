@@ -13,25 +13,13 @@ export default function PreviewAlbumPage(props: AlbumPageProps) {
       slug: props.album.slug,
     },
   )
-
-  console.log({
-    album,
-    albumBySlugQuery,
-    slug: props.album.slug,
-  })
-
   const [settings, loadingSettings] = useLiveQuery<Settings>(
     props.settings,
     settingsQuery,
   )
-  if (!album || !settings) return <Loading />
 
-  return (
-    <AlbumPage
-      preview
-      loading={loadingAlbum || loadingSettings}
-      album={album}
-      settings={settings}
-    />
-  )
+  if ((!album && loadingAlbum) || (!settings && loadingSettings))
+    return <Loading />
+
+  return <AlbumPage preview album={album} settings={settings} />
 }

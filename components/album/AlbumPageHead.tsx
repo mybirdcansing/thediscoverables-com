@@ -1,6 +1,6 @@
 import Meta from 'components/Meta'
 import { urlForImage } from 'lib/sanity.image'
-import { Album, Settings } from 'lib/sanity.queries'
+import { Album, Settings } from 'lib/types/content'
 import Head from 'next/head'
 
 export interface AlbumPageHeadProps {

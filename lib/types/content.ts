@@ -19,6 +19,7 @@ export interface Album {
   songs?: Array<Song>
   coverImage?: any
   publishDate?: string
+  _updatedAt: string
 }
 
 export interface Settings {

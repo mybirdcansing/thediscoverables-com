@@ -10,8 +10,6 @@ import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import albumType from 'schemas/album'
 import authorType from 'schemas/author'
 
-import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
-
 const iframeOptions = {
   url: {
     origin: 'same-origin',
@@ -39,14 +37,7 @@ export const previewDocumentNode = (): DefaultDocumentNodeResolver => {
       case authorType.name:
         return S.document().views([
           S.view.form(),
-          S.view
-            .component(({ document }) => (
-              <AuthorAvatarPreviewPane
-                name={document.displayed.name as any}
-                picture={document.displayed.picture as any}
-              />
-            ))
-            .title('Preview'),
+          S.view.component(({ document }) => <></>).title('Preview'),
         ])
 
       case albumType.name:

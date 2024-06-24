@@ -1,16 +1,14 @@
-import Date from 'components/album/AlbumDate'
-import AuthorAvatar from 'components/AuthorAvatar'
+import AlbumDate from 'components/album/AlbumDate'
 import CoverImage from 'components/CoverImage'
-import type { Album } from 'lib/sanity.queries'
+import type { Album } from 'lib/types/content'
 import Link from 'next/link'
 
-export default function HeroAlbum(
-  props: Pick<
-    Album,
-    'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug'
-  >,
-) {
-  const { title, coverImage, date, excerpt, author, slug } = props
+export default function HeroAlbum({
+  title,
+  coverImage,
+  publishDate,
+  slug,
+}: Pick<Album, 'title' | 'coverImage' | 'publishDate' | 'slug'>) {
   return (
     <section>
       <div className="mb-8 md:mb-16">
@@ -24,18 +22,8 @@ export default function HeroAlbum(
             </Link>
           </h3>
           <div className="mb-4 text-lg md:mb-0">
-            <Date dateString={date} />
+            <AlbumDate dateString={publishDate} />
           </div>
-        </div>
-        <div>
-          {excerpt && (
-            <p className="mb-4 text-lg leading-relaxed text-pretty">
-              {excerpt}
-            </p>
-          )}
-          {author && (
-            <AuthorAvatar name={author.name} picture={author.picture} />
-          )}
         </div>
       </div>
     </section>

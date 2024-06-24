@@ -6,13 +6,13 @@ import {
   useCdn,
 } from 'lib/sanity.api'
 import {
-  albumAndMoreStoriesQuery,
   albumBySlugQuery,
   albumSlugsQuery,
   indexQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
+
 import { Album, Settings } from './types/content'
 
 export function getClient(preview?: { token: string }): SanityClient {

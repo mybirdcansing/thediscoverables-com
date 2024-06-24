@@ -15,35 +15,23 @@ export interface AlbumPageProps {
 }
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { preview, album, settings } = props
-  const { title } = settings || {}
+  const { album, settings } = props
 
-  const slug = album?.slug
+  if (!album || !settings) return null
 
-  if (!slug && !preview) {
-    console.error('not an album and not a preview')
-  }
-
+  const { title: pageTitle } = settings
+  const { coverImage, publishDate, description, title: albumTitle } = album
   return (
     <>
       <AlbumPageHead settings={settings} album={album} />
-
       <Container>
-        <PageHeader title={title} level={2} />
-        {preview && !album ? (
-          <AlbumTitle>Loading…</AlbumTitle>
-        ) : (
-          <>
-            <article>
-              <AlbumHeader
-                title={album.title}
-                coverImage={album.coverImage}
-                publishDate={album.publishDate}
-              />
-              <AlbumDescription content={album.description} />
-            </article>
-          </>
-        )}
+        <PageHeader title={pageTitle} level={2} />
+        <AlbumHeader
+          title={albumTitle}
+          coverImage={coverImage}
+          publishDate={publishDate}
+        />
+        <AlbumDescription content={description} />
       </Container>
     </>
   )

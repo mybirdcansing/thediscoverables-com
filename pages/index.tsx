@@ -1,6 +1,5 @@
 import Homepage from 'components/IndexPage'
 import MainLayout from 'components/MainLayout'
-import { PageView } from 'components/PageView'
 import PreviewHomepage from 'components/PreviewHomepage'
 import { readToken } from 'lib/sanity.api'
 import { getAllAlbums, getClient, getSettings, Query } from 'lib/sanity.client'
