@@ -15,14 +15,8 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ## Features
 
-- A performant, static blog with editable albums, authors, and site settings
-- A native and customizable authoring environment, accessible on `yourblog.com/studio`
-- Real-time and collaborative content editing with fine-grained revision history
-- Side-by-side instant content preview that works across your whole site
-- Support for block content and the most advanced custom fields capability in the industry
-- Webhook-triggered Incremental Static Revalidation; no need to wait for a rebuild to publish new content
-- Free and boosted Sanity project with unlimited admin users, free content updates, and pay-as-you-go for API overages
-- A project with starter-friendly and not too heavy-handed TypeScript and Tailwind.css
+- Update and manage website for The Discoverables
+
 
 ## Table of Contents
 
