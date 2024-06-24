@@ -16,11 +16,10 @@ import type { SharedPageProps } from 'pages/_app'
 export interface AlbumViewProps extends SharedPageProps {
   type: 'album'
   album: Album
-  moreAlbums: Array<Album>
 }
 
 export default function RenderPage(props: AlbumViewProps) {
-  const { settings, album, moreAlbums, draftMode, loading } = props
+  const { settings, album, draftMode, loading } = props
 
   return (
     <MainLayout preview={draftMode} loading={loading}>
@@ -33,10 +32,12 @@ export default function RenderPage(props: AlbumViewProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
-  const { draftMode = false, params } = ctx
-  const client = getClient(draftMode ? { token: readToken } : undefined)
+export const getStaticProps: GetStaticProps<any, Query> = async ({
+  draftMode = false,
+  params,
+}) => {
   const { slug } = params
+  const client = getClient(draftMode ? { token: readToken } : undefined)
   const [settings, album] = await Promise.all([
     getSettings(client),
     getAlbumBySlug(client, slug),
@@ -60,7 +61,8 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
 }
 
 export const getStaticPaths = async () => {
-  const albumSlugs = await getAlbumSlugs()
+  const client = getClient()
+  const albumSlugs = await getAlbumSlugs(client)
 
   return {
     paths: albumSlugs?.map(({ slug }) => `/albums/${slug}`) ?? [],

@@ -5,7 +5,6 @@ import AlbumTitle from 'components/album/AlbumTitle'
 import Container from 'components/PageContainer'
 import PageHeader from 'components/PageHeader'
 import type { Album, Settings } from 'lib/types/content'
-import { notFound } from 'next/navigation'
 
 export interface AlbumPageProps {
   preview?: boolean

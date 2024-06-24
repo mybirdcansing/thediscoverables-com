@@ -6,6 +6,6 @@ export default function AlbumDate({ dateString }: { dateString: string }) {
 
     return <time dateTime={dateString}>{format(date, 'LLLL	d, yyyy')}</time>
   } else {
-    return <em>publish date</em>
+    return 'no publish date'
   }
 }

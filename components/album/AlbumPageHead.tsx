@@ -9,10 +9,11 @@ export interface AlbumPageHeadProps {
 }
 
 export default function AlbumPageHead({ settings, album }: AlbumPageHeadProps) {
-  const title = settings.title ?? 'The Discoverables'
+  const bandName = settings.title || process.env.NEXT_PUBLIC_BAND_NAME
+
   return (
     <Head>
-      <title>{album.title ? `${album.title} | ${title}` : title}</title>
+      <title>{album.title ? `${album.title} by ${bandName}` : bandName}</title>
       <Meta />
       {album.coverImage?.asset?._ref && (
         <meta

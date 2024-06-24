@@ -14,6 +14,9 @@ const config = {
     /// Set this to false if you want production builds to abort if there's lint errors
     ignoreDuringBuilds: process.env.VERCEL_ENV === 'production',
   },
+  env: {
+    NEXT_PUBLIC_BAND_NAME: 'The Discoverables' || process.env.BAND_NAME,
+  },
 }
 
 export default config
