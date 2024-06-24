@@ -3,7 +3,9 @@ import Container from 'components/PageContainer'
 import { PlayerProvider } from 'lib/playerContext'
 import React from 'react'
 
-import { HeaderView } from './HeaderView'
+import { Footer } from './Footer'
+import { Header } from './Header'
+import { Player } from './Player'
 
 export default function MainLayout({
   preview,
@@ -19,10 +21,10 @@ export default function MainLayout({
       <AlertBanner preview={preview} loading={loading} />
       <PlayerProvider>
         <Container>
-          <HeaderView />
+          <Header />
           <main>{children}</main>
-          <footer>footer</footer>
-          <div>player</div>
+          <Footer />
+          <Player />
         </Container>
       </PlayerProvider>
     </>

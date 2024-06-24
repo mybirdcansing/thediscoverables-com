@@ -1,7 +1,7 @@
 import { usePlayerContext } from 'lib/playerContext'
 import React from 'react'
 
-export const HeaderView = () => {
+export const Player = () => {
   const playerContext = usePlayerContext()
   const { activeSong, setActiveSong } = playerContext
   React.useEffect(() => {
@@ -9,10 +9,5 @@ export const HeaderView = () => {
       setActiveSong({ _id: '234', title: 'Just Let Go' })
     }, 4000)
   })
-  return (
-    <header>
-      Active Song: {activeSong?.title}
-      <button></button>
-    </header>
-  )
+  return <div>Player Active Song: {activeSong?.title}</div>
 }
