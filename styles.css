@@ -1,0 +1,256 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  overscroll-behavior-x: none;
+}
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(38, 38, 38);
+  color: #fff;
+  font: 1em sans-serif;
+  touch-action: manipulation;
+}
+img {
+  -webkit-user-drag: element;
+  user-select: none;
+}
+
+.scrolling-wrapper {
+  overflow: hidden;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  margin: 0px 20px 0 20px;
+  -ms-overflow-style: none;
+}
+
+.scrolling-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.card {
+  display: inline-block;
+}
+.album.card {
+  cursor: pointer;
+}
+.album-title {
+  text-align: left;
+  margin: 8px 0px 0px 0px;
+}
+.song-title {
+  padding: 0px;
+}
+.song-title-cell {
+  vertical-align: middle;
+}
+.song-duration-cell {
+  text-align: right;
+  padding-right: 30px;
+}
+.song-table {
+  width: 100%;
+  padding: 0px;
+}
+.dashboard-page-link {
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #909090;
+}
+
+.song-list-row:hover .play,
+.song-list-row.active-song.paused:hover .play {
+  display: block;
+  opacity: 0.9;
+}
+
+.song-list-row.active-song.paused .play {
+  display: block;
+  opacity: 0.7;
+}
+
+.song-list-row.active-song.playing:hover .play,
+.song-list-row.active-song.loading:hover .play {
+  display: none;
+}
+.song-list-row.active-song .song-list-index,
+.song-list-row:hover .song-list-index {
+  opacity: 0;
+}
+.song-list-row .play {
+  display: none;
+  position: absolute;
+  opacity: 0.5;
+}
+.song-list-row.active-song.playing .pause {
+  display: block;
+}
+.song-list-row.active-song.playing:hover .pause {
+  opacity: 0.9;
+}
+.song-list-row.active-song.loading .pause {
+  display: none;
+}
+.song-list-row .pause {
+  display: none;
+  opacity: 0.7;
+}
+.song-list-row .pause {
+  position: absolute;
+  display: none;
+}
+.song-list-row .spinner {
+  position: absolute;
+  display: none;
+}
+.song-list-row .spinner.active {
+  display: inline-block;
+}
+.active-song {
+  background-color: #1a1a1a;
+  background-color: radial-gradient(crimson, skyblue);
+}
+.song-list-album-cell {
+  cursor: pointer;
+  text-align: left;
+  padding: 0 20px 0 20px;
+}
+h4.album-page-songs-title {
+  margin-bottom: 8px;
+}
+.song-title {
+  cursor: pointer;
+  font-weight: 500;
+}
+.song-table td {
+  padding-bottom: 1px;
+}
+
+.song-list-listen-icon {
+  opacity: 0.2;
+}
+
+/* PHONE */
+@media (max-width: 892px) {
+  .album-artwork {
+    width: 50%;
+    text-align: left;
+  }
+  .band-name {
+    font-size: large;
+  }
+
+  .album-description {
+    padding: 0px 12px 20px 16px;
+    width: 50%;
+    vertical-align: middle;
+  }
+  .album-description .album-details {
+    font-size: 12px;
+    padding-top: 10px;
+    margin-top: 0px;
+    color: #aaa;
+  }
+
+  .album-list-album-artwork {
+    width: 160px;
+  }
+  .album-page-artwork-img {
+    width: 100%;
+  }
+  .song-list-album-artwork {
+    width: 36px;
+    height: 36px;
+  }
+  .song-list-row {
+    height: 36px;
+  }
+  .song-list-row img,
+  .song-list-row svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .song-table .song-list-album-cell {
+    width: 42px;
+  }
+  .song-table .album-title {
+    font-size: 13px;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .music {
+    background-position: center 20px;
+  }
+
+  .album-title,
+  .song-title,
+  .dashboard-page-link {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card {
+    padding: 0px 20px 10px 0;
+  }
+}
+@media (min-width: 692px) {
+  .album-list-album-artwork {
+    width: 240px;
+    margin-right: 12px;
+  }
+}
+@media (min-width: 892px) {
+  .music {
+    background-position: center -60px;
+  }
+  .dashboard-section,
+  .album-section,
+  .all-songs-section {
+    margin: 0 auto;
+    width: 900px;
+  }
+  .album-list-album-artwork {
+    width: 280px;
+    margin-right: 20px;
+  }
+  .album-page-artwork {
+    width: 450px;
+  }
+
+  .song-list-album-artwork {
+    width: 46px;
+    height: 46px;
+  }
+  .song-list-row .play {
+    width: 46px;
+    height: 46px;
+  }
+  .song-list-row .spinner {
+    width: 46px;
+    height: 46px;
+  }
+  .song-list-row .pause {
+    width: 46px;
+    height: 46px;
+  }
+  .song-table .song-list-album-cell {
+    width: 50px;
+  }
+  .song-list-album-cell {
+    padding-top: 5px;
+  }
+
+  .dashboard-page-link {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #909090;
+  }
+}

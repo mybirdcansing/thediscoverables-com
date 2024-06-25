@@ -6,20 +6,12 @@ import { useLiveQuery } from 'next-sanity/preview'
 import Loading from './Loading'
 
 export default function PreviewAlbumPage(props: AlbumPageProps) {
-  const [album, loadingAlbum] = useLiveQuery<Album>(
-    props.album,
-    albumBySlugQuery,
-    {
-      slug: props.album.slug,
-    },
-  )
-  const [settings, loadingSettings] = useLiveQuery<Settings>(
-    props.settings,
-    settingsQuery,
-  )
+  const [album] = useLiveQuery<Album>(props.album, albumBySlugQuery, {
+    slug: props.album.slug,
+  })
+  const [settings] = useLiveQuery<Settings>(props.settings, settingsQuery)
 
-  if ((!album && loadingAlbum) || (!settings && loadingSettings))
-    return <Loading />
+  if (!album || !settings) return <Loading />
 
   return <AlbumPage preview album={album} settings={settings} />
 }

@@ -1,6 +1,6 @@
 import Homepage from 'components/Homepage'
+import PreviewHomepage from 'components/Homepage/PreviewHomepage'
 import MainLayout from 'components/MainLayout'
-import PreviewHomepage from 'components/PreviewHomepage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getHomepage, getSettings } from 'lib/sanity.getters'

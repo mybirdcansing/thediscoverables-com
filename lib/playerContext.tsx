@@ -2,16 +2,23 @@ import React from 'react'
 
 import { Song } from './types/content'
 
-export const PlayerContext = React.createContext<{
+export interface PlayerContextProps {
   activeSong: Song
   setActiveSong: (song: Song) => void
-}>(undefined)
+  isSongPlaying: boolean
+  setIsSongPlaying: (isSongPlaying: boolean) => void
+}
+
+export const PlayerContext = React.createContext<PlayerContextProps>(undefined)
 
 export const PlayerProvider = ({ children }) => {
   const [activeSong, setActiveSong] = React.useState(null)
+  const [isSongPlaying, setIsSongPlaying] = React.useState(false)
 
   return (
-    <PlayerContext.Provider value={{ activeSong, setActiveSong }}>
+    <PlayerContext.Provider
+      value={{ activeSong, setActiveSong, isSongPlaying, setIsSongPlaying }}
+    >
       {children}
     </PlayerContext.Provider>
   )
