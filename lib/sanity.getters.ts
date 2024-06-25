@@ -1,12 +1,14 @@
 import {
   albumBySlugQuery,
   albumSlugsQuery,
+  homepageQuery,
   indexQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
 import { type SanityClient } from 'next-sanity'
 
 import { Album, Settings } from './types/content'
+import { HomepageProps } from './types/pages'
 
 export async function getSettings(client: SanityClient): Promise<Settings> {
   return (await client.fetch(settingsQuery)) || {}
@@ -29,5 +31,11 @@ export async function getAlbumBySlug(
   client: SanityClient,
   slug: string,
 ): Promise<Album> {
-  return (await client.fetch(albumBySlugQuery, { slug })) || ({} as any)
+  return (await client.fetch(albumBySlugQuery, { slug })) || ({} as Album)
+}
+
+export async function getHomepage(
+  client: SanityClient,
+): Promise<HomepageProps> {
+  return (await client.fetch(homepageQuery)) || ({} as HomepageProps)
 }

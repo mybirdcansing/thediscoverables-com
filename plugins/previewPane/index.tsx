@@ -8,9 +8,9 @@ import { DRAFT_MODE_ROUTE } from 'lib/sanity.api'
 import type { DefaultDocumentNodeResolver } from 'sanity/structure'
 import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import albumType from 'schemas/album'
-import authorType from 'schemas/author'
+import homepageType from 'schemas/homepage'
 
-const iframeOptions = {
+export const iframeOptions = {
   url: {
     origin: 'same-origin',
     preview: (document) => {
@@ -22,6 +22,9 @@ const iframeOptions = {
           return (document as any)?.slug?.current
             ? `/albums/${(document as any).slug.current}`
             : new Error('Missing slug')
+        case 'homepage':
+          return `/`
+
         default:
           return new Error(`Unknown document type: ${document?._type}`)
       }
@@ -31,22 +34,14 @@ const iframeOptions = {
   reload: { button: true },
 } satisfies IframeOptions
 
+export const previewDocumentViews = (S) => [
+  S.view.form(),
+  S.view.component(Iframe).options(iframeOptions).title('Preview'),
+]
 export const previewDocumentNode = (): DefaultDocumentNodeResolver => {
   return (S, { schemaType }) => {
-    switch (schemaType) {
-      case authorType.name:
-        return S.document().views([
-          S.view.form(),
-          S.view.component(({ document }) => <></>).title('Preview'),
-        ])
-
-      case albumType.name:
-        return S.document().views([
-          S.view.form(),
-          S.view.component(Iframe).options(iframeOptions).title('Preview'),
-        ])
-      default:
-        return null
+    if ([albumType.name, homepageType.name].includes(schemaType as any)) {
+      return S.document().views(previewDocumentViews(S))
     }
   }
 }

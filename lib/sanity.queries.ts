@@ -27,3 +27,24 @@ export const albumBySlugQuery = groq`
   ${albumFields}
 }
 `
+
+export const homepageQuery = groq`
+*[_type == "homepage"][0] {
+  title,
+  description,
+  backgroundImage,
+  albumsTitle,
+  albums[]->{
+    title,
+    slug,
+    coverImage,
+    publishedAt
+  },
+  songsTitle,
+  songs[]->{
+    title,
+    duration,
+    _createdAt    
+  }
+}
+`

@@ -22,7 +22,7 @@ export default function PageHeader({
           <h4
             className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
           >
-            <PortableText value={description} />
+            {description && <PortableText value={description} />}
           </h4>
         </header>
       )

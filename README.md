@@ -113,9 +113,7 @@ In case of any issues or questions, you can album:
 - [Sanity's GitHub Discussions][sanity-github]
 - [Sanity's Community Slack][sanity-community]
 
-### How can I remove the "Next steps" block from my blog?
 
-You can remove it by deleting the `IntroTemplate` component in `/components/IndexPage.tsx`.
 
 ### How can I set up Incremental Static Revalidation?
 

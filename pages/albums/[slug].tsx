@@ -4,14 +4,8 @@ import PreviewAlbumPage from 'components/PreviewAlbumPage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
-import type { Album } from 'lib/types/content'
+import { AlbumViewProps } from 'lib/types/pages'
 import { GetStaticProps } from 'next'
-import type { SharedPageProps } from 'pages/_app'
-
-export interface AlbumViewProps extends SharedPageProps {
-  type: 'album'
-  album: Album
-}
 
 export default function RenderPage(props: AlbumViewProps) {
   const { settings, album, draftMode, loading } = props

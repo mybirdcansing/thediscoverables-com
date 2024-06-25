@@ -1,7 +1,9 @@
-import { definePlugin, type DocumentDefinition } from 'sanity'
+import { definePlugin } from 'sanity'
 import type { StructureResolver } from 'sanity/structure'
 import homepageType from 'schemas/homepage'
 import settingsType from 'schemas/settings'
+
+import { previewDocumentViews } from './previewPane'
 
 export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   return {
@@ -28,22 +30,24 @@ export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   }
 })
 
-const singletonStructureItem = (S, typeDef) =>
+const singletonStructureItem = (S, typeDef, allowPreview = false) =>
   S.listItem()
     .title(typeDef.title)
     .icon(typeDef.icon)
     .child(
-      S.editor()
+      S.document()
         .id(typeDef.name)
         .schemaType(typeDef.name)
-        .documentId(typeDef.name),
+        .documentId(typeDef.name)
+        .views(allowPreview ? previewDocumentViews(S) : []),
     )
+
 export const settingsStructure = (): StructureResolver => {
   return (S) => {
     // The `Settings` root list item
     const settingsListItem = singletonStructureItem(S, settingsType)
     // The `Homepage` list item
-    const homepageListItem = singletonStructureItem(S, homepageType)
+    const homepageListItem = singletonStructureItem(S, homepageType, true)
 
     const defaultListItems = S.documentTypeListItems().filter(
       (listItem) => listItem.getId() === 'sanity.previewUrlSecret',
@@ -53,7 +57,6 @@ export const settingsStructure = (): StructureResolver => {
       .title('Content')
       .items([
         homepageListItem,
-
         S.listItem()
           .title('Songs')
           .child(

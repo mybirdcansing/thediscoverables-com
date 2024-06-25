@@ -1,13 +1,10 @@
-export interface Author {
-  name?: string
-  picture?: any
-}
+import { PortableTextBlock } from 'sanity'
 
 export interface Song {
   _id: string
   title?: string
   url?: string
-  description?: string
+  description?: Array<PortableTextBlock>
   duration?: number
 }
 
@@ -15,7 +12,7 @@ export interface Album {
   _id: string
   slug?: string
   title?: string
-  description?: string
+  description?: Array<PortableTextBlock>
   songs?: Array<Song>
   coverImage?: any
   publishDate?: string
@@ -24,7 +21,7 @@ export interface Album {
 
 export interface Settings {
   title?: string
-  description?: any[]
+  description?: Array<PortableTextBlock>
   ogImage?: {
     title?: string
   }

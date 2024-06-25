@@ -41,30 +41,5 @@ export const locate: DocumentLocationResolver = (params, context) => {
     )
   }
 
-  if (params.type === 'author') {
-    // Fetch all albums that reference the viewed author, if the album has a slug defined
-    const doc$ = context.documentStore.listenQuery(
-      `*[_type == "album" && references($id) && defined(slug.current)]{slug,title}`,
-      params,
-      { perspective: 'previewDrafts' },
-    ) as Observable<
-      {
-        slug: { current: string }
-        title: string | null
-      }[]
-    >
-
-    return doc$.pipe(
-      map((docs) => {
-        return {
-          locations: docs?.map((doc) => ({
-            title: doc.title || 'Untitled',
-            href: `/albums/${doc.slug.current}`,
-          })),
-        }
-      }),
-    )
-  }
-
   return null
 }
