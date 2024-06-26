@@ -33,7 +33,7 @@ export default defineType({
     }),
     defineField({
       title: 'Duration',
-      name: 'Duration',
+      name: 'duration',
       type: 'string',
     }),
   ],

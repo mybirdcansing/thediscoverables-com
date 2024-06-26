@@ -7,6 +7,8 @@ export interface PlayerContextProps {
   setActiveSong: (song: Song) => void
   isSongPlaying: boolean
   setIsSongPlaying: (isSongPlaying: boolean) => void
+  isLoading: boolean
+  setIsLoading: (isLoading: boolean) => void
 }
 
 export const PlayerContext = React.createContext<PlayerContextProps>(undefined)
@@ -14,10 +16,18 @@ export const PlayerContext = React.createContext<PlayerContextProps>(undefined)
 export const PlayerProvider = ({ children }) => {
   const [activeSong, setActiveSong] = React.useState(null)
   const [isSongPlaying, setIsSongPlaying] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   return (
     <PlayerContext.Provider
-      value={{ activeSong, setActiveSong, isSongPlaying, setIsSongPlaying }}
+      value={{
+        activeSong,
+        setActiveSong,
+        isSongPlaying,
+        setIsSongPlaying,
+        isLoading,
+        setIsLoading,
+      }}
     >
       {children}
     </PlayerContext.Provider>

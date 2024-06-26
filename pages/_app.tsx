@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css'
 import '../styles.css'
-
+import { PlayerProvider } from 'lib/playerContext'
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { SharedPageProps } from 'lib/types/pages'
 import { AppProps } from 'next/app'
@@ -15,13 +15,15 @@ export default function App({
   const { draftMode, token } = pageProps
   return (
     <>
-      {draftMode ? (
-        <PreviewProvider token={token}>
+      <PlayerProvider>
+        {draftMode ? (
+          <PreviewProvider token={token}>
+            <Component {...pageProps} />
+          </PreviewProvider>
+        ) : (
           <Component {...pageProps} />
-        </PreviewProvider>
-      ) : (
-        <Component {...pageProps} />
-      )}
+        )}
+      </PlayerProvider>
       {draftMode && <VisualEditing />}
     </>
   )

@@ -1,9 +1,8 @@
 import AlertBanner from 'components/AlertBanner'
-import { PlayerProvider } from 'lib/playerContext'
 import React from 'react'
 
 import { Footer } from './Footer'
-import { Player } from './Player'
+import { Player } from './player'
 
 export default function MainLayout({
   preview,
@@ -17,11 +16,9 @@ export default function MainLayout({
   return (
     <>
       <AlertBanner preview={preview} loading={loading} />
-      <PlayerProvider>
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <Player />
-      </PlayerProvider>
+      <main className="min-h-screen relative">{children}</main>
+      <Footer />
+      <Player />
     </>
   )
 }

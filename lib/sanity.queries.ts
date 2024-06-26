@@ -35,6 +35,7 @@ export const homepageQuery = groq`
   backgroundImage,
   albumsTitle,
   albums[]->{
+    _id,
     title,
     slug,
     coverImage,
@@ -42,9 +43,16 @@ export const homepageQuery = groq`
   },
   songsTitle,
   songs[]->{
+    _id,
     title,
     duration,
-    _createdAt    
+    _createdAt,
+    'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
+      _id,
+      coverImage,
+      title,
+      slug
+    }
   }
 }
 `
