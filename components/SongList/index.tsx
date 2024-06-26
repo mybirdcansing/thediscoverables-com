@@ -125,6 +125,7 @@ export const SongList = ({
                           e.stopPropagation()
                         }}
                         href={`/albums/${encodeURIComponent(albumSlug)}`}
+                        className="text-slate-400 hover:underline"
                       >
                         {album.title ?? 'Album'}
                       </Link>
