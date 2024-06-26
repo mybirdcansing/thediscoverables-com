@@ -15,6 +15,11 @@ export interface SanityImage {
   }
 }
 
+export enum BulletStyle {
+  Number,
+  Artwork,
+}
+
 export interface Song {
   _id: string
   title?: string

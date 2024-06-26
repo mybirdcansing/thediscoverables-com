@@ -1,14 +1,15 @@
 import cx from 'classnames'
-import IndexPageHead from 'components/IndexPageHead'
-import PageHeader from 'components/PageHeader'
+import { AlbumList } from 'components/AlbumList'
+import { PageHead } from 'components/IndexPageHead'
+import { PageHeader } from 'components/PageHeader'
 import { SongList } from 'components/SongList'
 import { urlForImage } from 'lib/sanity.image'
-import type { Settings } from 'lib/types/content'
+import { BulletStyle, type Settings } from 'lib/types/content'
 import type { HomepageProps } from 'lib/types/pages'
 import Image from 'next/image'
 import React from 'react'
 
-import Container from '../PageContainer'
+import Container from '../Container'
 import styles from './Homepage.module.css'
 
 export interface IndexPageProps {
@@ -32,10 +33,9 @@ export default function Homepage(props: IndexPageProps) {
   )
 
   return (
-    <>
-      <IndexPageHead settings={settings} />
-
-      <section className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-10">
+    <div className="pb-20">
+      <PageHead settings={settings} />
+      <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-10">
         {backgroundImageUrl && (
           <Image
             src={backgroundImageUrl}
@@ -47,7 +47,7 @@ export default function Homepage(props: IndexPageProps) {
         )}
         <Container>
           <div className="absolute z-10 left-10 -top-2 sm:top-0 lg:top-6">
-            <PageHeader title={title} level={2} />
+            <PageHeader title={title} level={1} />
           </div>
         </Container>
 
@@ -57,14 +57,16 @@ export default function Homepage(props: IndexPageProps) {
             styles['gradient-overlay'],
           )}
         />
+      </div>
+      <section className="flex flex-col gap-8">
+        <SongList
+          title={songsTitle}
+          songs={songs}
+          bulletStyle={BulletStyle.Artwork}
+          showAlbumLink
+        />
+        <AlbumList albums={albums} albumsTitle={albumsTitle} />
       </section>
-
-      <SongList
-        title={songsTitle}
-        songs={songs}
-        bulletStyle="artwork"
-        showAlbumLink
-      />
-    </>
+    </div>
   )
 }

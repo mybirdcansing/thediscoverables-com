@@ -69,7 +69,7 @@ export default defineType({
       name: 'publishDate',
       title: 'Publish Date',
       type: 'date',
-      initialValue: () => new Date().toISOString(),
+      initialValue: () => format(new Date(), 'yyyy-MM-dd'),
     }),
     defineField({
       title: 'Songs',

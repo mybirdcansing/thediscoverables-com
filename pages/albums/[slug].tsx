@@ -1,6 +1,6 @@
 import AlbumPage from 'components/album/AlbumPage'
+import PreviewAlbumPage from 'components/album/PreviewAlbumPage'
 import MainLayout from 'components/MainLayout'
-import PreviewAlbumPage from 'components/PreviewAlbumPage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'

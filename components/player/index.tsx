@@ -2,20 +2,16 @@ import cx from 'classnames'
 import { usePlayerContext } from 'lib/playerContext'
 import React from 'react'
 
-import Container from '../PageContainer'
+import Container from '../Container'
 
 export const Player = () => {
   const playerContext = usePlayerContext()
   const { activeSong, setActiveSong, setIsSongPlaying } = playerContext
 
-  console.log({ activeSong })
-
   React.useEffect(() => {
-    setTimeout(() => {
-      setActiveSong({ _id: '234', title: 'Just Let Go' })
-      setIsSongPlaying(true)
-    }, 5000)
-  })
+    console.log('Active song was changed', activeSong)
+  }, [setActiveSong, setIsSongPlaying, activeSong])
+
   return (
     <div
       className={cx('fixed bottom-0 bg-slate-400 w-full p-4', {

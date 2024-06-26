@@ -25,18 +25,20 @@ export const locate: DocumentLocationResolver = (params, context) => {
 
     return doc$.pipe(
       map((doc) => {
-        return {
-          locations: [
-            {
-              title: doc.title || 'Untitled',
-              href: `/albums/${doc.slug.current}`,
-            },
-            {
-              title: 'Home',
-              href: `/`,
-            },
-          ],
-        }
+        return doc
+          ? {
+              locations: [
+                {
+                  title: doc.title || 'Untitled',
+                  href: `/albums/${doc.slug.current}`,
+                },
+                {
+                  title: 'Home',
+                  href: `/`,
+                },
+              ],
+            }
+          : undefined
       }),
     )
   }

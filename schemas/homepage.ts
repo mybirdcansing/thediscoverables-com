@@ -54,17 +54,6 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      title: 'Albums',
-      name: 'albums',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [{ type: 'album' }],
-        },
-      ],
-    }),
   ],
   preview: {
     select: {

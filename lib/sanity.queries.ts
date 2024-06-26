@@ -34,7 +34,7 @@ export const homepageQuery = groq`
   description,
   backgroundImage,
   albumsTitle,
-  albums[]->{
+  'albums': *[_type == 'album']{
     _id,
     title,
     slug,

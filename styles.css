@@ -19,6 +19,10 @@ img {
   user-select: none;
 }
 
+h2 {
+  @apply text-base md:text-lg lg:text-xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty text-slate-200;
+}
+
 .scrolling-wrapper {
   overflow: hidden;
   overflow-x: scroll;
@@ -54,70 +58,13 @@ img {
     font-size: large;
   }
 
-  .album-description {
-    padding: 0px 12px 20px 16px;
-    width: 50%;
-    vertical-align: middle;
-  }
-  .album-description .album-details {
-    font-size: 12px;
-    padding-top: 10px;
-    margin-top: 0px;
-    color: #aaa;
-  }
-
-  .album-list-album-artwork {
-    width: 160px;
-  }
-  .album-page-artwork-img {
-    width: 100%;
-  }
-
   .music {
     background-position: center 20px;
   }
-
-  .album-title,
-  .song-title,
-  .dashboard-page-link {
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .card {
-    padding: 0px 20px 10px 0;
-  }
 }
-@media (min-width: 692px) {
-  .album-list-album-artwork {
-    width: 240px;
-    margin-right: 12px;
-  }
-}
+
 @media (min-width: 892px) {
   .music {
     background-position: center -60px;
-  }
-  .dashboard-section,
-  .album-section,
-  .all-songs-section {
-    margin: 0 auto;
-    width: 900px;
-  }
-  .album-list-album-artwork {
-    width: 280px;
-    margin-right: 20px;
-  }
-  .album-page-artwork {
-    width: 450px;
-  }
-
-  .dashboard-page-link {
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    color: #909090;
   }
 }

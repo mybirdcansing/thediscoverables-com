@@ -1,29 +1,32 @@
 import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
+import { PortableTextBlock } from 'sanity'
 
 import styles from './PageHeader.module.css'
 
-export default function PageHeader({
+export const PageHeader = ({
   title,
   description,
   level,
 }: {
   title: string
-  description?: any[]
+  description?: Array<PortableTextBlock>
   level: 1 | 2
-}) {
+}) => {
   switch (level) {
     case 1:
       return (
-        <header className="mb-10 mt-16 flex flex-col items-center md:mb-12 md:flex-row md:justify-between text-pretty">
-          <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl text-slate-800">
+        <header className="flex flex-col items-center md:mb-12 md:flex-row md:justify-between text-pretty">
+          <h1 className="mb-20 mt-8 text-2xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty text-slate-700">
             {title}
           </h1>
-          <h4
-            className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
-          >
-            {description && <PortableText value={description} />}
-          </h4>
+          {description && (
+            <h4
+              className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
+            >
+              <PortableText value={description} />
+            </h4>
+          )}
         </header>
       )
 

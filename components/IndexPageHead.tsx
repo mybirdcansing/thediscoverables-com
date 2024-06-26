@@ -7,7 +7,7 @@ export interface IndexPageHeadProps {
   settings: Settings
 }
 
-export default function IndexPageHead({ settings }: IndexPageHeadProps) {
+export const PageHead = ({ settings }: IndexPageHeadProps) => {
   const { title, description, ogImage = {} } = settings
   const ogImageTitle = ogImage?.title
 
