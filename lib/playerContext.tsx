@@ -1,32 +1,68 @@
 import React from 'react'
 
-import { Song } from './types/content'
+import { Playlist, Song } from './types/content'
 
-export interface PlayerContextProps {
-  activeSong: Song
-  setActiveSong: (song: Song) => void
-  isSongPlaying: boolean
-  setIsSongPlaying: (isSongPlaying: boolean) => void
+export interface PlayerContextState {
+  activeSong: Song | null
+  isPlaying: boolean
   isLoading: boolean
-  setIsLoading: (isLoading: boolean) => void
+  playlist: Playlist | null
 }
 
-export const PlayerContext = React.createContext<PlayerContextProps>(undefined)
+export type PlayerContextAction =
+  | {
+      type: 'SET_ACTIVE_SONG_AND_PLAYLIST'
+      payload: { song: Song; playlist: Playlist }
+    }
+  | { type: 'PLAY' }
+  | { type: 'PAUSE' }
+  | { type: 'SET_LOADING'; payload: boolean }
+
+const initialState: PlayerContextState = {
+  activeSong: null,
+  isPlaying: false,
+  isLoading: false,
+  playlist: [],
+}
+
+export const PlayerContext = React.createContext<{
+  state: PlayerContextState
+  dispatch: React.Dispatch<PlayerContextAction>
+}>({
+  state: initialState,
+  dispatch: () => undefined,
+})
+
+export const reducer = (
+  state: PlayerContextState,
+  action: PlayerContextAction,
+): PlayerContextState => {
+  switch (action.type) {
+    case 'SET_ACTIVE_SONG_AND_PLAYLIST':
+      return {
+        ...state,
+        activeSong: action.payload.song,
+        playlist: action.payload.playlist,
+      }
+    case 'PLAY':
+      return { ...state, isPlaying: true }
+    case 'PAUSE':
+      return { ...state, isPlaying: false }
+    case 'SET_LOADING':
+      return { ...state, isLoading: action.payload }
+    default:
+      throw new Error('Unknown action')
+  }
+}
 
 export const PlayerProvider = ({ children }) => {
-  const [activeSong, setActiveSong] = React.useState(null)
-  const [isSongPlaying, setIsSongPlaying] = React.useState(false)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [state, dispatch] = React.useReducer(reducer, initialState)
 
   return (
     <PlayerContext.Provider
       value={{
-        activeSong,
-        setActiveSong,
-        isSongPlaying,
-        setIsSongPlaying,
-        isLoading,
-        setIsLoading,
+        dispatch,
+        state,
       }}
     >
       {children}
@@ -41,4 +77,16 @@ export const usePlayerContext = () => {
   }
 
   return context
+}
+
+export const setSongAndPlay = (
+  dispatch: React.Dispatch<PlayerContextAction>,
+  song: Song,
+  playlist: Playlist,
+) => {
+  dispatch({
+    type: 'SET_ACTIVE_SONG_AND_PLAYLIST',
+    payload: { song, playlist },
+  })
+  dispatch({ type: 'PLAY' })
 }

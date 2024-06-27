@@ -1,7 +1,9 @@
 import { usePlayerContext } from 'lib/playerContext'
 
 export const Footer = () => {
-  const { activeSong } = usePlayerContext()
+  const {
+    state: { activeSong },
+  } = usePlayerContext()
 
   return (
     <footer className="flex flex-row justify-center">

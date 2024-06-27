@@ -1,6 +1,6 @@
 import { PortableTextBlock } from 'sanity'
 
-import { Album, SanityImage, Settings, Song } from './content'
+import { Album, Playlist, SanityImage, Settings, Song } from './content'
 
 export interface SharedPageProps {
   draftMode: boolean
@@ -16,7 +16,7 @@ export interface HomepageProps extends SharedPageProps {
   albumsTitle?: string
   albums?: Array<Album>
   songsTitle?: string
-  songs?: Array<Song>
+  songs?: Playlist
   settings?: Settings
 }
 

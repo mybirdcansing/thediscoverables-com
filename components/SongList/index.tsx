@@ -1,7 +1,7 @@
 import cx from 'classnames'
-import { usePlayerContext } from 'lib/playerContext'
+import { setSongAndPlay, usePlayerContext } from 'lib/playerContext'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
-import { BulletStyle, Song } from 'lib/types/content'
+import { BulletStyle, Playlist, Song } from 'lib/types/content'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,7 +9,7 @@ import Container from '../Container'
 import styles from './SongList.module.css'
 
 export interface SongListProps {
-  title: string
+  title?: string
   songs: Array<Song>
   bulletStyle?: BulletStyle
   showAlbumLink?: boolean
@@ -21,14 +21,19 @@ export const SongList = ({
   bulletStyle = BulletStyle.Artwork,
   showAlbumLink = false,
 }: SongListProps) => {
-  const playerContext = usePlayerContext()
-  const { activeSong, setActiveSong, isLoading, isSongPlaying } = playerContext
-  const isActiveSong = (song) => activeSong && activeSong._id === song._id
+  const {
+    dispatch: dispatchPlayer,
+    state: { activeSong, isLoading, isPlaying },
+  } = usePlayerContext()
 
+  const isActiveSong = (song) => activeSong && activeSong._id === song._id
+  const handlePlaySong = (song: Song) => {
+    setSongAndPlay(dispatchPlayer, song, songs)
+  }
   return (
     <Container className="flex flex-col place-items-center">
-      <div className="max-w-4xl w-full flex flex-col gap-4">
-        <h2>{title}</h2>
+      <div className="max-w-4xl w-full flex flex-col gap-1">
+        {title && <h2>{title}</h2>}
         {songs?.length &&
           songs.map((song, index) => {
             const { _id, album, duration, title: songTitle } = song
@@ -46,7 +51,7 @@ export const SongList = ({
               <div
                 key={_id}
                 onClick={() => {
-                  setActiveSong(song)
+                  handlePlaySong(song)
                 }}
                 className={cx(
                   'w-full flex flex-row gap-4 cursor-pointer p-1',
@@ -54,8 +59,8 @@ export const SongList = ({
                   {
                     [styles['active-song']]: isActiveSong(song),
                     [styles.loading]: isActiveSong(song) && isLoading,
-                    [styles.playing]: isActiveSong(song) && isSongPlaying,
-                    [styles.paused]: isActiveSong(song) && !isSongPlaying,
+                    [styles.playing]: isActiveSong(song) && isPlaying,
+                    [styles.paused]: isActiveSong(song) && !isPlaying,
                   },
                 )}
               >

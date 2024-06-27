@@ -6,11 +6,12 @@ import Container from '../Container'
 
 export const Player = () => {
   const playerContext = usePlayerContext()
-  const { activeSong, setActiveSong, setIsSongPlaying } = playerContext
+  const { state } = playerContext
+  const { activeSong, playlist } = state
 
   React.useEffect(() => {
-    console.log('Active song was changed', activeSong)
-  }, [setActiveSong, setIsSongPlaying, activeSong])
+    console.log('Active song was changed', activeSong, playlist)
+  }, [activeSong, playlist])
 
   return (
     <div

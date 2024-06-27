@@ -54,7 +54,7 @@ export const getStaticPaths = async () => {
   const albumSlugs = await getAlbumSlugs(client)
 
   return {
-    paths: albumSlugs?.map(({ slug }) => `/albums/${slug}`) ?? [],
+    paths: albumSlugs?.map((slug) => `/albums/${slug}`) ?? [],
     fallback: 'blocking',
   }
 }

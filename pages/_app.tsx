@@ -1,7 +1,8 @@
 import 'tailwindcss/tailwind.css'
 import '../styles.css'
-import { PlayerProvider } from 'lib/playerContext'
+
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
+import { PlayerProvider } from 'lib/playerContext'
 import { SharedPageProps } from 'lib/types/pages'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'

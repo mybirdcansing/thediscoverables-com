@@ -22,9 +22,8 @@ export async function getAllAlbums(
 
 export async function getAlbumSlugs(
   client: SanityClient,
-): Promise<Pick<Album, 'slug'>[]> {
-  const slugs = (await client.fetch<Array<string>>(albumSlugsQuery)) || []
-  return slugs.map((slug) => ({ slug }))
+): Promise<Array<string>> {
+  return (await client.fetch<Array<string>>(albumSlugsQuery)) || []
 }
 
 export async function getAlbumBySlug(

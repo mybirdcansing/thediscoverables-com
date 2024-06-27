@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 interface CoverImageProps {
   title: string
-  slug?: string
+  slug?: { current: string }
   image: any
   priority?: boolean
 }
@@ -15,15 +15,15 @@ export default function CoverImage(props: CoverImageProps) {
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
-        'transition-shadow duration-200 hover:shadow-medium': slug,
+        'transition-shadow duration-200 hover:shadow-medium': slug?.current,
       })}
     >
       <Image
         className="h-auto w-full"
-        width={2000}
-        height={1000}
+        width={500}
+        height={500}
         alt=""
-        src={urlForImage(source).height(1000).width(2000).url()}
+        src={urlForImage(source).height(1000).width(1000).url()}
         sizes="100vw"
         priority={priority}
       />
@@ -34,8 +34,8 @@ export default function CoverImage(props: CoverImageProps) {
 
   return (
     <div className="sm:mx-0">
-      {slug ? (
-        <Link href={`/albums/${slug}`} aria-label={title}>
+      {slug?.current ? (
+        <Link href={`/albums/${slug.current}`} aria-label={title}>
           {image}
         </Link>
       ) : (

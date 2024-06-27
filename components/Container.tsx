@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import cx from 'classnames'
 export interface ContainerProps {
   className?: string
-  children: JSX.Element | Array<JSX.Element> | string | Array<string>
+  children: React.ReactNode
 }
 export default function Container({ children, className }: ContainerProps) {
   return (

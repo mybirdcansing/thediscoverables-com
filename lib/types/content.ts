@@ -1,4 +1,5 @@
 import { PortableTextBlock } from 'sanity'
+
 export interface SanityImage {
   _id: string
   _type: 'image'
@@ -21,6 +22,7 @@ export enum BulletStyle {
 }
 
 export interface Song {
+  _type?: 'song'
   _id: string
   title?: string
   url?: string
@@ -29,18 +31,22 @@ export interface Song {
   album?: Album
 }
 
+export type Playlist = Array<Song>
+
 export interface Album {
-  _id: string
+  _type?: 'album'
+  _id?: string
   slug?: { current: string }
   title?: string
   description?: Array<PortableTextBlock>
-  songs?: Array<Song>
+  songs?: Playlist
   coverImage?: SanityImage
   publishDate?: string
   _updatedAt: string
 }
 
 export interface Settings {
+  _type?: 'settings'
   title?: string
   description?: Array<PortableTextBlock>
   ogImage?: {
