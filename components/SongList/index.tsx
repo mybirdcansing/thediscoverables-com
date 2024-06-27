@@ -63,6 +63,7 @@ export const SongList = ({
               >
                 <button
                   onClick={() => {
+                    console.log('SONG_LIST', song.title)
                     handleClickSong(song)
                   }}
                   className="cursor-pointer"
@@ -94,7 +95,12 @@ export const SongList = ({
 
                   <div className={styles['song-list-album-artwork']}>
                     {bulletStyle === BulletStyle.Number && (
-                      <svg className={styles['song-list-index']}>
+                      <svg
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 46 46"
+                        className={styles['song-list-index']}
+                      >
                         <text x="16" y="27" fill="white">
                           {index + 1}
                         </text>

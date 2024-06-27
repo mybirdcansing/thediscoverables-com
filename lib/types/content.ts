@@ -1,5 +1,12 @@
 import { PortableTextBlock } from 'sanity'
 
+export interface AudioFile {
+  asset: {
+    url: string
+    mimeType: string
+  }
+}
+
 export interface SanityImage {
   _id: string
   _type: 'image'
@@ -29,6 +36,7 @@ export interface Song {
   description?: Array<PortableTextBlock>
   duration?: number
   album?: Album
+  audioFile?: AudioFile
 }
 
 export type Playlist = Array<Song>

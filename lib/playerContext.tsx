@@ -1,23 +1,7 @@
 import React from 'react'
 
 import { Playlist, Song } from './types/content'
-
-export interface PlayerContextState {
-  activeSong: Song | null
-  isPlaying: boolean
-  isLoading: boolean
-  playlist: Playlist | null
-}
-
-export type PlayerContextAction =
-  | {
-      type: 'SET_ACTIVE_SONG_AND_PLAYLIST'
-      payload: { song: Song; playlist: Playlist }
-    }
-  | { type: 'PLAY' }
-  | { type: 'PAUSE' }
-  | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_PLAYLIST'; payload: { playlist: Playlist } }
+import { PlayerContextAction, PlayerContextState } from './types/player'
 
 const initialState: PlayerContextState = {
   activeSong: null,
@@ -40,10 +24,12 @@ export const reducer = (
   state: PlayerContextState,
   action: PlayerContextAction,
 ): PlayerContextState => {
-  console.log(state)
-
   switch (action.type) {
     case 'SET_ACTIVE_SONG_AND_PLAYLIST':
+      console.log(
+        'SET_ACTIVE_SONG_AND_PLAYLIST: Active song was changed',
+        action.payload.song,
+      )
       return {
         ...state,
         activeSong: action.payload.song,

@@ -8,7 +8,18 @@ const albumFields = groq`
   coverImage,
   _updatedAt,
   "slug": slug.current,
-  "songs": songs[]->,
+  "songs": songs[]->{
+    _id,
+    title,
+    duration,
+    _createdAt,
+    audioFile{
+      asset->{
+        url,
+        mimeType,        
+      }
+    },
+  },
 `
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
@@ -47,6 +58,12 @@ export const homepageQuery = groq`
     title,
     duration,
     _createdAt,
+    audioFile{
+      asset->{
+        url,
+        mimeType,        
+      }
+    },
     'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
       _id,
       coverImage,
