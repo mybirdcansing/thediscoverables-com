@@ -9,15 +9,12 @@ export default defineType({
   type: 'document',
   icon: CogIcon,
   preview: { select: { title: 'title', subtitle: 'description' } },
-  // Uncomment below to have edits publish automatically as you type
-  // liveEdit: true,
   fields: [
     defineField({
       name: 'title',
       description: 'This field is the title of the site.',
       title: 'Title',
       type: 'string',
-      initialValue: 'The Discoverables',
       validation: (rule) => rule.required(),
     }),
     defineField({

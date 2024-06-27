@@ -11,7 +11,7 @@ export default function RenderPage(props: AlbumViewProps) {
   const { settings, album, draftMode, loading } = props
 
   return (
-    <MainLayout preview={draftMode} loading={loading}>
+    <MainLayout preview={draftMode} loading={loading} settings={settings}>
       {draftMode ? (
         <PreviewAlbumPage album={album} settings={settings} />
       ) : (

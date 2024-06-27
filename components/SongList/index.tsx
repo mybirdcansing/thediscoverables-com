@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { setSongAndPlay, usePlayerContext } from 'lib/playerContext'
+import { usePlayerContext } from 'lib/playerContext'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
 import { BulletStyle, Playlist, Song } from 'lib/types/content'
 import Image from 'next/image'
@@ -22,13 +22,13 @@ export const SongList = ({
   showAlbumLink = false,
 }: SongListProps) => {
   const {
-    dispatch: dispatchPlayer,
+    setSong,
     state: { activeSong, isLoading, isPlaying },
   } = usePlayerContext()
 
   const isActiveSong = (song) => activeSong && activeSong._id === song._id
-  const handlePlaySong = (song: Song) => {
-    setSongAndPlay(dispatchPlayer, song, songs)
+  const handleClickSong = (song: Song) => {
+    setSong(song, songs)
   }
   return (
     <Container className="flex flex-col place-items-center">
@@ -50,11 +50,8 @@ export const SongList = ({
             return (
               <div
                 key={_id}
-                onClick={() => {
-                  handlePlaySong(song)
-                }}
                 className={cx(
-                  'w-full flex flex-row gap-4 cursor-pointer p-1',
+                  'w-full flex flex-row gap-4 p-1',
                   styles['song-list-row'],
                   {
                     [styles['active-song']]: isActiveSong(song),
@@ -64,7 +61,12 @@ export const SongList = ({
                   },
                 )}
               >
-                <div>
+                <button
+                  onClick={() => {
+                    handleClickSong(song)
+                  }}
+                  className="cursor-pointer"
+                >
                   <Image
                     unoptimized
                     src="/play-icon.svg"
@@ -92,7 +94,7 @@ export const SongList = ({
 
                   <div className={styles['song-list-album-artwork']}>
                     {bulletStyle === BulletStyle.Number && (
-                      <svg>
+                      <svg className={styles['song-list-index']}>
                         <text x="16" y="27" fill="white">
                           {index + 1}
                         </text>
@@ -109,21 +111,23 @@ export const SongList = ({
                       ) : (
                         <Image
                           src="/headphones-icon.svg"
-                          alt=""
+                          alt="Listen to song thumbnail"
                           height={46}
                           width={46}
                         />
                       ))}
                   </div>
-                </div>
+                </button>
                 <div className="w-full flex flex-row justify-between">
-                  <div
-                    className={cx(
-                      styles['song-title'],
-                      'flex flex-col gap-1.5 justify-center',
-                    )}
-                  >
-                    <div>{songTitle}</div>
+                  <div className={cx('flex flex-col gap-1.5 justify-center')}>
+                    <button
+                      onClick={() => {
+                        handleClickSong(song)
+                      }}
+                      className="cursor-pointer"
+                    >
+                      {songTitle}
+                    </button>
                     {showAlbumLink && albumSlug && (
                       <Link
                         onClick={(e) => {

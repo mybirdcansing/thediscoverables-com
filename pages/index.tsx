@@ -11,7 +11,7 @@ export default function RenderPage(props: HomepageProps) {
   const { loading, draftMode, settings } = props
 
   return (
-    <MainLayout preview={draftMode} loading={loading}>
+    <MainLayout preview={draftMode} loading={loading} settings={settings}>
       {draftMode ? (
         <PreviewHomepage homepage={props} settings={settings} />
       ) : (
