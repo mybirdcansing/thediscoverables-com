@@ -49,31 +49,10 @@
   opacity: 0.3;
   cursor: default;
 }
-#playerControls .volume-cell {
-  white-space: nowrap;
-}
+
 #playerToggle {
   width: 36px;
   height: 34px;
-}
-
-#playerToggle.playing .play,
-#playerToggle.loading .play {
-  display: none;
-}
-
-#playerToggle .spinner,
-#playerToggle.playing .spinner,
-#playerToggle.paused .spinner {
-  display: none;
-}
-#playerToggle.loading .spinner {
-  display: block;
-}
-
-#playerToggle.paused .pause,
-#playerToggle.loading .pause {
-  display: none;
 }
 
 #playerControls .next,

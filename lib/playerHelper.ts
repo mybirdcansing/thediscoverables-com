@@ -44,3 +44,5 @@ export const isChromeDesktop = (): boolean => {
     ) || isIOS()
   return !isMobile && isChrome
 }
+
+export const isClient = typeof window !== 'undefined'

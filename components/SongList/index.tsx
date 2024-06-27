@@ -28,6 +28,8 @@ export const SongList = ({
 
   const isActiveSong = (song) => activeSong && activeSong._id === song._id
   const handleClickSong = (song: Song) => {
+    console.log('handleClickSong called')
+
     setSong(song, songs)
   }
   return (

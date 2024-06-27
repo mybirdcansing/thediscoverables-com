@@ -8,6 +8,7 @@ const initialState: PlayerContextState = {
   isPlaying: false,
   isLoading: false,
   playlist: [],
+  songClickIndex: 0,
 }
 
 export const PlayerContext = React.createContext<{
@@ -34,6 +35,7 @@ export const reducer = (
         ...state,
         activeSong: action.payload.song,
         playlist: action.payload.playlist,
+        songClickIndex: state.songClickIndex + 1,
       }
     case 'PLAY':
       return { ...state, isPlaying: true }

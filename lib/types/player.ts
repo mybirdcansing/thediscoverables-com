@@ -12,6 +12,7 @@ export interface PlayerContextState {
   isPlaying: boolean
   isLoading: boolean
   playlist: Playlist | null
+  songClickIndex: number
 }
 
 export type PlayerContextAction =

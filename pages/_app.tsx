@@ -21,14 +21,11 @@ export default function App({
         {draftMode ? (
           <PreviewProvider token={token}>
             <Component {...pageProps} />
-            <Player />
           </PreviewProvider>
         ) : (
-          <>
-            <Component {...pageProps} />
-            <Player />
-          </>
+          <Component {...pageProps} />
         )}
+        <Player />
       </PlayerProvider>
       {draftMode && <VisualEditing />}
     </>
