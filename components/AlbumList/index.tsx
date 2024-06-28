@@ -1,4 +1,4 @@
-import Container from 'components/Container'
+import { Container } from 'components/Container'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
 import { Album } from 'lib/types/content'
 import Image from 'next/image'

@@ -1,5 +1,5 @@
 import { toPlainText } from '@portabletext/react'
-import Meta from 'components/Meta'
+import { Meta } from 'components/Meta'
 import type { Settings } from 'lib/types/content'
 import Head from 'next/head'
 

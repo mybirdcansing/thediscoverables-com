@@ -12,7 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-import Container from '../Container'
+import { Container } from '../Container'
 import styles from './Player.module.css'
 const Hammer = dynamic(() => import('hammerjs').then((mod) => mod.default), {
   ssr: false,

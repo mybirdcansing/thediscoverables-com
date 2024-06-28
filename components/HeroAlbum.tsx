@@ -1,5 +1,5 @@
-import AlbumDate from 'components/album/AlbumDate'
-import CoverImage from 'components/CoverImage'
+import { AlbumDate } from 'components/album/AlbumDate'
+import { CoverImage } from 'components/CoverImage'
 import type { Album } from 'lib/types/content'
 import Link from 'next/link'
 

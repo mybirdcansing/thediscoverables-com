@@ -1,6 +1,5 @@
 import Homepage from 'components/Homepage'
 import PreviewHomepage from 'components/Homepage/PreviewHomepage'
-import MainLayout from 'components/MainLayout'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getHomepage, getSettings } from 'lib/sanity.getters'
@@ -8,16 +7,12 @@ import { HomepageProps } from 'lib/types/pages'
 import { GetStaticProps } from 'next'
 
 export default function RenderPage(props: HomepageProps) {
-  const { loading, draftMode, settings } = props
+  const { draftMode, settings } = props
 
-  return (
-    <MainLayout preview={draftMode} loading={loading} settings={settings}>
-      {draftMode ? (
-        <PreviewHomepage homepage={props} settings={settings} />
-      ) : (
-        <Homepage homepage={props} settings={settings} />
-      )}
-    </MainLayout>
+  return draftMode ? (
+    <PreviewHomepage homepage={props} settings={settings} />
+  ) : (
+    <Homepage homepage={props} settings={settings} />
   )
 }
 

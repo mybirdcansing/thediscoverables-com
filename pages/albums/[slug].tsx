@@ -1,6 +1,5 @@
 import AlbumPage from 'components/album/AlbumPage'
 import PreviewAlbumPage from 'components/album/PreviewAlbumPage'
-import MainLayout from 'components/MainLayout'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
@@ -8,16 +7,12 @@ import { AlbumViewProps } from 'lib/types/pages'
 import { GetStaticProps } from 'next'
 
 export default function RenderPage(props: AlbumViewProps) {
-  const { settings, album, draftMode, loading } = props
+  const { settings, album, draftMode } = props
 
-  return (
-    <MainLayout preview={draftMode} loading={loading} settings={settings}>
-      {draftMode ? (
-        <PreviewAlbumPage album={album} settings={settings} />
-      ) : (
-        <AlbumPage album={album} settings={settings} />
-      )}
-    </MainLayout>
+  return draftMode ? (
+    <PreviewAlbumPage album={album} settings={settings} />
+  ) : (
+    <AlbumPage album={album} settings={settings} />
   )
 }
 

@@ -1,6 +1,6 @@
-import PortableTextBlock from 'components/PortableTextBlock'
+import { PortableTextBlock } from 'components/PortableTextBlock'
 
-export default function AlbumDescription({ content }) {
+export const AlbumDescription = ({ content }) => {
   if (content) {
     return <PortableTextBlock content={content} />
   }

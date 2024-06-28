@@ -1,13 +1,15 @@
-import AlbumDescription from 'components/album/AlbumBody'
-import AlbumPageHead from 'components/album/AlbumPageHead'
-import Container from 'components/Container'
-import CoverImage from 'components/CoverImage'
+import { AlbumDescription } from 'components/album/AlbumBody'
+import { AlbumPageHead } from 'components/album/AlbumPageHead'
+import { Container } from 'components/Container'
+import { CoverImage } from 'components/CoverImage'
 import { PageHeader } from 'components/PageHeader'
+import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
-import { type Album, BulletStyle, type Settings } from 'lib/types/content'
+import type { Album, Settings } from 'lib/types/content'
+import { BulletStyle } from 'lib/types/content'
 
-import AlbumDate from './AlbumDate'
-import AlbumTitle from './AlbumTitle'
+import { AlbumDate } from './AlbumDate'
+import { AlbumTitle } from './AlbumTitle'
 
 export interface AlbumPageProps {
   preview?: boolean
@@ -17,7 +19,7 @@ export interface AlbumPageProps {
 }
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { album, settings } = props
+  const { album, settings, loading, preview } = props
 
   if (!album || !settings) return null
 
@@ -30,7 +32,7 @@ export default function AlbumPage(props: AlbumPageProps) {
     slug,
   } = album
   return (
-    <>
+    <PageLayout settings={settings} loading={loading} preview={preview}>
       <AlbumPageHead settings={settings} album={album} />
       <Container>
         <PageHeader title={pageTitle} level={1} isLightFont />
@@ -59,6 +61,6 @@ export default function AlbumPage(props: AlbumPageProps) {
         </Container>
         <SongList songs={album.songs} bulletStyle={BulletStyle.Number} />
       </Container>
-    </>
+    </PageLayout>
   )
 }

@@ -1,4 +1,4 @@
-import Meta from 'components/Meta'
+import { Meta } from 'components/Meta'
 import { urlForImage } from 'lib/sanity.image'
 import { Album, Settings } from 'lib/types/content'
 import Head from 'next/head'
@@ -8,7 +8,7 @@ export interface AlbumPageHeadProps {
   album: Album
 }
 
-export default function AlbumPageHead({ settings, album }: AlbumPageHeadProps) {
+export const AlbumPageHead = ({ settings, album }: AlbumPageHeadProps) => {
   const bandName = settings.title || process.env.NEXT_PUBLIC_BAND_NAME
 
   return (

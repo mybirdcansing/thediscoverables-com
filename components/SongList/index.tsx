@@ -1,11 +1,11 @@
 import cx from 'classnames'
 import { usePlayerContext } from 'lib/playerContext'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
-import { BulletStyle, Playlist, Song } from 'lib/types/content'
+import { BulletStyle, Song } from 'lib/types/content'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Container from '../Container'
+import { Container } from '../Container'
 import styles from './SongList.module.css'
 
 export interface SongListProps {
@@ -127,7 +127,7 @@ export const SongList = ({
                   </div>
                 </button>
                 <div className="w-full flex flex-row justify-between">
-                  <div className={cx('flex flex-col gap-2 justify-center')}>
+                  <div className="flex flex-col gap-2 justify-center">
                     <button
                       onClick={() => {
                         handleClickSong(song)

@@ -4,7 +4,7 @@ export interface ContainerProps {
   className?: string
   children: React.ReactNode
 }
-export default function Container({ children, className }: ContainerProps) {
+export const Container = ({ children, className }: ContainerProps) => {
   return (
     <div className={cx('container mx-auto px-5', className)}>{children}</div>
   )

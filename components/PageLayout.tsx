@@ -4,17 +4,17 @@ import React from 'react'
 
 import { Footer } from './Footer'
 
-export default function MainLayout({
+export const PageLayout = ({
   preview,
   loading,
   children,
   settings,
 }: {
-  preview: boolean
+  preview?: boolean
   loading?: boolean
   children: React.ReactNode
   settings: Settings
-}) {
+}) => {
   return (
     <>
       <AlertBanner preview={preview} loading={loading} />

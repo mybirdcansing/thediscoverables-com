@@ -10,7 +10,7 @@ interface CoverImageProps {
   priority?: boolean
 }
 
-export default function CoverImage(props: CoverImageProps) {
+export const CoverImage = (props: CoverImageProps) => {
   const { title, slug, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div
