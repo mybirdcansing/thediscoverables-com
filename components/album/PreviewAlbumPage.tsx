@@ -1,11 +1,10 @@
 import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
+import { Loading } from 'components/Loading'
 import { albumBySlugQuery, settingsQuery } from 'lib/sanity.queries'
 import type { Album, Settings } from 'lib/types/content'
 import { useLiveQuery } from 'next-sanity/preview'
 
-import { Loading } from '../Loading'
-
-export default function PreviewAlbumPage(props: AlbumPageProps) {
+export const PreviewAlbumPage = (props: AlbumPageProps) => {
   const [album, loadingAlbum] = useLiveQuery<Album>(
     props.album,
     albumBySlugQuery,

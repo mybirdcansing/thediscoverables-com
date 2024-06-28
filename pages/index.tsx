@@ -1,10 +1,20 @@
-import { Homepage } from 'components/Homepage'
-import { PreviewHomepage } from 'components/Homepage/PreviewHomepage'
+import { Homepage, type IndexPageProps } from 'components/Homepage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getHomepage, getSettings } from 'lib/sanity.getters'
-import { HomepageProps } from 'lib/types/pages'
+import type { HomepageProps } from 'lib/types/pages'
 import { GetStaticProps } from 'next'
+import dynamic from 'next/dynamic'
+
+const PreviewHomepage = dynamic<IndexPageProps>(
+  () =>
+    import('components/Homepage/PreviewHomepage').then(
+      (mod) => mod.PreviewHomepage,
+    ),
+  {
+    ssr: false,
+  },
+)
 
 export default function RenderPage(props: HomepageProps) {
   const { draftMode, settings } = props

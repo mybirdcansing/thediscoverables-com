@@ -1,11 +1,20 @@
-import AlbumPage from 'components/album/AlbumPage'
-import PreviewAlbumPage from 'components/album/PreviewAlbumPage'
+import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
-import { AlbumViewProps } from 'lib/types/pages'
+import type { AlbumViewProps } from 'lib/types/pages'
 import { GetStaticProps } from 'next'
+import dynamic from 'next/dynamic'
 
+const PreviewAlbumPage = dynamic<AlbumPageProps>(
+  () =>
+    import('components/album/PreviewAlbumPage').then(
+      (mod) => mod.PreviewAlbumPage,
+    ),
+  {
+    ssr: false,
+  },
+)
 export default function RenderPage(props: AlbumViewProps) {
   const { settings, album, draftMode } = props
 
