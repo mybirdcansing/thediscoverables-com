@@ -36,6 +36,7 @@ export const Player = () => {
   const playSlider = React.useRef<HTMLDivElement | null>(null)
   const airPlay = React.useRef<HTMLSpanElement | null>(null)
   const playerVolumeSlider = React.useRef<HTMLInputElement | null>(null)
+  const [hammerInitialized, setHammerInitialized] = React.useState(false)
 
   const setVolume = (e) => {
     player.current.volume = e.target.value / 100
@@ -247,41 +248,55 @@ export const Player = () => {
   }, [dispatch, activeSong, tick])
 
   React.useEffect(() => {
-    const loadHammer = async () => {
-      if (typeof window !== 'undefined' && slideContainer.current) {
-        const HammerModule = (await import('hammerjs')).default
-        const hammerInstance = new HammerModule(slideContainer.current!)
+    const initializeHammer = async () => {
+      if (!slideContainer.current) {
+        return
+      }
 
-        hammerInstance.on('pan press tap pressup', (ev: any) => {
-          cancelAnimationFrame(ticker)
-          sliderBeingSlided = true
-          playSlider.current!.classList.add('activePlaySlider')
-          const xPos = ev.center.x - slideContainer.current!.offsetLeft
-          progressBar.current!.style.width = `${xPos}px`
-          if (ev.isFinal) {
-            const timeRemaining =
-              (xPos / slideContainer.current!.offsetWidth) *
-              player.current!.duration
-            player.current!.currentTime = timeRemaining
-            ticker = requestAnimationFrame(tick)
-            playSlider.current!.classList.remove('activePlaySlider')
-            sliderBeingSlided = false
-          }
-        })
+      const HammerModule = (await import('hammerjs')).default
+      const hammerInstance = new HammerModule(slideContainer.current!)
 
-        // Clean up the Hammer instance on component unmount
-        return () => {
-          hammerInstance.off('pan press tap pressup')
-          hammerInstance.destroy()
+      hammerInstance.on('pan press tap pressup', (ev: any) => {
+        cancelAnimationFrame(ticker)
+        sliderBeingSlided = true
+        playSlider.current!.classList.add('activePlaySlider')
+        const xPos = ev.center.x - slideContainer.current!.offsetLeft
+        progressBar.current!.style.width = `${xPos}px`
+        if (ev.isFinal) {
+          const timeRemaining =
+            (xPos / slideContainer.current!.offsetWidth) *
+            player.current!.duration
+          player.current!.currentTime = timeRemaining
+          ticker = requestAnimationFrame(tick)
+          playSlider.current!.classList.remove('activePlaySlider')
+          sliderBeingSlided = false
         }
+      })
+
+      // Clean up the Hammer instance on component unmount
+      return () => {
+        hammerInstance.off('pan press tap pressup')
+        hammerInstance.destroy()
       }
     }
 
-    loadHammer()
+    const hammerSetupInterval = setInterval(() => {
+      if (slideContainer.current) {
+        clearInterval(hammerSetupInterval)
+        initializeHammer()
+      }
+    }, 100)
+
+    // Clear interval on component unmount
+    return () => {
+      clearInterval(hammerSetupInterval)
+    }
   }, [tick])
+
   if (!activeSong) {
     return null
   }
+
   return (
     <div className="fixed bottom-0 bg-slate-400 w-full p-4">
       <audio id={styles.player} ref={player} preload="auto"></audio>
