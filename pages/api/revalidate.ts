@@ -42,7 +42,7 @@ export const config = {
     bodyParser: false,
   },
   runtime: 'nodejs',
-} satisfies PageConfig
+}
 
 export default async function revalidate(
   req: NextApiRequest,
@@ -93,7 +93,7 @@ async function parseBody<Body = SanityDocument>(
 
   if (req.readableEnded) {
     throw new Error(
-      `Request already ended and the POST body can't be read. Have you setup \`export {config} from 'next-sanity/webhook' in your webhook API handler?\``,
+      `Request already ended and the POST body can't be read. Have you setup \`export config from 'next-sanity/webhook' in your webhook API handler?\``,
     )
   }
 
