@@ -127,12 +127,12 @@ export const SongList = ({
                   </div>
                 </button>
                 <div className="w-full flex flex-row justify-between">
-                  <div className={cx('flex flex-col gap-1.5 justify-center')}>
+                  <div className={cx('flex flex-col gap-2 justify-center')}>
                     <button
                       onClick={() => {
                         handleClickSong(song)
                       }}
-                      className="cursor-pointer"
+                      className="cursor-pointer p-2 md:p-0"
                     >
                       {songTitle}
                     </button>
@@ -142,7 +142,7 @@ export const SongList = ({
                           e.stopPropagation()
                         }}
                         href={`/albums/${encodeURIComponent(albumSlug)}`}
-                        className="text-slate-400 hover:underline"
+                        className="text-slate-400 hover:underline p-2 md:p-0"
                       >
                         {album.title ?? 'Album'}
                       </Link>
