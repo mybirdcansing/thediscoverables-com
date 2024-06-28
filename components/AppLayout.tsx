@@ -1,4 +1,4 @@
-import { Player } from 'components/Player'
+import { Player } from 'components/player'
 import { usePlayerContext } from 'lib/playerContext'
 
 export const AppLayout = ({ children }) => {

@@ -3,7 +3,6 @@ import '../styles.css'
 
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppLayout } from 'components/AppLayout'
-import { Player } from 'components/Player'
 import { PlayerProvider } from 'lib/playerContext'
 import { SharedPageProps } from 'lib/types/pages'
 import { AppProps } from 'next/app'
