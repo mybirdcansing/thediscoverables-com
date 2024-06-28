@@ -12,11 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-import { Container } from '../Container'
 import styles from './Player.module.css'
-const Hammer = dynamic(() => import('hammerjs').then((mod) => mod.default), {
-  ssr: false,
-})
 
 let playPromise
 let ticker
@@ -36,7 +32,6 @@ export const Player = () => {
   const playSlider = React.useRef<HTMLDivElement | null>(null)
   const airPlay = React.useRef<HTMLSpanElement | null>(null)
   const playerVolumeSlider = React.useRef<HTMLInputElement | null>(null)
-  const [hammerInitialized, setHammerInitialized] = React.useState(false)
 
   const setVolume = (e) => {
     player.current.volume = e.target.value / 100

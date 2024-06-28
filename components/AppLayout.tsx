@@ -1,6 +1,5 @@
+import { Player } from 'components/Player'
 import { usePlayerContext } from 'lib/playerContext'
-
-import { Player } from './Player'
 
 export const AppLayout = ({ children }) => {
   const {

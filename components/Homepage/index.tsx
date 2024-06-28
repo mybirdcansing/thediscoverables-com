@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import { AlbumList } from 'components/AlbumList'
+import { Container } from 'components/Container'
 import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
@@ -10,7 +11,6 @@ import type { HomepageProps } from 'lib/types/pages'
 import Image from 'next/image'
 import React from 'react'
 
-import { Container } from '../Container'
 import styles from './Homepage.module.css'
 
 export interface IndexPageProps {
@@ -20,7 +20,7 @@ export interface IndexPageProps {
   settings: Settings
 }
 
-export default function Homepage(props: IndexPageProps) {
+export const Homepage = (props: IndexPageProps) => {
   const { settings, homepage, preview, loading } = props
 
   const { title } = settings || {}

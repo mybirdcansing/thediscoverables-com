@@ -4,9 +4,9 @@ import { HomepageProps } from 'lib/types/pages'
 import { useLiveQuery } from 'next-sanity/preview'
 
 import { Loading } from '../Loading'
-import Homepage, { IndexPageProps } from '.'
+import { Homepage, type IndexPageProps } from '.'
 
-export default function PreviewHomepage(props: IndexPageProps) {
+export const PreviewHomepage = (props: IndexPageProps) => {
   const [homepage, loadingHomepage] = useLiveQuery<HomepageProps>(
     props.homepage,
     homepageQuery,
