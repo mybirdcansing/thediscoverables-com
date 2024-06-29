@@ -28,8 +28,6 @@ export const SongList = ({
 
   const isActiveSong = (song) => activeSong && activeSong._id === song._id
   const handleClickSong = (song: Song) => {
-    console.log('handleClickSong called')
-
     setSong(song, songs)
   }
   return (
@@ -53,7 +51,7 @@ export const SongList = ({
               <div
                 key={_id}
                 className={cx(
-                  'w-full flex flex-row gap-4 p-1',
+                  'w-full flex flex-row gap-4 py-1',
                   styles['song-list-row'],
                   {
                     [styles['active-song']]: isActiveSong(song),
@@ -65,7 +63,6 @@ export const SongList = ({
               >
                 <button
                   onClick={() => {
-                    console.log('SONG_LIST', song.title)
                     handleClickSong(song)
                   }}
                   className="cursor-pointer"
@@ -132,7 +129,7 @@ export const SongList = ({
                       onClick={() => {
                         handleClickSong(song)
                       }}
-                      className="cursor-pointer p-2 md:p-0"
+                      className="cursor-pointer py-2 md:p-0"
                     >
                       {songTitle}
                     </button>
@@ -142,7 +139,7 @@ export const SongList = ({
                           e.stopPropagation()
                         }}
                         href={`/albums/${encodeURIComponent(albumSlug)}`}
-                        className="text-slate-400 hover:underline p-2 md:p-0"
+                        className="text-slate-400 hover:underline py-2 md:p-0"
                       >
                         {album.title ?? 'Album'}
                       </Link>

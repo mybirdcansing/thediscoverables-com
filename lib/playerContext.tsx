@@ -27,14 +27,17 @@ export const reducer = (
 ): PlayerContextState => {
   switch (action.type) {
     case 'SET_ACTIVE_SONG_AND_PLAYLIST':
-      console.log(
-        'SET_ACTIVE_SONG_AND_PLAYLIST: Active song was changed',
-        action.payload.song,
-      )
       return {
         ...state,
         activeSong: action.payload.song,
         playlist: action.payload.playlist,
+        songClickIndex: state.songClickIndex + 1,
+      }
+    case 'SET_ACTIVE_SONG':
+      return {
+        ...state,
+        activeSong: action.payload.song,
+
         songClickIndex: state.songClickIndex + 1,
       }
     case 'PLAY':

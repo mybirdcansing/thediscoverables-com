@@ -34,7 +34,7 @@ export interface Song {
   title?: string
   url?: string
   description?: Array<PortableTextBlock>
-  duration?: number
+  duration?: string
   album?: Album
   audioFile?: AudioFile
 }

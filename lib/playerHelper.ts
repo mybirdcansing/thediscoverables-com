@@ -1,23 +1,23 @@
-export const durationToString = (duration): string => {
-  if (isNaN(duration)) {
-    return '00:00'
+export const durationToString = (seconds: number): string => {
+  if (isNaN(seconds)) {
+    return '0:00'
   }
-  const minutes = Math.floor(duration / 60)
-  const seconds = (duration - minutes * 60).toString().substr(0, 2)
-  return `${minutes}:${seconds}`
+  const minutes = Math.floor(seconds / 60)
+  const remainingSeconds = Math.floor(seconds % 60)
+
+  const formattedSeconds =
+    remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
+  return `${minutes}:${formattedSeconds}`
 }
 
-export const currentTimeToString = (currentTime): string => {
+export const currentTimeToString = (currentTime: number): string => {
   if (isNaN(currentTime)) {
     return '00:00'
   }
+
   const minute = Number((currentTime / 60).toFixed()) % 60
   const seconds = Number((currentTime % 60).toFixed())
-  return (
-    (minute < 10 ? '0' + minute : minute) +
-    ':' +
-    (seconds < 10 ? '0' + seconds : seconds)
-  )
+  return minute + ':' + (seconds < 10 ? '0' + seconds : seconds)
 }
 
 export const isIOS = () => {

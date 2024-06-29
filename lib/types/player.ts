@@ -20,6 +20,7 @@ export type PlayerContextAction =
       type: 'SET_ACTIVE_SONG_AND_PLAYLIST'
       payload: { song: Song; playlist: Playlist }
     }
+  | { type: 'SET_ACTIVE_SONG'; payload: { song: Song } }
   | { type: 'PLAY' }
   | { type: 'PAUSE' }
   | { type: 'SET_LOADING'; payload: boolean }
