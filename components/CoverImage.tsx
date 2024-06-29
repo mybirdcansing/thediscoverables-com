@@ -19,7 +19,7 @@ export const CoverImage = (props: CoverImageProps) => {
       })}
     >
       <Image
-        className="h-auto w-full"
+        className="aspect-square"
         width={500}
         height={500}
         alt=""

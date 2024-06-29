@@ -36,7 +36,7 @@ export default function AlbumPage(props: AlbumPageProps) {
       <AlbumPageHead settings={settings} album={album} />
       <Container>
         <PageHeader title={pageTitle} level={1} isLightFont />
-        <Container className="flex flex-col place-items-center">
+        <div className="flex flex-col place-items-center">
           <div className="max-w-4xl w-full flex flex-col gap-4">
             <div className="flex flex-row gap-5">
               <div className="mb-8 sm:mx-0 md:mb-16">
@@ -58,7 +58,7 @@ export default function AlbumPage(props: AlbumPageProps) {
               </div>
             </div>
           </div>
-        </Container>
+        </div>
         <SongList songs={album.songs} bulletStyle={BulletStyle.Number} />
       </Container>
     </PageLayout>

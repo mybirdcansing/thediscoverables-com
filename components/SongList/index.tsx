@@ -112,6 +112,7 @@ export const SongList = ({
                           alt="Song artwork thumbnail"
                           height={46}
                           width={46}
+                          className="h-auto"
                         />
                       ) : (
                         <Image
@@ -119,6 +120,7 @@ export const SongList = ({
                           alt="Listen to song thumbnail"
                           height={46}
                           width={46}
+                          className="h-auto"
                         />
                       ))}
                   </div>
