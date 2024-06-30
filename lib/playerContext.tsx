@@ -14,11 +14,11 @@ const initialState: PlayerContextState = {
 export const PlayerContext = React.createContext<{
   state: PlayerContextState
   dispatch: React.Dispatch<PlayerContextAction>
-  setSong: (song: Song, playlist?: Playlist) => void
+  setSong: (song: Song, playlist?: Playlist | undefined) => void
 }>({
   state: initialState,
   dispatch: () => undefined,
-  setSong: (song: Song, playlist?: Playlist) => undefined,
+  setSong: (song: Song, playlist?: Playlist | undefined) => undefined,
 })
 
 export const reducer = (
@@ -58,7 +58,7 @@ interface PlayerProviderProps {
 
 export const PlayerProvider = ({ children }: PlayerProviderProps) => {
   const [state, dispatch] = React.useReducer(reducer, initialState)
-  const setSong = (song: Song, playlist: Playlist) => {
+  const setSong = (song: Song, playlist: Playlist | undefined = []) => {
     dispatch({
       type: 'SET_ACTIVE_SONG_AND_PLAYLIST',
       payload: { song, playlist },
