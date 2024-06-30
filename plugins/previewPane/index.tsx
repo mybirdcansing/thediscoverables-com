@@ -5,7 +5,10 @@
 // https://www.sanity.io/docs/structure-builder-reference
 
 import { DRAFT_MODE_ROUTE } from 'lib/sanity.api'
-import type { DefaultDocumentNodeResolver } from 'sanity/structure'
+import type {
+  DefaultDocumentNodeResolver,
+  StructureBuilder,
+} from 'sanity/structure'
 import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import albumType from 'schemas/album'
 import homepageType from 'schemas/homepage'
@@ -34,7 +37,7 @@ export const iframeOptions = {
   reload: { button: true },
 } satisfies IframeOptions
 
-export const previewDocumentViews = (S) => [
+export const previewDocumentViews = (S: StructureBuilder) => [
   S.view.form(),
   S.view.component(Iframe).options(iframeOptions).title('Preview'),
 ]

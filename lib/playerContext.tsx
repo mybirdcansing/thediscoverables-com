@@ -52,7 +52,11 @@ export const reducer = (
   }
 }
 
-export const PlayerProvider = ({ children }) => {
+interface PlayerProviderProps {
+  children: React.ReactNode
+}
+
+export const PlayerProvider = ({ children }: PlayerProviderProps) => {
   const [state, dispatch] = React.useReducer(reducer, initialState)
   const setSong = (song: Song, playlist: Playlist) => {
     dispatch({

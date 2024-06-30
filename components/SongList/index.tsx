@@ -26,7 +26,8 @@ export const SongList = ({
     state: { activeSong, isLoading, isPlaying },
   } = usePlayerContext()
 
-  const isActiveSong = (song) => activeSong && activeSong._id === song._id
+  const isActiveSong = (song: Song | undefined) =>
+    activeSong && activeSong._id === song._id
   const handleClickSong = (song: Song) => {
     setSong(song, songs)
   }

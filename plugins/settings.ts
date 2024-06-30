@@ -1,10 +1,27 @@
+import { CogIcon, HomeIcon } from '@sanity/icons'
+import { ComponentType } from 'react'
 import { definePlugin } from 'sanity'
-import type { StructureResolver } from 'sanity/structure'
-import homepageType from 'schemas/homepage'
-import settingsType from 'schemas/settings'
+import type { StructureBuilder, StructureResolver } from 'sanity/structure'
 
 import { previewDocumentViews } from './previewPane'
 
+interface TypeDef {
+  title: string
+  icon: ComponentType
+  name: string
+}
+// Define the actual types for settings and homepage
+const settingsType: TypeDef = {
+  title: 'Settings',
+  icon: CogIcon,
+  name: 'settings',
+}
+
+const homepageType: TypeDef = {
+  title: 'Homepage',
+  icon: HomeIcon,
+  name: 'homepage',
+}
 export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   return {
     name: 'settings',
@@ -30,7 +47,11 @@ export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   }
 })
 
-const singletonStructureItem = (S, typeDef, allowPreview = false) =>
+const singletonStructureItem = (
+  S: StructureBuilder,
+  typeDef: TypeDef,
+  allowPreview = false,
+) =>
   S.listItem()
     .title(typeDef.title)
     .icon(typeDef.icon)

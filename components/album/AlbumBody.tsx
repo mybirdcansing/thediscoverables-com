@@ -1,7 +1,11 @@
-import { PortableTextBlock } from 'components/PortableTextBlock'
+import { PortableTextView } from 'components/PortableTextView'
+import { PortableTextBlock } from 'sanity'
 
-export const AlbumDescription = ({ content }) => {
+export interface AlbumDescriptionProps {
+  content: Array<PortableTextBlock>
+}
+export const AlbumDescription = ({ content }: AlbumDescriptionProps) => {
   if (content) {
-    return <PortableTextBlock content={content} />
+    return <PortableTextView content={content} />
   }
 }

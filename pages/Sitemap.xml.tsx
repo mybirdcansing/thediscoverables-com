@@ -1,6 +1,7 @@
 import { getClient } from 'lib/sanity.client'
 import { getAllAlbums } from 'lib/sanity.getters'
 import { Album } from 'lib/types/content'
+import { GetServerSidePropsContext } from 'next'
 
 type SitemapLocation = {
   url: string
@@ -51,7 +52,7 @@ export default function SiteMap() {
   // getServerSideProps will do the heavy lifting
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   const client = getClient()
 
   // Get list of Album urls
