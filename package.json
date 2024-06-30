@@ -26,7 +26,6 @@
     "@vercel/og": "0.6.2",
     "classnames": "^2.5.1",
     "date-fns": "3.3.1",
-    "hammerjs": "^2.0.8",
     "intl-segmenter-polyfill": "0.4.4",
     "n": "^9.2.1",
     "next": "^14.2.4",

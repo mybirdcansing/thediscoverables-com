@@ -1,10 +1,11 @@
 import cx from 'classnames'
 import { usePlayer } from 'lib/hooks/usePlayer'
-import { isIOS } from 'lib/playerHelper'
+import { currentTimeToString, durationToString, isIOS } from 'lib/playerHelper'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+import { AudioSlider } from './AudioSlider'
 import styles from './Player.module.css'
 
 export const Player = () => {
@@ -13,12 +14,9 @@ export const Player = () => {
     isPlaying,
     playlist,
     isLoading,
-    currentTimeString,
-    durationString,
-    playerRef,
-    progressBarRef,
-    slideContainerRef,
-    playSliderRef,
+    currentTime,
+    duration,
+    audioRef,
     airPlayRef,
     playerVolumeSliderRef,
     songIndex,
@@ -36,18 +34,17 @@ export const Player = () => {
 
   return (
     <div className="fixed bottom-0 bg-slate-400 w-full p-1.5">
-      <audio id={styles.player} ref={playerRef} preload="auto"></audio>
-      <div id={styles.slideContainerContainer}>
-        <div ref={slideContainerRef} id={styles.slideContainer}>
-          <div ref={progressBarRef} id={styles.progressBar}>
-            <div ref={playSliderRef} className={styles.playSlider}></div>
-          </div>
-        </div>
-      </div>
+      <audio id={styles.player} ref={audioRef} preload="auto"></audio>
+
+      <AudioSlider
+        audioRef={audioRef}
+        currentTime={currentTime}
+        duration={duration}
+      />
 
       <div className="flex flex-row justify-center gap-2 mt-2">
         <span className="song-time">
-          {currentTimeString} / {durationString}
+          {currentTimeToString(currentTime)} / {durationToString(duration)}
         </span>
         <span>{activeSong.title}</span>
         {activeSong.album && (
