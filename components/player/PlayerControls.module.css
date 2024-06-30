@@ -1,0 +1,11 @@
+.playerControls {
+  @apply flex flex-row justify-center relative;
+}
+
+.playerControls img {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.playerControls img:hover {
+  opacity: 1;
+}

@@ -16,7 +16,6 @@ export const AudioSlider = ({
   const sliderRef = React.useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = React.useState(false)
   const [buffered, setBuffered] = React.useState(0)
-  const [src, setSrc] = React.useState('')
 
   const [{ x }, api] = useSpring(() => ({ x: 0 }))
 
@@ -39,19 +38,13 @@ export const AudioSlider = ({
     { axis: 'x', from: () => [x.get(), 0] },
   )
 
-  React.useEffect(() => {
-    if (audioRef.current) {
-      setSrc(audioRef.current.src)
-    }
-  }, [audioRef, audioRef.current?.src])
-
-  React.useEffect(() => {
+  const updateSliderPosition = React.useCallback(() => {
     if (isDragging || !sliderRef.current) {
       return
     }
     const rect = sliderRef.current.getBoundingClientRect()
     const newX = (currentTime / duration) * rect.width
-    api.start({ x: newX, immediate: true })
+    api.start({ x: newX, immediate: false })
   }, [currentTime, duration, isDragging, api])
 
   React.useEffect(() => {
@@ -64,17 +57,32 @@ export const AudioSlider = ({
       }
     }
 
+    const handleResize = () => {
+      if (!isDragging) {
+        updateSliderPosition()
+      }
+    }
+
     const audio = audioRef.current
     if (audio) {
       audio.addEventListener('progress', updateBuffered)
     }
 
+    window.addEventListener('resize', handleResize)
+
     return () => {
       if (audio) {
         audio.removeEventListener('progress', updateBuffered)
       }
+      window.removeEventListener('resize', handleResize)
     }
-  }, [duration, src, audioRef])
+  }, [duration, audioRef, isDragging, updateSliderPosition])
+
+  React.useEffect(() => {
+    if (!isDragging) {
+      updateSliderPosition()
+    }
+  }, [currentTime, updateSliderPosition, isDragging])
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!sliderRef.current) {
@@ -87,34 +95,24 @@ export const AudioSlider = ({
     if (audioRef.current) {
       audioRef.current.currentTime = newTime
     }
+
+    const newX = (clickX / rect.width) * rect.width
+    api.start({ x: newX, immediate: true })
   }
 
   return (
     <div
       ref={sliderRef}
       onClick={handleClick}
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '10px',
-        background: '#ddd',
-        margin: '20px 0',
-        cursor: 'pointer',
-      }}
+      className="relative w-full h-2 bg-gray-200 cursor-pointer"
     >
       <div
-        style={{
-          position: 'absolute',
-          width: `${buffered}%`,
-          height: '100%',
-          background: '#bbb',
-        }}
+        className="absolute h-full bg-gray-300"
+        style={{ width: `${buffered}%` }}
       ></div>
       <animated.div
+        className="absolute h-full bg-gray-500"
         style={{
-          position: 'absolute',
-          height: '100%',
-          background: '#666',
           width: x.to(
             (x) =>
               `${(x / (sliderRef.current ? sliderRef.current.getBoundingClientRect().width : 1)) * 100}%`,
@@ -123,17 +121,8 @@ export const AudioSlider = ({
       ></animated.div>
       <animated.div
         {...bind()}
-        style={{
-          position: 'absolute',
-          top: '-5px',
-          left: '-10px',
-          width: '20px',
-          height: '20px',
-          background: '#333',
-          borderRadius: '50%',
-          transform: x.to((x) => `translateX(${x}px)`),
-          cursor: 'grab',
-        }}
+        className="absolute top-[-5px] left-[-10px] w-5 h-5 bg-gray-600 rounded-full cursor-grab"
+        style={{ transform: x.to((x) => `translateX(${x}px)`) }}
       ></animated.div>
     </div>
   )

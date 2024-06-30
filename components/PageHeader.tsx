@@ -19,7 +19,7 @@ export const PageHeader = ({
   switch (level) {
     case 1:
       return (
-        <header className="flex flex-col items-center mb-5 md:mb-10 md:flex-row md:justify-between text-pretty">
+        <header className="flex flex-col mb-5 md:mb-10 md:flex-row md:justify-between text-pretty">
           <h1
             className={cx(
               'mt-8 text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty',
