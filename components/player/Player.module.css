@@ -4,12 +4,6 @@
   left: -2000px;
 }
 
-#slideContainerContainer {
-  width: 100%;
-  padding: 0 40px 2px 40px;
-  min-width: 200px;
-}
-
 #playerControls {
   position: relative;
   @apply flex flex-row justify-center;
@@ -40,77 +34,13 @@
   position: relative;
 }
 
-#playerToggle {
-  width: 36px;
-  height: 34px;
-}
-
 #playerControls .next,
 #playerControls .previous {
   width: 36px;
   height: 36px;
 }
-.footer-spacer {
-  height: 20px;
-}
 
-#slideContainer {
-  position: relative;
-  height: 10px;
-  width: 100%;
-  margin: 8px auto 4px auto;
-  background: #d3d3d3;
-  box-shadow:
-    outset 0 0 0 1px rgb(157, 154, 154),
-    outset 0 0 0 2px rgb(202, 203, 201);
-  cursor: pointer;
-  overflow: visible;
-}
-
-#slideContainer span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: inline-block;
-  background: #b6b6b6;
-  z-index: 80;
-}
-#slideContainer .playSlider {
-  position: relative;
-  opacity: 0;
-  margin-right: -9px;
-  margin-top: -4px;
-  width: 18px;
-  height: 18px;
-  float: right;
-  border-radius: 50%;
-  background: #4caf50;
-  cursor: pointer;
-  z-index: 100;
-}
-
-#slideContainer .playSlider {
-  opacity: 1;
-}
-
-.playSlider.activePlaySlider {
-  box-shadow: 0 3px 0 rgb(75, 84, 79);
-  opacity: 1;
+#playerToggle {
   width: 36px;
-  height: 36px;
-  margin-left: -18px;
-  margin-top: -12px;
-  transition: all 0;
-}
-
-#progressBar {
-  position: absolute;
-  display: block;
-  width: 0px;
-  height: 10px;
-  background: rgb(114, 105, 123);
-  cursor: pointer;
-  top: 0px;
-  left: 0px;
-  z-index: 90;
+  height: 34px;
 }

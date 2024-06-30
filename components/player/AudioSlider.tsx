@@ -16,6 +16,7 @@ export const AudioSlider = ({
   const sliderRef = React.useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = React.useState(false)
   const [buffered, setBuffered] = React.useState(0)
+  const [src, setSrc] = React.useState('')
 
   const [{ x }, api] = useSpring(() => ({ x: 0 }))
 
@@ -37,6 +38,12 @@ export const AudioSlider = ({
     },
     { axis: 'x', from: () => [x.get(), 0] },
   )
+
+  React.useEffect(() => {
+    if (audioRef.current) {
+      setSrc(audioRef.current.src)
+    }
+  }, [audioRef, audioRef.current?.src])
 
   React.useEffect(() => {
     if (isDragging || !sliderRef.current) {
@@ -67,7 +74,7 @@ export const AudioSlider = ({
         audio.removeEventListener('progress', updateBuffered)
       }
     }
-  }, [duration, audioRef])
+  }, [duration, src, audioRef])
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!sliderRef.current) {
@@ -119,6 +126,7 @@ export const AudioSlider = ({
         style={{
           position: 'absolute',
           top: '-5px',
+          left: '-10px',
           width: '20px',
           height: '20px',
           background: '#333',

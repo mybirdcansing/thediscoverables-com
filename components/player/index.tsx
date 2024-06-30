@@ -48,15 +48,12 @@ export const Player = () => {
         </span>
         <span>{activeSong.title}</span>
         {activeSong.album && (
-          <span>
-            •
-            <Link
-              className="album-title"
-              href={`/albums/${activeSong.album.slug.current}`}
-            >
+          <>
+            <span>•</span>
+            <Link href={`/albums/${activeSong.album.slug.current}`}>
               {activeSong.album.title}
             </Link>
-          </span>
+          </>
         )}
       </div>
       <div id={styles.playerControls}>
