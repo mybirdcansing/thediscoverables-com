@@ -18,7 +18,7 @@ export const PlayerContext = React.createContext<{
 }>({
   state: initialState,
   dispatch: () => undefined,
-  setSong: (song: Song, playlist?: Playlist | undefined) => undefined,
+  setSong: () => undefined,
 })
 
 export const reducer = (

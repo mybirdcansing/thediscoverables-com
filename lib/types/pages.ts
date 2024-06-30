@@ -1,6 +1,6 @@
 import { PortableTextBlock } from 'sanity'
 
-import { Album, Playlist, SanityImage, Settings, Song } from './content'
+import { Album, Playlist, SanityImage, Settings } from './content'
 
 export interface SharedPageProps {
   draftMode: boolean

@@ -1,6 +1,6 @@
 import { ImageResponse } from '@vercel/og'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
-import type { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
 
@@ -10,7 +10,7 @@ import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
 import { settingsQuery } from 'lib/sanity.queries'
 import type { Settings } from 'lib/types/content'
 
-export default async function og(req: NextRequest, res: NextResponse) {
+export default async function og(req: NextRequest) {
   const font = fetch(new URL('public/Inter-Bold.woff', import.meta.url)).then(
     (res) => res.arrayBuffer(),
   )
