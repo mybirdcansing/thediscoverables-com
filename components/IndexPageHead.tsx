@@ -15,21 +15,25 @@ export const PageHead = ({ settings }: IndexPageHeadProps) => {
     <Head>
       <title>{title}</title>
       <Meta />
-      <meta
-        key="description"
-        name="description"
-        content={toPlainText(description)}
-      />
-      <meta
-        property="og:image"
-        // Because OG images must have a absolute URL, we use the
-        // `VERCEL_URL` environment variable to get the deployment’s URL.
-        // More info:
-        // https://vercel.com/docs/concepts/projects/environment-variables
-        content={`${
-          process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
-        }/api/og?${new URLSearchParams({ title: ogImageTitle })}`}
-      />
+      {description && (
+        <meta
+          key="description"
+          name="description"
+          content={toPlainText(description)}
+        />
+      )}
+      {ogImageTitle && (
+        <meta
+          property="og:image"
+          // Because OG images must have a absolute URL, we use the
+          // `VERCEL_URL` environment variable to get the deployment’s URL.
+          // More info:
+          // https://vercel.com/docs/concepts/projects/environment-variables
+          content={`${
+            process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
+          }/api/og?${new URLSearchParams({ title: ogImageTitle })}`}
+        />
+      )}
     </Head>
   )
 }

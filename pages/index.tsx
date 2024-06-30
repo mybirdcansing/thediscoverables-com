@@ -20,9 +20,9 @@ export default function RenderPage(props: HomepageProps) {
   const { draftMode, settings } = props
 
   return draftMode ? (
-    <PreviewHomepage homepage={props} settings={settings} />
+    <PreviewHomepage homepage={props} settings={settings ?? {}} />
   ) : (
-    <Homepage homepage={props} settings={settings} />
+    <Homepage homepage={props} settings={settings ?? {}} />
   )
 }
 

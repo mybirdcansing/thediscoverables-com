@@ -20,7 +20,10 @@ export const useSongNavigation = (
         return
       }
       const player = audioRef.current
-      const src = song.audioFile.asset.url
+      const src = song.audioFile?.asset.url
+      if (!player || !src) {
+        return
+      }
 
       if (player.src !== src) {
         dispatch({ type: 'SET_LOADING', payload: true })

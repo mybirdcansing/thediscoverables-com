@@ -15,7 +15,7 @@ export interface AlbumPageProps {
   preview?: boolean
   loading?: boolean
   album: Album
-  settings: Settings
+  settings?: Settings
 }
 
 export default function AlbumPage(props: AlbumPageProps) {

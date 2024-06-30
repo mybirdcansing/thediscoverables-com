@@ -16,7 +16,7 @@ export default async function og(req: NextRequest, res: NextResponse) {
   )
   const { searchParams } = new URL(req.url)
 
-  let title = searchParams.get('title')
+  let title: string | null | undefined = searchParams.get('title')
   if (!title) {
     const client = createClient({
       projectId,

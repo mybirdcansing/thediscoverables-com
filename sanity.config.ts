@@ -26,6 +26,11 @@ import songType from 'schemas/song'
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
 
+const productionPlugins =
+  process.env.NODE_ENV !== 'production'
+    ? [debugSecrets(), visionTool({ defaultApiVersion: apiVersion })]
+    : []
+
 export default defineConfig({
   basePath: '/studio',
   projectId,
@@ -54,11 +59,6 @@ export default defineConfig({
     settingsPlugin({ type: settingsType.name }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
-    // The remaining plugins are only loaded in dev mode
-    process.env.NODE_ENV !== 'production' && debugSecrets(),
-    // Vision lets you query your content with GROQ in the studio
-    // https://www.sanity.io/docs/the-vision-plugin
-    process.env.NODE_ENV !== 'production' &&
-      visionTool({ defaultApiVersion: apiVersion }),
+    ...productionPlugins,
   ],
 })

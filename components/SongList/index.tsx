@@ -10,7 +10,7 @@ import styles from './SongList.module.css'
 
 export interface SongListProps {
   title?: string
-  songs: Array<Song>
+  songs?: Array<Song>
   bulletStyle?: BulletStyle
   showAlbumLink?: boolean
 }
@@ -26,8 +26,7 @@ export const SongList = ({
     state: { activeSong, isLoading, isPlaying },
   } = usePlayerContext()
 
-  const isActiveSong = (song: Song | undefined) =>
-    activeSong && activeSong._id === song._id
+  const isActiveSong = (song: Song | undefined) => activeSong?._id === song?._id
   const handleClickSong = (song: Song) => {
     setSong(song, songs)
   }
@@ -40,7 +39,7 @@ export const SongList = ({
             const { _id, album, duration, title: songTitle } = song
             const artSrc =
               bulletStyle === BulletStyle.Artwork && hasAlbumArt(album)
-                ? urlForImage(album.coverImage).height(94).width(94).url()
+                ? urlForImage(album?.coverImage).height(94).width(94).url()
                 : undefined
 
             const albumSlug =
@@ -144,7 +143,7 @@ export const SongList = ({
                         href={`/albums/${encodeURIComponent(albumSlug)}`}
                         className="text-slate-400 hover:underline py-2 md:p-0"
                       >
-                        {album.title ?? 'Album'}
+                        {album?.title ?? 'Album'}
                       </Link>
                     )}
                   </div>

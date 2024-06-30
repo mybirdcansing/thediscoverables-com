@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps<any, Query> = async ({
   draftMode = false,
   params,
 }) => {
-  const { slug } = params
+  const slug = params?.slug ?? '/'
   const client = getClient(draftMode ? { token: readToken } : undefined)
   const [settings, album] = await Promise.all([
     getSettings(client),

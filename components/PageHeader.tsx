@@ -11,7 +11,7 @@ export const PageHeader = ({
   level,
   isLightFont,
 }: {
-  title: string
+  title?: string
   description?: Array<PortableTextBlock>
   level: 1 | 2
   isLightFont?: boolean

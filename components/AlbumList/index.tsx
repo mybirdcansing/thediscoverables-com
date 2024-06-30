@@ -5,10 +5,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 export interface AlbumListProps {
   albumsTitle?: string
-  albums: Array<Album>
+  albums?: Array<Album>
 }
 
 export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
+  if (!albums) {
+    return
+  }
   return (
     <Container className="flex flex-col place-items-center">
       <div className="max-w-4xl w-full flex flex-col gap-4">
@@ -21,13 +24,15 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
 
             return (
               <Link
-                href={`/albums/${album.slug.current}`}
+                href={`/albums/${album.slug?.current}`}
                 key={album._id}
                 className="flex flex-row gap-4"
               >
                 <div className="flex flex-col gap-2">
                   <div className="relative w-32 h-32 md:w-64 md:h-64">
-                    <Image src={artSrc} alt="Album thumbnail" fill />
+                    {artSrc && (
+                      <Image src={artSrc} alt="Album thumbnail" fill />
+                    )}
                   </div>
                   <div>{album.title}</div>
                 </div>

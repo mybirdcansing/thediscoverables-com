@@ -4,14 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 interface CoverImageProps {
-  title: string
+  title?: string
   slug?: { current: string }
   image: any
   priority?: boolean
 }
 
 export const CoverImage = (props: CoverImageProps) => {
-  const { title, slug, image: source, priority } = props
+  const { title = '', slug, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {

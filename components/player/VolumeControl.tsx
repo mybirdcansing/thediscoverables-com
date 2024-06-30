@@ -5,9 +5,9 @@ interface VolumeControlProps {
   lowerVolume: () => void
   raiseVolume: () => void
   setVolume: (e: React.ChangeEvent<HTMLInputElement>) => void
-  playerVolumeSliderRef: React.RefObject<HTMLInputElement | null>
+  playerVolumeSliderRef: React.RefObject<HTMLInputElement>
   isIOS: boolean
-  airPlayRef: React.RefObject<HTMLSpanElement | null>
+  airPlayRef: React.RefObject<HTMLSpanElement>
 }
 
 export const VolumeControl = ({

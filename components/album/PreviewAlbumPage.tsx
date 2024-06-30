@@ -13,7 +13,7 @@ export const PreviewAlbumPage = (props: AlbumPageProps) => {
     },
   )
   const [settings, loadingSettings] = useLiveQuery<Settings>(
-    props.settings,
+    props.settings ?? {},
     settingsQuery,
   )
 

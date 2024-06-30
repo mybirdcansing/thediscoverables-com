@@ -9,7 +9,7 @@ import { useSongNavigation } from './useSongNavigation'
 import { useVolumeControl } from './useVolumeControl'
 
 export interface PlayerHook {
-  activeSong: Song | undefined
+  activeSong: Song | null
   isPlaying: boolean
   isLoading: boolean
   currentTime: number
@@ -54,7 +54,7 @@ export const usePlayer = (): PlayerHook => {
 
   const { toggleSong, playPrevious, playNext } = useSongNavigation(
     audioRef,
-    playlist,
+    playlist ?? [],
     songIndex,
     setIsPlaying,
   )
@@ -94,7 +94,7 @@ export const usePlayer = (): PlayerHook => {
     isLoading,
     currentTime,
     duration,
-    playlist,
+    playlist: playlist ?? [],
     audioRef,
     airPlayRef,
     playerVolumeSliderRef,
