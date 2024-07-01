@@ -1,8 +1,6 @@
 import { CogIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
-import OpenGraphInput from './OpenGraphInput'
-
 export default defineType({
   name: 'settings',
   title: 'Settings',
@@ -52,21 +50,11 @@ export default defineType({
     }),
     defineField({
       name: 'ogImage',
-      title: 'Open Graph Image',
-      description:
-        'Used for social media previews when linking to the index page.',
-      type: 'object',
-      components: {
-        input: OpenGraphInput as any,
+      title: 'Seo Image',
+      type: 'image',
+      options: {
+        hotspot: true,
       },
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Title',
-          type: 'string',
-          initialValue: '',
-        }),
-      ],
     }),
   ],
 })

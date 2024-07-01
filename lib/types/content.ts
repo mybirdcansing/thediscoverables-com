@@ -57,7 +57,5 @@ export interface Settings {
   _type?: 'settings'
   title?: string
   description?: Array<PortableTextBlock>
-  ogImage?: {
-    title?: string
-  }
+  ogImage?: SanityImage
 }
