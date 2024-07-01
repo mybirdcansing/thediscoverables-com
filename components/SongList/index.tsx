@@ -131,7 +131,7 @@ export const SongList = ({
                       onClick={() => {
                         handleClickSong(song)
                       }}
-                      className="cursor-pointer py-2 md:p-0"
+                      className="cursor-pointer py-2 md:p-0 text-left"
                     >
                       {songTitle}
                     </button>
