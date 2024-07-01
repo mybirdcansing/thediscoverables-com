@@ -3,11 +3,11 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next",
+    "dev": "next dev",
+    "start": "next start",
     "format": "npx prettier --write . --ignore-path .gitignore --cache",
     "lint": "next lint --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
-    "start": "next start",
     "type-check": "tsc --noEmit"
   },
   "prettier": {
@@ -27,6 +27,7 @@
     "classnames": "^2.5.1",
     "date-fns": "3.3.1",
     "intl-segmenter-polyfill": "0.4.4",
+    "lodash": "^4.17.21",
     "n": "^9.2.1",
     "next": "^14.2.4",
     "next-sanity": "8.1.5",

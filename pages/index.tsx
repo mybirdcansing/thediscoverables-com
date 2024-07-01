@@ -3,6 +3,7 @@ import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
 import { getHomepage, getSettings } from 'lib/sanity.getters'
 import type { HomepageProps } from 'lib/types/pages'
+import isEmpty from 'lodash/isEmpty'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -36,6 +37,11 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
     getHomepage(client),
   ])
 
+  if (!homepage || isEmpty(homepage) || !settings || isEmpty(settings)) {
+    return {
+      notFound: true,
+    }
+  }
   const {
     backgroundImage,
     description,
