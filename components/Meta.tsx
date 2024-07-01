@@ -14,7 +14,7 @@ export const Meta = () => {
       <link
         rel="icon"
         type="image/png"
-        sizes="32x32"
+        sizes="64px"
         href="/favicon/favicon-32x32.png"
       />
       <link

@@ -20,11 +20,10 @@ export const CoverImage = (props: CoverImageProps) => {
     >
       <Image
         className="aspect-square"
-        width={500}
-        height={500}
-        alt=""
-        src={urlForImage(source).height(1000).width(1000).url()}
-        sizes="100vw"
+        width={750}
+        height={750}
+        alt={`Cover image for ${title}`}
+        src={urlForImage(source).url()}
         priority={priority}
       />
     </div>

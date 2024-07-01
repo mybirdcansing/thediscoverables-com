@@ -44,7 +44,8 @@ export const AudioSlider = ({
     }
     const rect = sliderRef.current.getBoundingClientRect()
     const newX = (currentTime / duration) * rect.width
-    api.start({ x: newX, immediate: false })
+
+    api.start({ x: isNaN(newX) ? 0 : newX, immediate: false })
   }, [currentTime, duration, isDragging, api])
 
   React.useEffect(() => {

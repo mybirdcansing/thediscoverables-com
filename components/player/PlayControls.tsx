@@ -31,13 +31,7 @@ export const PlayControls = ({
         })}
         onClick={playPrevious}
       >
-        <Image
-          src="/previous-icon.svg"
-          alt="Previous"
-          unoptimized
-          width={46}
-          height={46}
-        />
+        <Image src="/previous-icon.svg" alt="Previous" width={46} height={46} />
       </button>
       <button onClick={toggleSong}>
         {!isLoading && !isPlaying && (
@@ -45,9 +39,8 @@ export const PlayControls = ({
             src="/play-icon.svg"
             alt="Play"
             className="play"
-            unoptimized
             width={46}
-            height={44}
+            height={46}
           />
         )}
         {!isLoading && isPlaying && (
@@ -55,9 +48,8 @@ export const PlayControls = ({
             src="/pause-icon.svg"
             alt="Pause"
             className="pause"
-            unoptimized
             width={46}
-            height={44}
+            height={46}
           />
         )}
         {isLoading && (
@@ -65,9 +57,8 @@ export const PlayControls = ({
             src="/spinner-icon.svg"
             alt="Loading"
             className="spinner"
-            unoptimized
             width={46}
-            height={44}
+            height={46}
           />
         )}
       </button>

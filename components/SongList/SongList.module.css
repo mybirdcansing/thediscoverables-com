@@ -19,7 +19,6 @@
   display: none;
   position: absolute;
   opacity: 0.5;
-  height: auto;
 }
 .song-list-row.active-song.playing .pause {
   display: block;
@@ -55,16 +54,8 @@
   width: 46px;
   height: 46px;
 }
-.song-list-album-artwork img {
-  width: 'auto';
-}
-.song-title {
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.song-list-listen-icon {
-  opacity: 0.2;
+.song-list-album-artwork img,
+.song-list-album-artwork svg {
+  height: auto;
+  aspect-ratio: 1 / 1;
 }

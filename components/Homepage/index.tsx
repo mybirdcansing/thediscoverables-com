@@ -46,6 +46,7 @@ export const Homepage = (props: IndexPageProps) => {
               fill
               style={{ objectFit: 'cover' }}
               priority
+              sizes="100vw"
             />
           )}
           <Container>
