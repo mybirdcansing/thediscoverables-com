@@ -46,6 +46,7 @@ export const SongList = ({
               showAlbumLink && album?.slug?.current
                 ? album.slug.current
                 : undefined
+            const songNumber = index + 1
 
             return (
               <div
@@ -100,8 +101,9 @@ export const SongList = ({
                         viewBox="0 0 46 46"
                         className={styles['song-list-index']}
                       >
+                        <title>Song number {songNumber}</title>
                         <text x="16" y="27" fill="white">
-                          {index + 1}
+                          {songNumber}
                         </text>
                       </svg>
                     )}

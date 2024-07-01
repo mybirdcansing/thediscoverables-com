@@ -21,7 +21,9 @@ export interface AlbumPageProps {
 export default function AlbumPage(props: AlbumPageProps) {
   const { album, settings, loading, preview } = props
 
-  if (!album || !settings) return null
+  if (!album || !settings) {
+    return null
+  }
 
   const { title: pageTitle } = settings
   const {

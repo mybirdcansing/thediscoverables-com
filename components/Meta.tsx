@@ -1,7 +1,3 @@
-/**
- * All the shared stuff that goes into <head> on `(blog)` routes, can be be imported by `head.tsx` files in the /app dir or wrapped in a <Head> component in the /pages dir.
- */
-
 export const Meta = () => {
   return (
     <>
@@ -14,7 +10,7 @@ export const Meta = () => {
       <link
         rel="icon"
         type="image/png"
-        sizes="64px"
+        sizes="32x32"
         href="/favicon/favicon-32x32.png"
       />
       <link

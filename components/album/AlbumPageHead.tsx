@@ -1,3 +1,4 @@
+import { toPlainText } from '@portabletext/react'
 import { Meta } from 'components/Meta'
 import { urlForImage } from 'lib/sanity.image'
 import { Album, Settings } from 'lib/types/content'
@@ -10,11 +11,18 @@ export interface AlbumPageHeadProps {
 
 export const AlbumPageHead = ({ settings, album }: AlbumPageHeadProps) => {
   const bandName = settings.title || process.env.NEXT_PUBLIC_BAND_NAME
-
+  const { description } = album
   return (
     <Head>
       <title>{album.title ? `${album.title} by ${bandName}` : bandName}</title>
       <Meta />
+      {description && (
+        <meta
+          key="description"
+          name="description"
+          content={toPlainText(description)}
+        />
+      )}
       {album.coverImage?.asset?._ref && (
         <meta
           property="og:image"
