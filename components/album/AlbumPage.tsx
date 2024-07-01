@@ -7,6 +7,7 @@ import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
 import type { Album, Settings } from 'lib/types/content'
 import { BulletStyle } from 'lib/types/content'
+import isEmpty from 'lodash/isEmpty'
 
 import { AlbumDate } from './AlbumDate'
 import { AlbumTitle } from './AlbumTitle'
@@ -21,7 +22,7 @@ export interface AlbumPageProps {
 export default function AlbumPage(props: AlbumPageProps) {
   const { album, settings, loading, preview } = props
 
-  if (!album || !settings) {
+  if (!album || isEmpty(album) || !settings || isEmpty(settings)) {
     return null
   }
 

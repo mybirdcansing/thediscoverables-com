@@ -96,12 +96,13 @@ export const SongList = ({
                   <div className={styles['song-list-album-artwork']}>
                     {bulletStyle === BulletStyle.Number && (
                       <svg
-                        x="0px"
-                        y="0px"
+                        x="0"
+                        y="0"
+                        xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 46 46"
                         className={styles['song-list-index']}
                       >
-                        <title>Song number {songNumber}</title>
+                        <title>{`Song number ${songNumber}`}</title>
                         <text x="16" y="27" fill="white">
                           {songNumber}
                         </text>
