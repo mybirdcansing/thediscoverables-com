@@ -29,7 +29,7 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
                 className="flex flex-row gap-4"
               >
                 <div className="flex flex-col gap-2">
-                  <div className="relative w-32 h-32 md:w-64 md:h-64">
+                  <div className="relative w-40 h-40 md:w-64 md:h-64">
                     {artSrc && (
                       <Image
                         src={artSrc}

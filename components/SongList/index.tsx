@@ -134,7 +134,7 @@ export const SongList = ({
                       onClick={() => {
                         handleClickSong(song)
                       }}
-                      className="cursor-pointer py-2 md:p-0 text-left"
+                      className="cursor-pointer pb-0.5 md:p-0 text-left"
                     >
                       {songTitle}
                     </button>
@@ -144,7 +144,7 @@ export const SongList = ({
                           e.stopPropagation()
                         }}
                         href={`/albums/${encodeURIComponent(albumSlug)}`}
-                        className="text-slate-400 hover:underline py-2 md:p-0"
+                        className="text-slate-400 hover:underline"
                       >
                         {album?.title ?? 'Album'}
                       </Link>

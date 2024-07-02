@@ -24,34 +24,25 @@ export const Homepage = (props: IndexPageProps) => {
   const { settings, homepage, preview, loading } = props
 
   const { title } = settings || {}
-  const { backgroundImage, songsTitle, songs, albumsTitle, albums } = homepage
-
-  const backgroundImageUrl = React.useMemo(
-    () =>
-      backgroundImage?.asset?._ref
-        ? urlForImage(backgroundImage).url()
-        : undefined,
-    [backgroundImage],
-  )
+  const { songsTitle, songs, albumsTitle, albums } = homepage
 
   return (
     <PageLayout settings={settings} preview={preview} loading={loading}>
-      <div className="pb-20">
+      <div className="pb-20 relative">
         <PageHead settings={settings} />
         <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-10">
-          {backgroundImageUrl && (
-            <Image
-              src={backgroundImageUrl}
-              alt={`${title} hero image`}
-              fill
-              style={{ objectFit: 'cover' }}
-              priority
-              sizes="100vw"
-            />
-          )}
-          <Container>
-            <div className="absolute z-10 left-10 -top-2 sm:top-0 lg:top-6">
-              <PageHeader title={title} level={1} />
+          <Image
+            src="/xx-large-adam_bay5.jpg"
+            alt={`${title} hero image`}
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+            sizes="100vw"
+          />
+
+          <Container className="relative">
+            <div className="absolute top-0">
+              <PageHeader title={title} />
             </div>
           </Container>
 

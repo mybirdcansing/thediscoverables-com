@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import cx from 'classnames'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ export const CoverImage = (props: CoverImageProps) => {
   const { title = '', slug, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div
-      className={cn('shadow-small', {
+      className={cx('shadow-small', {
         'transition-shadow duration-200 hover:shadow-medium': slug?.current,
       })}
     >
