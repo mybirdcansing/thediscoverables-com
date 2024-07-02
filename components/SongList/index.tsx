@@ -33,7 +33,7 @@ export const SongList = ({
   return (
     <Container className="flex flex-col place-items-center">
       <div className="max-w-4xl w-full flex flex-col gap-1">
-        {title && <h2>{title}</h2>}
+        {title && <h2 className="pb-2">{title}</h2>}
         {songs?.length &&
           songs.map((song, index) => {
             const { _id, album, duration, title: songTitle } = song

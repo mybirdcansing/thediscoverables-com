@@ -22,9 +22,9 @@ import albumType from 'schemas/album'
 import homepageType from 'schemas/homepage'
 import settingsType from 'schemas/settings'
 import songType from 'schemas/song'
+import songsType from 'schemas/songs'
 
-const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
+const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Artist Website'
 
 const productionPlugins =
   process.env.NODE_ENV !== 'production'
@@ -38,7 +38,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [homepageType, songType, albumType, settingsType],
+    types: [homepageType, songType, songsType, albumType, settingsType],
   },
   plugins: [
     structureTool({

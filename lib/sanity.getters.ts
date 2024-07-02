@@ -1,23 +1,29 @@
+import { SongsPageProps } from 'components/Songs/SongsPage'
 import {
   albumBySlugQuery,
   albumSlugsQuery,
   homepageQuery,
   indexQuery,
   settingsQuery,
+  songsQuery,
 } from 'lib/sanity.queries'
 import { type SanityClient } from 'next-sanity'
 
 import { Album, Settings } from './types/content'
 import { HomepageProps } from './types/pages'
 
-export async function getSettings(client: SanityClient): Promise<Settings> {
-  return (await client.fetch(settingsQuery)) || {}
-}
-
 export async function getAllAlbums(
   client: SanityClient,
 ): Promise<Array<Album>> {
   return (await client.fetch(indexQuery)) || []
+}
+
+export async function getSettings(client: SanityClient): Promise<Settings> {
+  return (await client.fetch(settingsQuery)) || {}
+}
+
+export async function getSongs(client: SanityClient): Promise<SongsPageProps> {
+  return (await client.fetch(songsQuery)) || []
 }
 
 export async function getAlbumSlugs(

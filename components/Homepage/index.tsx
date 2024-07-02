@@ -8,6 +8,7 @@ import { SongList } from 'components/SongList'
 import { BulletStyle, type Settings } from 'lib/types/content'
 import type { HomepageProps } from 'lib/types/pages'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 import styles from './Homepage.module.css'
@@ -59,6 +60,13 @@ export const Homepage = (props: IndexPageProps) => {
             bulletStyle={BulletStyle.Artwork}
             showAlbumLink
           />
+          <Container className="flex flex-col place-items-center">
+            <div className="max-w-4xl w-full flex flex-col ">
+              <Link href="/songs" className="hover:underline">
+                ALL SONGS
+              </Link>
+            </div>
+          </Container>
           <AlbumList albums={albums} albumsTitle={albumsTitle} />
         </section>
       </div>

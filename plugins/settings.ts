@@ -22,6 +22,13 @@ const homepageType: TypeDef = {
   icon: HomeIcon,
   name: 'homepage',
 }
+
+const songsType: TypeDef = {
+  title: 'Song Listing Page',
+  icon: CogIcon,
+  name: 'songs',
+}
+
 export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   return {
     name: 'settings',
@@ -70,6 +77,8 @@ export const settingsStructure = (): StructureResolver => {
     // The `Homepage` list item
     const homepageListItem = singletonStructureItem(S, homepageType, true)
 
+    const songsListItem = singletonStructureItem(S, songsType, true)
+
     const defaultListItems = S.documentTypeListItems().filter(
       (listItem) => listItem.getId() === 'sanity.previewUrlSecret',
     )
@@ -78,6 +87,7 @@ export const settingsStructure = (): StructureResolver => {
       .title('Content')
       .items([
         homepageListItem,
+        songsListItem,
         S.listItem()
           .title('Songs')
           .child(

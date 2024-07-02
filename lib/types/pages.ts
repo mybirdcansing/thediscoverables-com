@@ -10,7 +10,7 @@ export interface SharedPageProps {
 }
 
 export interface HomepageProps extends SharedPageProps {
-  type: 'homepage'
+  _type: 'homepage'
   backgroundImage?: any
   description?: Array<PortableTextBlock>
   albumsTitle?: string
@@ -21,6 +21,13 @@ export interface HomepageProps extends SharedPageProps {
 }
 
 export interface AlbumViewProps extends SharedPageProps {
-  type: 'album'
+  _type: 'album'
   album: Album
+}
+
+export interface SongsViewProps extends SharedPageProps {
+  _type: 'songs'
+  songs?: Playlist
+  title?: string
+  description?: Array<PortableTextBlock>
 }

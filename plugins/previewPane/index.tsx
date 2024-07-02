@@ -12,6 +12,7 @@ import type {
 import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import albumType from 'schemas/album'
 import homepageType from 'schemas/homepage'
+import songsType from 'schemas/songs'
 
 export const iframeOptions = {
   url: {
@@ -27,9 +28,13 @@ export const iframeOptions = {
             : new Error('Missing slug')
         case 'homepage':
           return `/`
+        case 'songs':
+          return `/songs`
 
         default:
-          return new Error(`Unknown document type: ${document?._type}`)
+          return new Error(
+            `Unknown document type: ${document?._type}. See iframeOptions in plugins/previewPane/index.tsx`,
+          )
       }
     },
     draftMode: DRAFT_MODE_ROUTE,
@@ -43,7 +48,11 @@ export const previewDocumentViews = (S: StructureBuilder) => [
 ]
 export const previewDocumentNode = (): DefaultDocumentNodeResolver => {
   return (S, { schemaType }) => {
-    if ([albumType.name, homepageType.name].includes(schemaType as any)) {
+    if (
+      [albumType.name, homepageType.name, songsType.name].includes(
+        schemaType as any,
+      )
+    ) {
       return S.document().views(previewDocumentViews(S))
     }
   }

@@ -38,6 +38,29 @@ export const albumBySlugQuery = groq`
   ${albumFields}
 }
 `
+export const songsQuery = groq`
+*[_type == "songs"][0] {
+  ...,
+  songs[]->{
+    _id,
+    title,
+    duration,
+    _createdAt,
+    audioFile{
+      asset->{
+        url,
+        mimeType,        
+      }
+    },
+    'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
+      _id,
+      coverImage,
+      title,
+      slug
+    }
+  }
+}
+`
 
 export const homepageQuery = groq`
 *[_type == "homepage"][0] {
