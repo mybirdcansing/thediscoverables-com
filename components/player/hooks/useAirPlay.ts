@@ -11,24 +11,36 @@ export const useAirPlay = (
     if (!player || !airPlay || typeof window === 'undefined') {
       return
     }
+    const airPlayClickHandler = () => {
+      player.webkitShowPlaybackTargetPicker()
+    }
+    airPlay.addEventListener('click', airPlayClickHandler)
 
-    if (window.WebKitPlaybackTargetAvailabilityEvent) {
+    const airPlayChangedHandler = (ev: Event) => {
+      const event = ev as WebKitPlaybackTargetAvailabilityEvent
+      if (event.availability === 'available') {
+        airPlay.style.display = 'inline-block'
+      } else {
+        airPlay.style.display = 'none'
+      }
+      airPlay.addEventListener('click', () => {
+        player.webkitShowPlaybackTargetPicker()
+      })
+    }
+    if (typeof window.WebKitPlaybackTargetAvailabilityEvent === 'function') {
       player.addEventListener(
         'webkitplaybacktargetavailabilitychanged',
-        (ev: Event) => {
-          const event = ev as WebKitPlaybackTargetAvailabilityEvent
-          if (event.availability === 'available') {
-            airPlay.style.display = 'inline-block'
-          } else {
-            airPlay.style.display = 'none'
-          }
-          airPlay.addEventListener('click', () => {
-            player.webkitShowPlaybackTargetPicker()
-          })
-        },
+        airPlayChangedHandler,
       )
     } else {
       airPlay.style.display = 'none'
+    }
+    return () => {
+      airPlay.removeEventListener('click', airPlayClickHandler)
+      player.removeEventListener(
+        'webkitplaybacktargetavailabilitychanged',
+        airPlayChangedHandler,
+      )
     }
   }, [audioRef, airPlayRef])
 }

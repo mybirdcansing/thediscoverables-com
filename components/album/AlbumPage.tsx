@@ -11,7 +11,6 @@ import isEmpty from 'lodash/isEmpty'
 
 import { AlbumDate } from './AlbumDate'
 import { AlbumTitle } from './AlbumTitle'
-import Link from 'next/link'
 
 export interface AlbumPageProps {
   preview?: boolean
