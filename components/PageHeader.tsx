@@ -22,7 +22,9 @@ export const PageHeader = ({
           isLightFont ? 'text-slate-300' : 'text-slate-700',
         )}
       >
-        <Link href="/">{title}</Link>
+        <Link href="/" className="hover:underline">
+          {title}
+        </Link>
       </h1>
       {description && (
         <h4

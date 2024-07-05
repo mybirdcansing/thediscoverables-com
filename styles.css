@@ -20,5 +20,5 @@ img {
 }
 
 h2 {
-  @apply text-base md:text-lg lg:text-xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty text-slate-200;
+  @apply text-lg lg:text-xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty text-slate-200;
 }

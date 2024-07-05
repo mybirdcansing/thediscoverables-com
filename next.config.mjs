@@ -18,19 +18,6 @@ const config = {
   env: {
     NEXT_PUBLIC_BAND_NAME: 'The Discoverables' || process.env.BAND_NAME,
   },
-  async headers() {
-    return [
-      {
-        source: '/_next/image',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=604800, immutable',
-          },
-        ],
-      },
-    ]
-  },
 }
 
 export default config

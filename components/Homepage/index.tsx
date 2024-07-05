@@ -35,9 +35,9 @@ export const Homepage = (props: IndexPageProps) => {
             src="/xx-large-adam_bay5.jpg"
             alt={`${title} hero image`}
             fill
-            style={{ objectFit: 'cover' }}
             priority
             sizes="100vw"
+            style={{ objectFit: 'cover' }}
           />
 
           <Container className="relative">
@@ -63,7 +63,7 @@ export const Homepage = (props: IndexPageProps) => {
           <Container className="flex flex-col place-items-center">
             <div className="max-w-4xl w-full flex flex-col ">
               <Link href="/songs" className="hover:underline">
-                ALL SONGS
+                ALL SONGS &gt;
               </Link>
             </div>
           </Container>
