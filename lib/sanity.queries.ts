@@ -68,7 +68,7 @@ export const homepageQuery = groq`
   description,
   backgroundImage,
   albumsTitle,
-  'albums': *[_type == 'album']{
+  'albums': *[_type == 'album']| order(publishDate desc){
     _id,
     title,
     slug,
