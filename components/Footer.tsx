@@ -10,10 +10,10 @@ export const Footer = ({ settings }: FooterProps) => {
   } = usePlayerContext()
   const { title } = settings
   return (
-    <footer className="flex flex-row justify-center">
+    <footer className="flex flex-row justify-center p-4">
       Copyright © 2019 - {new Date().getFullYear()}{' '}
       {title || process.env.NEXT_PUBLIC_BAND_NAME}
-      <div className={!!activeSong ? 'h-36' : 'h-10'}></div>
+      <div className={!!activeSong ? 'h-32' : 'h-6'}></div>
     </footer>
   )
 }

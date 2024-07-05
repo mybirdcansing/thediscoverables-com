@@ -52,7 +52,7 @@ export const Player = () => {
           activeSong={activeSong}
         />
       </div>
-      <div className="flex flex-col sm:flex-row place-content-center place-items-center gap-y-2 gap-x-4">
+      <div className="flex flex-row place-content-center place-items-center gap-y-2 gap-x-4">
         <PlayControls
           isPlaying={isPlaying}
           isLoading={isLoading}
