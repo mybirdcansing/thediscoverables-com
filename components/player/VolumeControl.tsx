@@ -2,8 +2,8 @@ import Image from 'next/image'
 import React from 'react'
 
 interface VolumeControlProps {
-  lowerVolume: () => void
-  raiseVolume: () => void
+  lowerVolume: (e: React.MouseEvent) => void
+  raiseVolume: (e: React.MouseEvent) => void
   setVolume: (e: React.ChangeEvent<HTMLInputElement>) => void
   playerVolumeSliderRef: React.RefObject<HTMLInputElement>
   isIOS: boolean
@@ -35,7 +35,7 @@ export const VolumeControl = ({
           </svg>
         </span>
       ) : (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-2">
           <button onClick={lowerVolume}>
             <Image
               src="/volume_down.svg"
@@ -47,6 +47,7 @@ export const VolumeControl = ({
           </button>
           <input
             onInput={setVolume}
+            onClick={(e) => e.stopPropagation()}
             ref={playerVolumeSliderRef}
             type="range"
             min="0"

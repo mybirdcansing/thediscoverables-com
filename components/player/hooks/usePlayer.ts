@@ -18,13 +18,13 @@ export interface PlayerHook {
   playlist: Playlist
   airPlayRef: React.MutableRefObject<HTMLSpanElement | null>
   playerVolumeSliderRef: React.MutableRefObject<HTMLInputElement | null>
-  toggleSong: (song: Song) => void
+  toggleSong: (song: Song, e?: React.MouseEvent) => void
   setVolume: (e: React.ChangeEvent<HTMLInputElement>) => void
   songIndex: () => number
   lowerVolume: () => void
   raiseVolume: () => void
-  playPrevious: () => void
-  playNext: (loop: boolean) => void
+  playPrevious: (e?: React.MouseEvent) => void
+  playNext: (loop: boolean, e?: React.MouseEvent) => void
 }
 
 export const usePlayer = (): PlayerHook => {

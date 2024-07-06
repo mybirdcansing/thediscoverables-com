@@ -20,6 +20,12 @@ export default defineType({
       of: [{ type: 'block' }],
     }),
     defineField({
+      name: 'lyrics',
+      title: 'Lyrics',
+      type: 'array',
+      of: [{ type: 'block' }],
+    }),
+    defineField({
       title: 'audioFile',
       name: 'audioFile',
       type: 'file',

@@ -26,6 +26,13 @@ export default function AlbumPage(props: AlbumPageProps) {
     return null
   }
 
+  const songsWithAlbum = album.songs?.map((song) => ({
+    ...song,
+    album: {
+      ...album,
+      songs: undefined,
+    },
+  }))
   const { title: pageTitle } = settings
   const {
     coverImage,
@@ -50,6 +57,7 @@ export default function AlbumPage(props: AlbumPageProps) {
                   slug={slug}
                 />
               </div>
+
               <div>
                 <AlbumTitle>{albumTitle}</AlbumTitle>
                 <div className="mx-auto max-w-2xl">
@@ -62,7 +70,7 @@ export default function AlbumPage(props: AlbumPageProps) {
             </div>
           </div>
         </section>
-        <SongList songs={album.songs} bulletStyle={BulletStyle.Number} />
+        <SongList songs={songsWithAlbum} bulletStyle={BulletStyle.Number} />
       </Container>
     </PageLayout>
   )

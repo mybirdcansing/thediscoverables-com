@@ -34,6 +34,7 @@ export interface Song {
   title?: string
   url?: string
   description?: Array<PortableTextBlock>
+  lyrics?: Array<PortableTextBlock>
   duration?: string
   album?: Album
   audioFile?: AudioFile
