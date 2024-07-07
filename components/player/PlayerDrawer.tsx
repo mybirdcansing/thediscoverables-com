@@ -10,7 +10,7 @@ interface Tab {
   content: React.ReactNode
 }
 
-const EXPAND_DELAY = 35 // Define the delay as a constant
+const EXPAND_DELAY = 35
 
 export const PlayerDrawer = () => {
   const { activeSong, playlist, isDrawerExpanded } = usePlayer()
@@ -21,7 +21,6 @@ export const PlayerDrawer = () => {
 
   const { scrollY, height } = useWindowContext()
 
-  // Handle tab click
   const handleTabClick = (index: number) => {
     setActiveTab(index)
   }
@@ -32,13 +31,6 @@ export const PlayerDrawer = () => {
       if (!isDrawerExpanded) {
         setIsVisible(false)
         setExpand(false)
-      }
-      // Remove the event listener after the transition ends
-      if (drawerRef.current) {
-        drawerRef.current.removeEventListener(
-          'transitionend',
-          handleTransitionEnd,
-        )
       }
     }
 
@@ -60,43 +52,49 @@ export const PlayerDrawer = () => {
     }
   }, [isDrawerExpanded])
 
-  // Trigger expand state with a slight delay
+  // Trigger expand state with a slight delay to make sure the drawer is rendering before the animation
+
   React.useEffect(() => {
     if (isDrawerExpanded) {
       setIsVisible(true)
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setExpand(true)
       }, EXPAND_DELAY)
+      return () => clearTimeout(timer)
     } else {
       setExpand(false)
     }
   }, [isDrawerExpanded])
 
-  const tabs: Array<Tab> = [
-    {
-      name: 'Next up',
-      content: (
-        <div>
-          {playlist.map((song: Song, index: number) => (
-            <div key={index}>
-              <p>{song.title}</p>
-            </div>
-          ))}
-        </div>
-      ),
-    },
-  ]
+  const tabs: Array<Tab> = React.useMemo(() => {
+    const tabsArray: Array<Tab> = [
+      {
+        name: 'Next up',
+        content: (
+          <div>
+            {playlist?.map((song: Song, index: number) => (
+              <div key={index}>
+                <p>{song.title}</p>
+              </div>
+            ))}
+          </div>
+        ),
+      },
+    ]
 
-  if (activeSong?.lyrics) {
-    tabs.push({
-      name: 'Lyrics',
-      content: (
-        <div className="h-[60vh] overflow-y-auto">
-          <PortableTextView content={activeSong.lyrics} />
-        </div>
-      ),
-    })
-  }
+    if (activeSong?.lyrics) {
+      tabsArray.push({
+        name: 'Lyrics',
+        content: (
+          <div className="h-[60vh] overflow-y-auto">
+            <PortableTextView content={activeSong.lyrics} />
+          </div>
+        ),
+      })
+    }
+
+    return tabsArray
+  }, [activeSong, playlist])
 
   // Reset active tab if it exceeds the number of tabs
   React.useEffect(() => {
@@ -129,13 +127,17 @@ export const PlayerDrawer = () => {
                   : 'text-gray-500'
               }`}
               onClick={() => handleTabClick(index)}
+              aria-selected={activeTab === index}
+              role="tab"
             >
               {tab.name}
             </button>
           ))}
         </div>
         {tabs.length > activeTab && (
-          <div className="p-4">{tabs[activeTab].content}</div>
+          <div className="p-4" role="tabpanel">
+            {tabs[activeTab].content}
+          </div>
         )}
       </div>
     </div>
