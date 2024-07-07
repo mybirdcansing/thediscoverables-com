@@ -10,6 +10,8 @@ interface Tab {
   content: React.ReactNode
 }
 
+const EXPAND_DELAY = 35 // Define the delay as a constant
+
 export const PlayerDrawer = () => {
   const { activeSong, playlist, isDrawerExpanded } = usePlayer()
   const drawerRef = React.useRef<HTMLDivElement>(null)
@@ -17,16 +19,26 @@ export const PlayerDrawer = () => {
   const [isVisible, setIsVisible] = React.useState(false)
   const [expand, setExpand] = React.useState(false)
 
+  const { scrollY, height } = useWindowContext()
+
+  // Handle tab click
   const handleTabClick = (index: number) => {
     setActiveTab(index)
   }
-  const { scrollY, height } = useWindowContext()
 
+  // Manage drawer visibility and expansion state
   React.useEffect(() => {
     const handleTransitionEnd = () => {
       if (!isDrawerExpanded) {
         setIsVisible(false)
         setExpand(false)
+      }
+      // Remove the event listener after the transition ends
+      if (drawerRef.current) {
+        drawerRef.current.removeEventListener(
+          'transitionend',
+          handleTransitionEnd,
+        )
       }
     }
 
@@ -48,18 +60,17 @@ export const PlayerDrawer = () => {
     }
   }, [isDrawerExpanded])
 
+  // Trigger expand state with a slight delay
   React.useEffect(() => {
     if (isDrawerExpanded) {
       setIsVisible(true)
       setTimeout(() => {
         setExpand(true)
-      }, 35)
+      }, EXPAND_DELAY)
     } else {
       setExpand(false)
     }
   }, [isDrawerExpanded])
-
-  if (!isVisible && !isDrawerExpanded) return null
 
   const tabs: Array<Tab> = [
     {
@@ -87,9 +98,14 @@ export const PlayerDrawer = () => {
     })
   }
 
-  if (tabs.length < activeTab) {
-    setActiveTab(0)
-  }
+  // Reset active tab if it exceeds the number of tabs
+  React.useEffect(() => {
+    if (tabs.length <= activeTab) {
+      setActiveTab(0)
+    }
+  }, [tabs.length, activeTab])
+
+  if (!isVisible && !isDrawerExpanded) return null
 
   return (
     <div
