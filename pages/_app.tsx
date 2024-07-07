@@ -5,6 +5,7 @@ import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppLayout } from 'components/AppLayout'
 import { PlayerProvider } from 'lib/playerContext'
 import { SharedPageProps } from 'lib/types/pages'
+import { WindowProvider } from 'lib/windowContext'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 
@@ -17,17 +18,19 @@ export default function App({
   const { draftMode, token } = pageProps
   return (
     <>
-      <PlayerProvider>
-        <AppLayout>
-          {draftMode ? (
-            <PreviewProvider token={token}>
+      <WindowProvider>
+        <PlayerProvider>
+          <AppLayout>
+            {draftMode ? (
+              <PreviewProvider token={token}>
+                <Component {...pageProps} />
+              </PreviewProvider>
+            ) : (
               <Component {...pageProps} />
-            </PreviewProvider>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </AppLayout>
-      </PlayerProvider>
+            )}
+          </AppLayout>
+        </PlayerProvider>
+      </WindowProvider>
       {draftMode && <VisualEditing />}
     </>
   )

@@ -11,7 +11,6 @@ interface SongDetailsProps {
 
 export const SongDetails = ({ activeSong }: SongDetailsProps) => {
   const album = activeSong.album
-  console.log(album)
 
   const artSrc =
     !!album && hasAlbumArt(album)
