@@ -30,7 +30,7 @@ export const Homepage = (props: IndexPageProps) => {
     <PageLayout settings={settings} preview={preview} loading={loading}>
       <div className="pb-20 relative">
         <PageHead settings={settings} />
-        <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-10">
+        <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-50">
           <Image
             src="/xx-large-adam_bay5.jpg"
             alt={`${title} hero image`}

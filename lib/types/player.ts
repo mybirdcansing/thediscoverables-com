@@ -13,6 +13,7 @@ export interface PlayerContextState {
   isLoading: boolean
   playlist: Playlist | null
   songClickIndex: number
+  isDrawerExpanded: boolean
 }
 
 export type PlayerContextAction =
@@ -25,3 +26,4 @@ export type PlayerContextAction =
   | { type: 'PAUSE' }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_PLAYLIST'; payload: { playlist: Playlist } }
+  | { type: 'SET_DRAWER_EXPANDED'; payload: boolean }

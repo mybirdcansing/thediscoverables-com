@@ -8,6 +8,7 @@ const initialState: PlayerContextState = {
   isPlaying: false,
   isLoading: false,
   playlist: [],
+  isDrawerExpanded: false,
   songClickIndex: 0,
 }
 
@@ -47,6 +48,8 @@ export const reducer = (
       return { ...state, playlist: action.payload.playlist }
     case 'SET_LOADING':
       return { ...state, isLoading: action.payload }
+    case 'SET_DRAWER_EXPANDED':
+      return { ...state, isDrawerExpanded: action.payload }
     default:
       throw new Error('Unknown action')
   }
