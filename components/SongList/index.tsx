@@ -2,6 +2,7 @@ import cx from 'classnames'
 import { usePlayerContext } from 'lib/playerContext'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
 import { BulletStyle } from 'lib/types/bulletStyle'
+import { Playlist } from 'lib/types/playlist'
 import { Song } from 'lib/types/song'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,9 +11,10 @@ import styles from './SongList.module.css'
 
 export interface SongListProps {
   title?: string
-  songs?: Array<Song>
+  songs?: Playlist
   bulletStyle?: BulletStyle
   showAlbumLink?: boolean
+  songsForQueue?: Playlist
 }
 
 export const SongList = ({
@@ -20,6 +22,7 @@ export const SongList = ({
   songs,
   bulletStyle = BulletStyle.Artwork,
   showAlbumLink = false,
+  songsForQueue,
 }: SongListProps) => {
   const {
     setSong,
@@ -28,7 +31,7 @@ export const SongList = ({
 
   const isActiveSong = (song: Song | undefined) => activeSong?._id === song?._id
   const handleClickSong = (song: Song) => {
-    setSong(song, songs)
+    setSong(song, songsForQueue ?? songs)
   }
   return (
     <div className="max-w-4xl w-full flex flex-col gap-1">

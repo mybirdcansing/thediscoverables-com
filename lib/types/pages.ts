@@ -18,6 +18,7 @@ export interface HomepageProps extends SharedPageProps {
   albums?: Array<Album>
   songsTitle?: string
   songs?: Playlist
+  allSongs?: Playlist
 }
 
 export interface AlbumViewProps extends SharedPageProps {

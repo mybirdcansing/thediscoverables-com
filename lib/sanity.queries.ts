@@ -10,10 +10,10 @@ const albumFields = groq`
   slug,
   "songs": songs[]->{
     _id,
+    _createdAt,
     title,
     duration,
     lyrics,
-    _createdAt,
     audioFile{
       asset->{
         url,
@@ -22,6 +22,29 @@ const albumFields = groq`
     },
   },
 `
+
+const songFields = groq`
+    _id,
+    _createdAt,
+    title,
+    duration,
+    lyrics,
+    audioFile{
+      asset->{
+        url,
+        mimeType,        
+      }
+    },
+    'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
+      _id,
+      title,
+      description,
+      publishDate,
+      coverImage,
+      _updatedAt,
+      slug,
+    }
+  `
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
@@ -43,23 +66,7 @@ export const songsQuery = groq`
 *[_type == "songs"][0] {
   ...,
   songs[]->{
-    _id,
-    title,
-    duration,
-    _createdAt,
-    audioFile{
-      asset->{
-        url,
-        mimeType,        
-      }
-    },
-    'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
-      _id,
-      coverImage,
-      title,
-      slug,
-      publishDate,      
-    }
+    ${songFields}
   }
 }
 `
@@ -79,26 +86,10 @@ export const homepageQuery = groq`
   },
   songsTitle,
   songs[]->{
-    _id,
-    title,
-    duration,
-    lyrics,
-    _createdAt,
-    audioFile{
-      asset->{
-        url,
-        mimeType,        
-      }
-    },
-    'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
-      _id,
-      title,
-      description,
-      publishDate,
-      coverImage,
-      _updatedAt,
-      slug,
-    }
+    ${songFields}
+  },
+  'allSongs': *[_type == "song"][] {
+    ${songFields}
   }
 }
 `

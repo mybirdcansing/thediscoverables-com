@@ -46,6 +46,7 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
     songs,
     songsTitle,
     albumsTitle,
+    allSongs,
   } = homepage
 
   return {
@@ -57,6 +58,7 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
       songsTitle,
       albumsTitle,
       draftMode,
+      allSongs,
       token: draftMode ? readToken : '',
     },
   }

@@ -31,13 +31,14 @@ export default function SongsPage(props: SongsPageProps) {
           description={description}
           isLightFont
         />
-
-        <SongList
-          title={title}
-          songs={songs}
-          bulletStyle={BulletStyle.Artwork}
-          showAlbumLink
-        />
+        <div className="flex flex-col place-items-center">
+          <SongList
+            title={title}
+            songs={songs}
+            bulletStyle={BulletStyle.Artwork}
+            showAlbumLink
+          />
+        </div>
       </Container>
     </PageLayout>
   )

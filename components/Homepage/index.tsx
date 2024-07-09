@@ -24,8 +24,28 @@ export const Homepage = (props: IndexPageProps) => {
   const { homepage, preview, loading } = props
   const settings = useSettings()
   const { title } = settings || {}
-  const { songsTitle, songs, albumsTitle, albums } = homepage
+  const { songsTitle, songs, albumsTitle, albums, allSongs } = homepage
 
+  const songsForQueue = React.useMemo(() => {
+    if (!songs || !allSongs) {
+      return songs
+    }
+
+    const songIds = new Set(songs.map((song) => song._id))
+    const additionalSongs = allSongs.filter((song) => !songIds.has(song._id))
+
+    // Sort the additionalSongs by _createdAt in descending order
+    const sortedAdditionalSongs = additionalSongs.sort((a, b) =>
+      b._createdAt! > a._createdAt! ? 1 : -1,
+    )
+
+    // Create the new array by concatenating `songs` and `sortedAdditionalSongs`
+    return [...songs, ...sortedAdditionalSongs]
+  }, [songs, allSongs])
+
+  if (!songs) {
+    return null
+  }
   return (
     <PageLayout preview={preview} loading={loading}>
       <div className="pb-20 relative">
@@ -59,10 +79,11 @@ export const Homepage = (props: IndexPageProps) => {
               title={songsTitle}
               songs={songs}
               bulletStyle={BulletStyle.Artwork}
+              songsForQueue={songsForQueue}
               showAlbumLink
             />
 
-            <div className="max-w-4xl w-full flex flex-col ">
+            <div className="max-w-4xl w-full flex flex-col">
               <Link href="/songs" className="hover:underline">
                 ALL SONGS &gt;
               </Link>

@@ -5,6 +5,7 @@ import { PortableTextBlock } from 'sanity'
 export interface Song {
   _type?: 'song'
   _id: string
+  _createdAt: string
   title?: string
   url?: string
   description?: Array<PortableTextBlock>
