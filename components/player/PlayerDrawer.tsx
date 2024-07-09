@@ -68,11 +68,7 @@ export const PlayerDrawer = () => {
     const tabsArray: Array<Tab> = [
       {
         name: 'Next up',
-        content: (
-          <div className="w-full">
-            <SongList songs={playlist} />
-          </div>
-        ),
+        content: <SongList songs={playlist} />,
       },
     ]
 
@@ -81,11 +77,7 @@ export const PlayerDrawer = () => {
 
       tabsArray.push({
         name: 'Lyrics',
-        content: (
-          <div className="w-full">
-            <PortableTextView content={activeSong.lyrics} />
-          </div>
-        ),
+        content: <PortableTextView content={activeSong.lyrics} />,
       })
     }
 
@@ -114,10 +106,10 @@ export const PlayerDrawer = () => {
         height: `${height - 82}px`,
       }}
     >
-      <div className="w-full flex flex-row justify-between gap-8 px-24">
+      <div className="w-full flex flex-col lg:flex-row justify-between gap-8 px-4 lg:px-24 pt-12 lg:pt-4">
         {album && (
           <div className="w-full h-full place-content-center flex flex-row justify-center">
-            <div className="relative max-w-xl aspect-square">
+            <div className="relative max-w-xl w-full lg aspect-square">
               <Image
                 objectFit="contain"
                 layout="fill"
@@ -147,7 +139,7 @@ export const PlayerDrawer = () => {
           </div>
           {tabs.length > activeTab && (
             <div
-              className="p-4 overflow-y-auto"
+              className="w-full p-4 overflow-y-auto min-w-80"
               role="tabpanel"
               style={{ height: `${height - 240}px` }}
             >
