@@ -43,5 +43,6 @@ export const getStaticProps: GetStaticProps<any, Query> = async ({
       draftMode,
       token: draftMode ? readToken : '',
     },
+    revalidate: Number(process.env.REVALIDATE_SECONDS ?? 900),
   }
 }
