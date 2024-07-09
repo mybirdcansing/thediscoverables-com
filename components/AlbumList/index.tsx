@@ -1,4 +1,6 @@
 import { Container } from 'components/Container'
+import { Dot } from 'components/Dot'
+import { getYear } from 'date-fns'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
 import { Album } from 'lib/types/album'
 import Image from 'next/image'
@@ -25,20 +27,21 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
         <h2>{albumsTitle}</h2>
         <div className={`grid ${gridColsClass} gap-6 w-full`}>
           {albums.map((album) => {
+            const { _id, coverImage, title, slug, publishDate } = album
             const artSrc = hasAlbumArt(album)
-              ? urlForImage(album.coverImage).url()
+              ? urlForImage(coverImage).url()
               : null
 
             return (
-              <div key={album._id} className="flex flex-col gap-2 w-full h-fit">
+              <div key={_id} className="flex flex-col gap-2 w-full h-fit">
                 <Link
-                  href={`/albums/${album.slug?.current}`}
+                  href={`/albums/${slug?.current}`}
                   className="relative block w-full aspect-square"
                 >
                   {artSrc ? (
                     <Image
                       src={artSrc}
-                      alt={`Cover of album ${album.title}`}
+                      alt={`Cover of album ${title}`}
                       fill
                       sizes="(min-width: 768px) 512px, 256px"
                       className="object-cover"
@@ -49,14 +52,22 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
                     </div>
                   )}
                 </Link>
-                {album.slug && (
-                  <Link
-                    href={`/albums/${album.slug.current}`}
-                    className="text-left hover:underline"
-                  >
-                    {album.title}
-                  </Link>
-                )}
+                <div className="flex flex-row gap-1">
+                  {slug && (
+                    <Link
+                      href={`/albums/${slug.current}`}
+                      className="text-left hover:underline"
+                    >
+                      {title}
+                    </Link>
+                  )}
+                  {publishDate && (
+                    <>
+                      <Dot />
+                      <span>{getYear(publishDate)}</span>
+                    </>
+                  )}
+                </div>
               </div>
             )
           })}

@@ -40,6 +40,9 @@ module.exports = {
         350: '350ms',
         400: '400ms',
       },
+      verticalAlign: {
+        top: 'top',
+      },
     },
   },
   plugins: [],

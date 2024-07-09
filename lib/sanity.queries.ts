@@ -58,8 +58,7 @@ export const songsQuery = groq`
       coverImage,
       title,
       slug,
-      publishDate,
-      a
+      publishDate,      
     }
   }
 }
@@ -76,7 +75,7 @@ export const homepageQuery = groq`
     title,
     slug,
     coverImage,
-    publishedAt
+    publishDate
   },
   songsTitle,
   songs[]->{

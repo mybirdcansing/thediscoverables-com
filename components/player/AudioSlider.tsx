@@ -43,10 +43,12 @@ export const AudioSlider = ({
     if (isDragging || !sliderRef.current) {
       return
     }
+
     const rect = sliderRef.current.getBoundingClientRect()
     const newX = (currentTime / duration) * rect.width
-
-    api.start({ x: isNaN(newX) ? 0 : newX, immediate: false })
+    const x = isNaN(newX) ? 0 : newX
+    const immediate = x === 0 // when jumping to the start of the song, do so immediately
+    api.start({ x, immediate })
   }, [currentTime, duration, isDragging, api])
 
   React.useEffect(() => {

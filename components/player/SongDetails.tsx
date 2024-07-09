@@ -1,4 +1,5 @@
-import { format } from 'date-fns/format'
+import { Dot } from 'components/Dot'
+import { getYear } from 'date-fns/getYear'
 import { usePlayerContext } from 'lib/playerContext'
 import { handleInnerClick } from 'lib/playerHelper'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
@@ -51,7 +52,7 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
             <Link href="/" onClick={handleGoToPage} className="hover:underline">
               {bandName}
             </Link>
-            <span>•</span>
+            <Dot />
             <Link
               href={`/albums/${activeSong.album.slug.current}`}
               onClick={handleGoToPage}
@@ -59,8 +60,8 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
             >
               {activeSong.album.title}
             </Link>
-            <span>•</span>
-            <span>{format(album.publishDate, 'yyyy')}</span>
+            <Dot />
+            <span>{getYear(album.publishDate)}</span>
           </div>
         )}
       </div>
