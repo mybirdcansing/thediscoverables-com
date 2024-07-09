@@ -106,7 +106,7 @@ export const AudioSlider = ({
   }
 
   return (
-    <div className="relative py-1 cursor-pointer" onClick={handleClick}>
+    <div className="relative py-1 cursor-pointer w-full" onClick={handleClick}>
       <div
         ref={sliderRef}
         className="bg-gray-200 hover:bg-gray-300 absolute top-0 w-full h-1 hover:h-[6px] hover:top-[-1px]"

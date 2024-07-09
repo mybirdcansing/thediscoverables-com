@@ -45,23 +45,25 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
         </div>
       )}
 
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5 overflow-clip  whitespace-nowrap">
         <div className="font-bold">{activeSong.title}</div>
         {albumSlug && (
           <div className="flex flex-row gap-1 text-sm">
             <Link href="/" onClick={handleGoToPage} className="hover:underline">
               {bandName}
             </Link>
-            <Dot />
-            <Link
-              href={`/albums/${activeSong.album.slug.current}`}
-              onClick={handleGoToPage}
-              className="hover:underline"
-            >
-              {activeSong.album.title}
-            </Link>
-            <Dot />
-            <span>{getYear(album.publishDate)}</span>
+            <div className="md:flex flex-row gap-1 hidden">
+              <Dot />
+              <Link
+                href={`/albums/${activeSong.album.slug.current}`}
+                onClick={handleGoToPage}
+                className="hover:underline"
+              >
+                {activeSong.album.title}
+              </Link>
+              <Dot />
+              <span>{getYear(album.publishDate)}</span>
+            </div>
           </div>
         )}
       </div>

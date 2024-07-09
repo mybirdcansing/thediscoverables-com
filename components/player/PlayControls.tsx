@@ -24,7 +24,12 @@ export const PlayControls = ({
   playlistLength,
 }: PlayControlsProps) => {
   return (
-    <div className={styles.playerControls}>
+    <div
+      className={cx(
+        styles['player-controls'],
+        'flex flex-row justify-center relative',
+      )}
+    >
       <button
         className={cx({
           'opacity-30 cursor-pointer': songIndex === 0,

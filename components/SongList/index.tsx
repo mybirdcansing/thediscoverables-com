@@ -65,31 +65,31 @@ export const SongList = ({
                 onClick={() => {
                   handleClickSong(song)
                 }}
-                className="cursor-pointer"
+                className="cursor-pointer relative"
               >
                 <Image
                   unoptimized
                   src="/play-icon.svg"
                   alt="Play"
                   className={styles.play}
-                  height={46}
-                  width={46}
+                  height={50}
+                  width={50}
                 />
                 <Image
                   unoptimized
                   src="/pause-icon.svg"
                   alt="Pause"
                   className={styles.pause}
-                  height={46}
-                  width={46}
+                  height={50}
+                  width={50}
                 />
                 <Image
                   unoptimized
                   src="/spinner-icon.svg"
                   alt="Loading"
                   className={styles.spinner}
-                  height={46}
-                  width={46}
+                  height={50}
+                  width={50}
                 />
 
                 <div className={styles['song-list-album-artwork']}>
@@ -98,7 +98,7 @@ export const SongList = ({
                       x="0"
                       y="0"
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 46 46"
+                      viewBox="0 0 50 50"
                       className={styles['song-list-index']}
                     >
                       <title>{`Song number ${songNumber}`}</title>
@@ -112,28 +112,28 @@ export const SongList = ({
                       <Image
                         src={artSrc}
                         alt="Song artwork thumbnail"
-                        height={46}
-                        width={46}
+                        height={50}
+                        width={50}
                         className="h-auto"
                       />
                     ) : (
                       <Image
                         src="/headphones-icon.svg"
                         alt="Listen to song thumbnail"
-                        height={46}
-                        width={46}
+                        height={50}
+                        width={50}
                         className="h-auto"
                       />
                     ))}
                 </div>
               </button>
               <div className="w-full flex flex-row justify-between">
-                <div className="flex flex-col gap-2 justify-center">
+                <div className="flex flex-col gap-1 justify-center">
                   <button
                     onClick={() => {
                       handleClickSong(song)
                     }}
-                    className="cursor-pointer pb-0.5 md:p-0 text-left"
+                    className="cursor-pointer p-0 text-left"
                   >
                     {songTitle}
                   </button>

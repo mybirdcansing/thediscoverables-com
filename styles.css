@@ -17,5 +17,5 @@ h2 {
   @apply text-lg lg:text-xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty text-slate-200;
 }
 #player-bar {
-  @apply text-white;
+  @apply text-white bg-slate-400;
 }

@@ -48,8 +48,8 @@ export default function AlbumPage(props: AlbumPageProps) {
         <PageHeader title={pageTitle} isLightFont />
         <section className="flex flex-col place-items-center">
           <div className="max-w-4xl w-full flex flex-col gap-4">
-            <div className="flex flex-col sm:flex-row gap-5">
-              <div className="mb-8 sm:mx-0 md:mb-16">
+            <div className="flex flex-col md:flex-row gap-5">
+              <div className="mb-8 md:mx-0 md:mb-16">
                 <CoverImage
                   title={albumTitle}
                   image={coverImage}
@@ -60,19 +60,24 @@ export default function AlbumPage(props: AlbumPageProps) {
 
               <div>
                 <AlbumTitle>{albumTitle}</AlbumTitle>
-                <div className="mx-auto max-w-2xl">
-                  <div className="mb-6 text-lg">
-                    <AlbumDate dateString={publishDate} />
-                  </div>
+
+                <div className="my-6 text-sm">
+                  <AlbumDate dateString={publishDate} />
                 </div>
-                <AlbumDescription content={description} />
+
+                <div className="hidden md:block">
+                  <AlbumDescription content={description} />
+                </div>
               </div>
             </div>
           </div>
         </section>
-        <Container className="flex flex-col place-items-center">
+        <div className="flex flex-col place-items-center">
           <SongList songs={songsWithAlbum} bulletStyle={BulletStyle.Number} />
-        </Container>
+        </div>
+        <div className="md:hidden">
+          <AlbumDescription content={description} />
+        </div>
       </Container>
     </PageLayout>
   )

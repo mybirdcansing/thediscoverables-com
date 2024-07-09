@@ -34,59 +34,58 @@ export const Player = () => {
   }
 
   return (
-    <div id="player-bar" className="fixed bottom-0 w-full z-50">
-      <div className="bg-slate-400">
-        <audio
-          className="hidden absolute -left-[-2000px]"
-          ref={audioRef}
-          preload="auto"
-        ></audio>
+    <div id="player-bar" className="fixed bottom-0 w-full z-50 max-h-[82px]">
+      <audio
+        className="hidden absolute -left-[-2000px]"
+        ref={audioRef}
+        preload="auto"
+      ></audio>
 
-        <div
-          onClick={toggleExpandDrawer}
-          className="flex flex-col place-content-center place-items-center pb-2 relative cursor-default w-full"
-        >
-          <div className="w-full">
-            <AudioSlider
-              audioRef={audioRef}
-              currentTime={currentTime}
-              duration={duration}
+      <div
+        onClick={toggleExpandDrawer}
+        className="flex flex-col place-content-center place-items-center pb-2 relative cursor-default w-full"
+      >
+        <AudioSlider
+          audioRef={audioRef}
+          currentTime={currentTime}
+          duration={duration}
+        />
+
+        <div className="w-full flex flex-row-reverse md:flex-row justify-between place-items-center p-2 mt-1">
+          <div className="flex flex-row place-items-center">
+            <PlayControls
+              isPlaying={isPlaying}
+              isLoading={isLoading}
+              toggleSong={(e) => {
+                toggleSong(activeSong, e)
+              }}
+              playPrevious={playPrevious}
+              playNext={(e) => {
+                playNext(false, e)
+              }}
+              songIndex={songIndex()}
+              playlistLength={playlist.length}
             />
-          </div>
-          <div className="w-full flex flex-row justify-between place-items-center p-2 mt-1">
-            <div className="flex flex-row place-items-center">
-              <PlayControls
-                isPlaying={isPlaying}
-                isLoading={isLoading}
-                toggleSong={(e) => {
-                  toggleSong(activeSong, e)
-                }}
-                playPrevious={playPrevious}
-                playNext={(e) => {
-                  playNext(false, e)
-                }}
-                songIndex={songIndex()}
-                playlistLength={playlist.length}
-              />
+            <div className="hidden lg:block">
               <SongTime currentTime={currentTime} duration={duration} />
             </div>
-            <SongDetails activeSong={activeSong} />
-
-            <VolumeControl
-              lowerVolume={(e) => {
-                lowerVolume()
-                handleInnerClick(e)
-              }}
-              raiseVolume={(e) => {
-                raiseVolume()
-                handleInnerClick(e)
-              }}
-              setVolume={setVolume}
-              playerVolumeSliderRef={playerVolumeSliderRef}
-              isIOS={isIOS()}
-              airPlayRef={airPlayRef}
-            />
           </div>
+          <SongDetails activeSong={activeSong} />
+
+          <VolumeControl
+            lowerVolume={(e) => {
+              lowerVolume()
+              handleInnerClick(e)
+            }}
+            raiseVolume={(e) => {
+              raiseVolume()
+              handleInnerClick(e)
+            }}
+            setVolume={setVolume}
+            playerVolumeSliderRef={playerVolumeSliderRef}
+            isIOS={isIOS()}
+            airPlayRef={airPlayRef}
+          />
         </div>
       </div>
     </div>

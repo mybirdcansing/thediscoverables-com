@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import { Container } from 'components/Container'
 import { Dot } from 'components/Dot'
 import { getYear } from 'date-fns'
@@ -16,16 +17,18 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
     return null
   }
 
-  const gridColsClass =
-    albums.length > 2
-      ? 'grid-cols-1 md:grid-cols-3'
-      : 'grid-cols-1 md:grid-cols-2'
-
   return (
     <Container className="flex flex-col place-items-center">
       <div className="max-w-4xl w-full flex flex-col gap-4">
         <h2>{albumsTitle}</h2>
-        <div className={`grid ${gridColsClass} gap-6 w-full`}>
+        <div
+          className={cx(
+            `grid gap-x-6 gap-y-8 w-full`,
+            albums.length > 2
+              ? 'grid-cols-1 md:grid-cols-3'
+              : 'grid-cols-1 sm:grid-cols-2',
+          )}
+        >
           {albums.map((album) => {
             const { _id, coverImage, title, slug, publishDate } = album
             const artSrc = hasAlbumArt(album)
@@ -33,7 +36,7 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
               : null
 
             return (
-              <div key={_id} className="flex flex-col gap-2 w-full h-fit">
+              <div key={_id} className="flex flex-col gap-3 w-full h-fit">
                 <Link
                   href={`/albums/${slug?.current}`}
                   className="relative block w-full aspect-square"
