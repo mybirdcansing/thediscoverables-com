@@ -9,7 +9,7 @@ export const PreviewAlbumPage = (props: AlbumPageProps) => {
     props.album,
     albumBySlugQuery,
     {
-      slug: props.album.slug,
+      slug: props.album.slug?.current,
     },
   )
 

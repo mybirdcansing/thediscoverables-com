@@ -23,6 +23,7 @@ export function getClient(preview?: { token: string }): SanityClient {
     if (!preview.token) {
       throw new Error('You must provide a token to preview draft content')
     }
+
     return client.withConfig({
       token: preview.token,
       useCdn: false,
