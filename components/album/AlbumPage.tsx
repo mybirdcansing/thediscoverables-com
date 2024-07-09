@@ -22,7 +22,7 @@ export interface AlbumPageProps {
 export default function AlbumPage(props: AlbumPageProps) {
   const { album, loading, preview } = props
   const settings = useSettings()
-  if (!album || isEmpty(album) || !settings || isEmpty(settings)) {
+  if (!album || isEmpty(album)) {
     return null
   }
 
