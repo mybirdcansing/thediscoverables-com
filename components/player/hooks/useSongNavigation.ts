@@ -1,7 +1,7 @@
 // hooks/useSongNavigation.ts
 import { usePlayerContext } from 'lib/playerContext'
 import { handleInnerClick, isChromeDesktop } from 'lib/playerHelper'
-import { Song } from 'lib/types/content'
+import { Song } from 'lib/types/song'
 import React from 'react'
 
 let playPromise: Promise<void> | undefined

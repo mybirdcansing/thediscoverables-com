@@ -1,6 +1,8 @@
 import { format } from 'date-fns/format'
+import { usePlayerContext } from 'lib/playerContext'
 import { handleInnerClick } from 'lib/playerHelper'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
+import { useSettings } from 'lib/settingsContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -11,6 +13,14 @@ interface SongDetailsProps {
 
 export const SongDetails = ({ activeSong }: SongDetailsProps) => {
   const album = activeSong.album
+  const { dispatch } = usePlayerContext()
+  const handleGoToPage = (e: React.MouseEvent) => {
+    handleInnerClick(e)
+    dispatch({
+      type: 'SET_DRAWER_EXPANDED',
+      payload: false,
+    })
+  }
 
   const artSrc =
     !!album && hasAlbumArt(album)
@@ -18,6 +28,8 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
       : undefined
 
   const albumSlug = album?.slug?.current ? album.slug.current : undefined
+
+  const { title: bandName } = useSettings()
 
   return (
     <div className="flex flex-row place-items-center gap-2">
@@ -36,9 +48,13 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
         <div className="font-bold">{activeSong.title}</div>
         {albumSlug && (
           <div className="flex flex-row gap-1 text-sm">
+            <Link href="/" onClick={handleGoToPage} className="hover:underline">
+              {bandName}
+            </Link>
+            <span>•</span>
             <Link
               href={`/albums/${activeSong.album.slug.current}`}
-              onClick={handleInnerClick}
+              onClick={handleGoToPage}
               className="hover:underline"
             >
               {activeSong.album.title}

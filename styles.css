@@ -7,11 +7,7 @@ body {
   overscroll-behavior-x: none;
 }
 body {
-  margin: 0px;
-  padding: 0px;
-  background-color: rgb(38, 38, 38);
-  color: #fff;
-  font: 1em sans-serif;
+  @apply bg-gray-750 p-0 m-0 text-gray-50 text-base font-sans;
   touch-action: manipulation;
 }
 img {

@@ -1,4 +1,5 @@
-import { Playlist, Song } from './content'
+import { Playlist } from './playlist'
+import { Song } from './song'
 
 export enum LoadingState {
   INIT = 0,

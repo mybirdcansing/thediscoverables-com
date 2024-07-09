@@ -1,6 +1,6 @@
 import { Container } from 'components/Container'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
-import { Album } from 'lib/types/content'
+import { Album } from 'lib/types/album'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -39,7 +39,7 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
                     <Image
                       src={artSrc}
                       alt={`Cover of album ${album.title}`}
-                      layout="fill"
+                      fill
                       sizes="(min-width: 768px) 512px, 256px"
                       className="object-cover"
                     />

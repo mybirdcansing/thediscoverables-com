@@ -1,7 +1,7 @@
 import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
-import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
+import { getAlbumBySlug, getAlbumSlugs } from 'lib/sanity.getters'
 import type { AlbumViewProps } from 'lib/types/pages'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
@@ -16,12 +16,12 @@ const PreviewAlbumPage = dynamic<AlbumPageProps>(
   },
 )
 export default function RenderPage(props: AlbumViewProps) {
-  const { settings, album, draftMode } = props
+  const { album, draftMode } = props
 
   return draftMode ? (
-    <PreviewAlbumPage album={album} settings={settings} />
+    <PreviewAlbumPage album={album} />
   ) : (
-    <AlbumPage album={album} settings={settings} />
+    <AlbumPage album={album} />
   )
 }
 
@@ -31,10 +31,7 @@ export const getStaticProps: GetStaticProps<any, Query> = async ({
 }) => {
   const slug = params?.slug ?? '/'
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const [settings, album] = await Promise.all([
-    getSettings(client),
-    getAlbumBySlug(client, slug),
-  ])
+  const album = await getAlbumBySlug(client, slug)
 
   if (!album) {
     return {
@@ -46,7 +43,6 @@ export const getStaticProps: GetStaticProps<any, Query> = async ({
     props: {
       type: 'album',
       album,
-      settings,
       draftMode,
       token: draftMode ? readToken : '',
     },

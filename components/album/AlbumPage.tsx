@@ -5,8 +5,9 @@ import { CoverImage } from 'components/CoverImage'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
-import type { Album, Settings } from 'lib/types/content'
-import { BulletStyle } from 'lib/types/content'
+import { useSettings } from 'lib/settingsContext'
+import type { Album } from 'lib/types/album'
+import { BulletStyle } from 'lib/types/bulletStyle'
 import isEmpty from 'lodash/isEmpty'
 
 import { AlbumDate } from './AlbumDate'
@@ -16,12 +17,11 @@ export interface AlbumPageProps {
   preview?: boolean
   loading?: boolean
   album: Album
-  settings?: Settings
 }
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { album, settings, loading, preview } = props
-
+  const { album, loading, preview } = props
+  const settings = useSettings()
   if (!album || isEmpty(album) || !settings || isEmpty(settings)) {
     return null
   }
@@ -42,8 +42,8 @@ export default function AlbumPage(props: AlbumPageProps) {
     slug,
   } = album
   return (
-    <PageLayout settings={settings} loading={loading} preview={preview}>
-      <AlbumPageHead settings={settings} album={album} />
+    <PageLayout loading={loading} preview={preview}>
+      <AlbumPageHead album={album} />
       <Container>
         <PageHeader title={pageTitle} isLightFont />
         <section className="flex flex-col place-items-center">

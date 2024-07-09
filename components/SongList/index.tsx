@@ -1,7 +1,8 @@
 import cx from 'classnames'
 import { usePlayerContext } from 'lib/playerContext'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
-import { BulletStyle, Song } from 'lib/types/content'
+import { BulletStyle } from 'lib/types/bulletStyle'
+import { Song } from 'lib/types/song'
 import Image from 'next/image'
 import Link from 'next/link'
 

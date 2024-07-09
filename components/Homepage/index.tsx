@@ -5,7 +5,8 @@ import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
-import { BulletStyle, type Settings } from 'lib/types/content'
+import { useSettings } from 'lib/settingsContext'
+import { BulletStyle } from 'lib/types/bulletStyle'
 import type { HomepageProps } from 'lib/types/pages'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,19 +18,18 @@ export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   homepage: HomepageProps
-  settings: Settings
 }
 
 export const Homepage = (props: IndexPageProps) => {
-  const { settings, homepage, preview, loading } = props
-
+  const { homepage, preview, loading } = props
+  const settings = useSettings()
   const { title } = settings || {}
   const { songsTitle, songs, albumsTitle, albums } = homepage
 
   return (
-    <PageLayout settings={settings} preview={preview} loading={loading}>
+    <PageLayout preview={preview} loading={loading}>
       <div className="pb-20 relative">
-        <PageHead settings={settings} />
+        <PageHead />
         <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-50">
           <Image
             src="/xx-large-adam_bay5.jpg"

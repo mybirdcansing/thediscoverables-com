@@ -1,7 +1,7 @@
 import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
 import { Loading } from 'components/Loading'
-import { albumBySlugQuery, settingsQuery } from 'lib/sanity.queries'
-import type { Album, Settings } from 'lib/types/content'
+import { albumBySlugQuery } from 'lib/sanity.queries'
+import type { Album } from 'lib/types/album'
 import { useLiveQuery } from 'next-sanity/preview'
 
 export const PreviewAlbumPage = (props: AlbumPageProps) => {
@@ -12,19 +12,10 @@ export const PreviewAlbumPage = (props: AlbumPageProps) => {
       slug: props.album.slug,
     },
   )
-  const [settings, loadingSettings] = useLiveQuery<Settings>(
-    props.settings ?? {},
-    settingsQuery,
-  )
 
-  if (!album || !settings) return <Loading />
+  if (!album) {
+    return <Loading />
+  }
 
-  return (
-    <AlbumPage
-      preview
-      album={album}
-      settings={settings}
-      loading={loadingAlbum || loadingSettings}
-    />
-  )
+  return <AlbumPage preview album={album} loading={loadingAlbum} />
 }

@@ -35,7 +35,7 @@ export const Player = () => {
 
   return (
     <div className="fixed bottom-0 w-full z-50">
-      <div className="bg-slate-400">
+      <div className="bg-slate-400 text-white">
         <audio
           className="hidden absolute -left-[-2000px]"
           ref={audioRef}

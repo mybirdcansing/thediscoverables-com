@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { Playlist, Song } from './types/content'
 import { PlayerContextAction, PlayerContextState } from './types/player'
+import { Playlist } from './types/playlist'
+import { Song } from './types/song'
 
 const initialState: PlayerContextState = {
   activeSong: null,

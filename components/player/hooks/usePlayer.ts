@@ -1,5 +1,6 @@
 import { usePlayerContext } from 'lib/playerContext'
-import { Playlist, Song } from 'lib/types/content'
+import { Playlist } from 'lib/types/playlist'
+import { Song } from 'lib/types/song'
 import React from 'react'
 
 import { useAirPlay } from './useAirPlay'

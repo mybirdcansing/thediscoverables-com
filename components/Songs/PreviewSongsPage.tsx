@@ -1,6 +1,5 @@
 import { Loading } from 'components/Loading'
-import { settingsQuery, songsQuery } from 'lib/sanity.queries'
-import type { Settings } from 'lib/types/content'
+import { songsQuery } from 'lib/sanity.queries'
 import { SongsViewProps } from 'lib/types/pages'
 import { useLiveQuery } from 'next-sanity/preview'
 
@@ -11,19 +10,8 @@ export const PreviewSongsPage = (props: SongsPageProps) => {
     props.songsView,
     songsQuery,
   )
-  const [settings, loadingSettings] = useLiveQuery<Settings>(
-    props.settings ?? {},
-    settingsQuery,
-  )
 
-  if (!songsView || !settings) return <Loading />
+  if (!songsView) return <Loading />
 
-  return (
-    <SongsPage
-      preview
-      songsView={songsView}
-      settings={settings}
-      loading={loadingSongs || loadingSettings}
-    />
-  )
+  return <SongsPage preview songsView={songsView} loading={loadingSongs} />
 }

@@ -1,7 +1,6 @@
-import cx from 'classnames'
 import { usePlayer } from 'components/player/hooks/usePlayer'
 import { PortableTextView } from 'components/PortableTextView'
-import type { Song } from 'lib/types/content'
+import type { Song } from 'lib/types/song'
 import { useWindowContext } from 'lib/windowContext'
 import React from 'react'
 
@@ -17,7 +16,7 @@ export const PlayerDrawer = () => {
   const drawerRef = React.useRef<HTMLDivElement>(null)
   const [activeTab, setActiveTab] = React.useState(0)
   const [isVisible, setIsVisible] = React.useState(false)
-  const [expand, setExpand] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(false)
 
   const { scrollY, height } = useWindowContext()
 
@@ -30,7 +29,7 @@ export const PlayerDrawer = () => {
     const handleTransitionEnd = () => {
       if (!isDrawerExpanded) {
         setIsVisible(false)
-        setExpand(false)
+        setIsExpanded(false)
       }
     }
 
@@ -39,30 +38,27 @@ export const PlayerDrawer = () => {
       drawerElement.addEventListener('transitionend', handleTransitionEnd)
     }
 
+    let timer: NodeJS.Timeout | null = null
+
     if (isDrawerExpanded) {
+      setIsVisible(true)
       document.body.classList.add('overflow-hidden')
+      timer = setTimeout(() => {
+        setIsExpanded(true)
+      }, EXPAND_DELAY)
     } else {
       document.body.classList.remove('overflow-hidden')
+      setIsExpanded(false)
     }
 
     return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
       if (drawerElement) {
         drawerElement.removeEventListener('transitionend', handleTransitionEnd)
       }
-    }
-  }, [isDrawerExpanded])
-
-  // Trigger expand state with a slight delay to make sure the drawer is rendering before the animation
-
-  React.useEffect(() => {
-    if (isDrawerExpanded) {
-      setIsVisible(true)
-      const timer = setTimeout(() => {
-        setExpand(true)
-      }, EXPAND_DELAY)
-      return () => clearTimeout(timer)
-    } else {
-      setExpand(false)
+      document.body.classList.remove('overflow-hidden')
     }
   }, [isDrawerExpanded])
 
@@ -103,17 +99,16 @@ export const PlayerDrawer = () => {
     }
   }, [tabs.length, activeTab])
 
-  if (!isVisible && !isDrawerExpanded) return null
+  if (!isVisible) {
+    return null
+  }
 
   return (
     <div
       ref={drawerRef}
-      className={cx(
-        'absolute w-full bg-slate-400 h-svh transition-[bottom,top] duration-500 ease-in-out',
-      )}
+      className="absolute w-full bg-[rgb(30,32,35)] text-white h-svh transition-[top] duration-400 ease-in-out"
       style={{
-        top: expand ? `${scrollY}px` : `${scrollY + height}px`,
-        display: isVisible ? 'block' : 'none',
+        top: isExpanded ? `${scrollY}px` : `${scrollY + height}px`,
       }}
     >
       <div className="w-full max-w-md mx-auto mt-8">
