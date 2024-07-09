@@ -1,10 +1,10 @@
 import { usePlayer } from 'components/player/hooks/usePlayer'
 import { PortableTextView } from 'components/PortableTextView'
 import { SongList } from 'components/SongList'
-import Image from 'next/image'
-import { useWindowContext } from 'lib/windowContext'
-import React from 'react'
 import { urlForImage } from 'lib/sanity.image'
+import { useWindowContext } from 'lib/windowContext'
+import Image from 'next/image'
+import React from 'react'
 
 interface Tab {
   name: string

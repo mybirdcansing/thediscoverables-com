@@ -6,7 +6,6 @@ import { Song } from 'lib/types/song'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Container } from '../Container'
 import styles from './SongList.module.css'
 
 export interface SongListProps {
