@@ -5,7 +5,8 @@ import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
-import { BulletStyle, type Settings } from 'lib/types/content'
+import { useSettings } from 'lib/settingsContext'
+import { BulletStyle } from 'lib/types/bulletStyle'
 import type { HomepageProps } from 'lib/types/pages'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,20 +18,39 @@ export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   homepage: HomepageProps
-  settings: Settings
 }
 
 export const Homepage = (props: IndexPageProps) => {
-  const { settings, homepage, preview, loading } = props
-
+  const { homepage, preview, loading } = props
+  const settings = useSettings()
   const { title } = settings || {}
-  const { songsTitle, songs, albumsTitle, albums } = homepage
+  const { songsTitle, songs, albumsTitle, albums, allSongs } = homepage
 
+  const songsForQueue = React.useMemo(() => {
+    if (!songs || !allSongs) {
+      return songs
+    }
+
+    const songIds = new Set(songs.map((song) => song._id))
+    const additionalSongs = allSongs.filter((song) => !songIds.has(song._id))
+
+    // Sort the additionalSongs by _createdAt in descending order
+    const sortedAdditionalSongs = additionalSongs.sort((a, b) =>
+      b._createdAt! > a._createdAt! ? 1 : -1,
+    )
+
+    // Create the new array by concatenating `songs` and `sortedAdditionalSongs`
+    return [...songs, ...sortedAdditionalSongs]
+  }, [songs, allSongs])
+
+  if (!songs) {
+    return null
+  }
   return (
-    <PageLayout settings={settings} preview={preview} loading={loading}>
+    <PageLayout preview={preview} loading={loading}>
       <div className="pb-20 relative">
-        <PageHead settings={settings} />
-        <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-10">
+        <PageHead />
+        <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-50">
           <Image
             src="/xx-large-adam_bay5.jpg"
             alt={`${title} hero image`}
@@ -54,14 +74,16 @@ export const Homepage = (props: IndexPageProps) => {
           />
         </div>
         <section className="flex flex-col gap-8">
-          <SongList
-            title={songsTitle}
-            songs={songs}
-            bulletStyle={BulletStyle.Artwork}
-            showAlbumLink
-          />
-          <Container className="flex flex-col place-items-center">
-            <div className="max-w-4xl w-full flex flex-col ">
+          <Container className="flex flex-col gap-8 place-items-center">
+            <SongList
+              title={songsTitle}
+              songs={songs}
+              bulletStyle={BulletStyle.Artwork}
+              songsForQueue={songsForQueue}
+              showAlbumLink
+            />
+
+            <div className="max-w-4xl w-full flex flex-col">
               <Link href="/songs" className="hover:underline">
                 ALL SONGS &gt;
               </Link>

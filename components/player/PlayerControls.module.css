@@ -1,14 +1,10 @@
-.playerControls {
-  @apply flex flex-row justify-center relative;
-}
-
-.playerControls img,
-.playerControls svg {
+.player-controls img,
+.player-controls svg {
   opacity: 0.8;
   cursor: pointer;
   height: auto;
   aspect-ratio: 1 / 1;
 }
-.playerControls img:hover {
+.player-controls img:hover {
   opacity: 1;
 }

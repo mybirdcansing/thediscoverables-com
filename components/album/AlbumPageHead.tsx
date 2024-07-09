@@ -1,16 +1,17 @@
 import { toPlainText } from '@portabletext/react'
 import { Meta } from 'components/Meta'
 import { urlForImage } from 'lib/sanity.image'
-import { Album, Settings } from 'lib/types/content'
+import { useSettings } from 'lib/settingsContext'
+import { Album } from 'lib/types/album'
 import Head from 'next/head'
 
 export interface AlbumPageHeadProps {
-  settings: Settings
   album: Album
 }
 
-export const AlbumPageHead = ({ settings, album }: AlbumPageHeadProps) => {
-  const bandName = settings.title || process.env.NEXT_PUBLIC_BAND_NAME
+export const AlbumPageHead = ({ album }: AlbumPageHeadProps) => {
+  const { title: bandName = process.env.NEXT_PUBLIC_BAND_NAME } = useSettings()
+
   const { description } = album
   return (
     <Head>

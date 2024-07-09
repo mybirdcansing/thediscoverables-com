@@ -9,8 +9,9 @@ import {
 } from 'lib/sanity.queries'
 import { type SanityClient } from 'next-sanity'
 
-import { Album, Settings } from './types/content'
+import { Album } from './types/album'
 import { HomepageProps } from './types/pages'
+import { Settings } from './types/settings'
 
 export async function getAllAlbums(
   client: SanityClient,

@@ -1,5 +1,4 @@
-import { homepageQuery, settingsQuery } from 'lib/sanity.queries'
-import type { Settings } from 'lib/types/content'
+import { homepageQuery } from 'lib/sanity.queries'
 import { HomepageProps } from 'lib/types/pages'
 import { useLiveQuery } from 'next-sanity/preview'
 
@@ -11,21 +10,10 @@ export const PreviewHomepage = (props: IndexPageProps) => {
     props.homepage,
     homepageQuery,
   )
-  const [settings, loadingSettings] = useLiveQuery<Settings>(
-    props.settings,
-    settingsQuery,
-  )
 
-  if (!settings || !homepage) {
+  if (!homepage) {
     return <Loading />
   }
 
-  return (
-    <Homepage
-      homepage={homepage}
-      settings={settings}
-      preview
-      loading={loadingHomepage || loadingSettings}
-    />
-  )
+  return <Homepage homepage={homepage} preview loading={loadingHomepage} />
 }

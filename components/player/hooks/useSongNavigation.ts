@@ -1,7 +1,7 @@
 // hooks/useSongNavigation.ts
 import { usePlayerContext } from 'lib/playerContext'
-import { isChromeDesktop } from 'lib/playerHelper'
-import { Song } from 'lib/types/content'
+import { handleInnerClick, isChromeDesktop } from 'lib/playerHelper'
+import { Song } from 'lib/types/song'
 import React from 'react'
 
 let playPromise: Promise<void> | undefined
@@ -15,7 +15,10 @@ export const useSongNavigation = (
   const { dispatch } = usePlayerContext()
 
   const toggleSong = React.useCallback(
-    (song: Song) => {
+    (song: Song, e?: React.MouseEvent) => {
+      if (e) {
+        handleInnerClick(e)
+      }
       if (!song) {
         return
       }
@@ -54,19 +57,29 @@ export const useSongNavigation = (
     [dispatch, audioRef, setIsPlaying],
   )
 
-  const playPrevious = React.useCallback(() => {
-    const activeSongIndex = songIndex()
-    if (playlist.length === 0 || activeSongIndex < 1) {
-      return
-    }
-    dispatch({
-      type: 'SET_ACTIVE_SONG',
-      payload: { song: playlist[activeSongIndex - 1] },
-    })
-  }, [dispatch, playlist, songIndex])
+  const playPrevious = React.useCallback(
+    (e?: React.MouseEvent) => {
+      if (e) {
+        handleInnerClick(e)
+      }
+      const activeSongIndex = songIndex()
+      if (playlist.length === 0 || activeSongIndex < 1) {
+        return
+      }
+
+      dispatch({
+        type: 'SET_ACTIVE_SONG',
+        payload: { song: playlist[activeSongIndex - 1] },
+      })
+    },
+    [dispatch, playlist, songIndex],
+  )
 
   const playNext = React.useCallback(
-    (loop: boolean) => {
+    (loop: boolean, e?: React.MouseEvent) => {
+      if (e) {
+        handleInnerClick(e)
+      }
       const playlistLength = playlist.length
       if (playlistLength === 0) {
         return

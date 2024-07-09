@@ -1,4 +1,5 @@
 import { useDrag } from '@use-gesture/react'
+import { handleInnerClick } from 'lib/playerHelper'
 import * as React from 'react'
 import { animated, useSpring } from 'react-spring'
 
@@ -42,10 +43,12 @@ export const AudioSlider = ({
     if (isDragging || !sliderRef.current) {
       return
     }
+
     const rect = sliderRef.current.getBoundingClientRect()
     const newX = (currentTime / duration) * rect.width
-
-    api.start({ x: isNaN(newX) ? 0 : newX, immediate: false })
+    const x = isNaN(newX) ? 0 : newX
+    const immediate = x === 0 // when jumping to the start of the song, do so immediately
+    api.start({ x, immediate })
   }, [currentTime, duration, isDragging, api])
 
   React.useEffect(() => {
@@ -89,6 +92,7 @@ export const AudioSlider = ({
     if (!sliderRef.current) {
       return
     }
+    handleInnerClick(event)
     const rect = sliderRef.current.getBoundingClientRect()
     const clickX = event.clientX - rect.left
     const newTime = (clickX / rect.width) * duration
@@ -102,29 +106,30 @@ export const AudioSlider = ({
   }
 
   return (
-    <div
-      ref={sliderRef}
-      onClick={handleClick}
-      className="relative w-full h-2 bg-gray-200 cursor-pointer"
-    >
+    <div className="relative py-1 cursor-pointer w-full" onClick={handleClick}>
       <div
-        className="absolute h-full bg-gray-300"
-        style={{ width: `${buffered}%` }}
-      ></div>
-      <animated.div
-        className="absolute h-full bg-gray-500"
-        style={{
-          width: x.to(
-            (x) =>
-              `${(x / (sliderRef.current ? sliderRef.current.getBoundingClientRect().width : 1)) * 100}%`,
-          ),
-        }}
-      ></animated.div>
-      <animated.div
-        {...bind()}
-        className="absolute top-[-5px] left-[-10px] w-5 h-5 bg-gray-600 rounded-full cursor-grab"
-        style={{ transform: x.to((x) => `translateX(${x}px)`) }}
-      ></animated.div>
+        ref={sliderRef}
+        className="bg-gray-200 hover:bg-gray-300 absolute top-0 w-full h-1 hover:h-[6px] hover:top-[-1px]"
+      >
+        <div
+          className="absolute h-full bg-gray-300"
+          style={{ width: `${buffered}%` }}
+        ></div>
+        <animated.div
+          className="absolute h-full bg-gray-500"
+          style={{
+            width: x.to(
+              (x) =>
+                `${(x / (sliderRef.current ? sliderRef.current.getBoundingClientRect().width : 1)) * 100}%`,
+            ),
+          }}
+        ></animated.div>
+        <animated.div
+          {...bind()}
+          className="absolute top-[-8px] left-[-10px] w-5 h-5 bg-gray-600 rounded-full cursor-grab"
+          style={{ transform: x.to((x) => `translateX(${x}px)`) }}
+        ></animated.div>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { getClient } from 'lib/sanity.client'
 import { getAllAlbums } from 'lib/sanity.getters'
-import { Album } from 'lib/types/content'
+import { Album } from 'lib/types/album'
 import { GetServerSidePropsContext } from 'next'
 
 type SitemapLocation = {

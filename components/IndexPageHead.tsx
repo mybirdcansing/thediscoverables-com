@@ -1,14 +1,11 @@
 import { toPlainText } from '@portabletext/react'
 import { Meta } from 'components/Meta'
 import { urlForImage } from 'lib/sanity.image'
-import type { Settings } from 'lib/types/content'
+import { useSettings } from 'lib/settingsContext'
 import Head from 'next/head'
 
-export interface IndexPageHeadProps {
-  settings: Settings
-}
-
-export const PageHead = ({ settings }: IndexPageHeadProps) => {
+export const PageHead = () => {
+  const settings = useSettings()
   const { title, description, ogImage } = settings
 
   return (

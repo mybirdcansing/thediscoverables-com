@@ -1,5 +1,6 @@
 import { usePlayerContext } from 'lib/playerContext'
-import { Playlist, Song } from 'lib/types/content'
+import { Playlist } from 'lib/types/playlist'
+import { Song } from 'lib/types/song'
 import React from 'react'
 
 import { useAirPlay } from './useAirPlay'
@@ -18,23 +19,32 @@ export interface PlayerHook {
   playlist: Playlist
   airPlayRef: React.MutableRefObject<HTMLSpanElement | null>
   playerVolumeSliderRef: React.MutableRefObject<HTMLInputElement | null>
-  toggleSong: (song: Song) => void
+  toggleSong: (song: Song, e?: React.MouseEvent) => void
   setVolume: (e: React.ChangeEvent<HTMLInputElement>) => void
   songIndex: () => number
   lowerVolume: () => void
   raiseVolume: () => void
-  playPrevious: () => void
-  playNext: (loop: boolean) => void
+  playPrevious: (e?: React.MouseEvent) => void
+  playNext: (loop: boolean, e?: React.MouseEvent) => void
+  isDrawerExpanded: boolean
+  toggleExpandDrawer: () => void
 }
 
 export const usePlayer = (): PlayerHook => {
-  const { state } = usePlayerContext()
-  const { activeSong, isLoading, playlist, songClickIndex } = state
+  const { dispatch, state } = usePlayerContext()
+  const { activeSong, isLoading, playlist, songClickIndex, isDrawerExpanded } =
+    state
 
   const audioRef = React.useRef<HTMLAudioElement | null>(null)
   const airPlayRef = React.useRef<HTMLSpanElement | null>(null)
   const playerVolumeSliderRef = React.useRef<HTMLInputElement | null>(null)
 
+  const toggleExpandDrawer = () => {
+    dispatch({
+      type: 'SET_DRAWER_EXPANDED',
+      payload: !state.isDrawerExpanded,
+    })
+  }
   const { setVolume, lowerVolume, raiseVolume } = useVolumeControl(
     audioRef,
     playerVolumeSliderRef,
@@ -105,5 +115,7 @@ export const usePlayer = (): PlayerHook => {
     raiseVolume,
     playPrevious,
     playNext,
+    isDrawerExpanded,
+    toggleExpandDrawer,
   }
 }

@@ -3,32 +3,53 @@ import '../styles.css'
 
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppLayout } from 'components/AppLayout'
+import { getPageProps } from 'lib/getPageProps'
+import { useDraftMode } from 'lib/hooks/useDraftMode'
+import { useProviders } from 'lib/hooks/useProviders'
 import { PlayerProvider } from 'lib/playerContext'
-import { SharedPageProps } from 'lib/types/pages'
-import { AppProps } from 'next/app'
-import dynamic from 'next/dynamic'
+import { getClient } from 'lib/sanity.client'
+import { getSettings } from 'lib/sanity.getters'
+import type { SharedPageProps } from 'lib/types/pages'
+import type { Settings } from 'lib/types/settings'
+import { WindowProvider } from 'lib/windowContext'
+import type { AppContext, AppProps } from 'next/app'
 
-const PreviewProvider = dynamic(() => import('components/PreviewProvider'))
+interface MyAppProps extends AppProps<SharedPageProps> {
+  settings: Settings
+}
 
-export default function App({
-  Component,
-  pageProps,
-}: AppProps<SharedPageProps>) {
-  const { draftMode, token } = pageProps
+function App({ Component, pageProps, settings }: MyAppProps) {
+  const { token } = pageProps
+
+  const providers = useProviders({
+    children: (
+      <AppLayout>
+        <Component {...pageProps} />
+      </AppLayout>
+    ),
+    settings,
+    token,
+  })
+
   return (
     <>
-      <PlayerProvider>
-        <AppLayout>
-          {draftMode ? (
-            <PreviewProvider token={token}>
-              <Component {...pageProps} />
-            </PreviewProvider>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </AppLayout>
-      </PlayerProvider>
-      {draftMode && <VisualEditing />}
+      <WindowProvider>
+        <PlayerProvider>{providers}</PlayerProvider>
+      </WindowProvider>
+      {useDraftMode() && <VisualEditing />}
     </>
   )
 }
+
+App.getInitialProps = async (appContext: AppContext) => {
+  const client = getClient()
+  const settings = await getSettings(client)
+  const appProps = await getPageProps(appContext)
+
+  return {
+    ...appProps,
+    settings,
+  }
+}
+
+export default App

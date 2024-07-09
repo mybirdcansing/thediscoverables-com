@@ -46,3 +46,7 @@ export const isChromeDesktop = (): boolean => {
 }
 
 export const isClient = typeof window !== 'undefined'
+
+export const handleInnerClick = (e: React.MouseEvent) => {
+  e.stopPropagation()
+}

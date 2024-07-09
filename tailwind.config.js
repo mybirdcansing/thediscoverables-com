@@ -15,6 +15,7 @@ module.exports = {
         cyan: '#79FFE1',
         'blue-500': '#2276FC',
         'yellow-100': '#fef7da',
+        'gray-750': '#262626',
       },
       spacing: {
         28: '7rem',
@@ -35,6 +36,20 @@ module.exports = {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
       },
+      transitionDuration: {
+        350: '350ms',
+        400: '400ms',
+      },
+      verticalAlign: {
+        top: 'top',
+      },
+    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '936px',
+      xl: '1280px',
+      '2xl': '1536px',
     },
   },
   plugins: [],

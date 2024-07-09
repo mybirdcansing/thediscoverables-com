@@ -1,7 +1,7 @@
 import SongsPage, { SongsPageProps } from 'components/Songs/SongsPage'
 import { readToken } from 'lib/sanity.api'
 import { getClient, Query } from 'lib/sanity.client'
-import { getSettings, getSongs } from 'lib/sanity.getters'
+import { getSongs } from 'lib/sanity.getters'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 
@@ -15,12 +15,12 @@ const PreviewSongsPage = dynamic<SongsPageProps>(
   },
 )
 export default function RenderPage(props: SongsPageProps) {
-  const { settings, songsView, preview } = props
+  const { songsView, preview } = props
 
   return preview ? (
-    <PreviewSongsPage songsView={songsView} settings={settings} />
+    <PreviewSongsPage songsView={songsView} />
   ) : (
-    <SongsPage songsView={songsView} settings={settings} />
+    <SongsPage songsView={songsView} />
   )
 }
 
@@ -28,10 +28,7 @@ export const getStaticProps: GetStaticProps<any, Query> = async ({
   draftMode = false,
 }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const [settings, songsView] = await Promise.all([
-    getSettings(client),
-    getSongs(client),
-  ])
+  const songsView = await getSongs(client)
 
   if (!songsView) {
     return {
@@ -43,7 +40,6 @@ export const getStaticProps: GetStaticProps<any, Query> = async ({
     props: {
       type: 'album',
       songsView,
-      settings,
       draftMode,
       token: draftMode ? readToken : '',
     },

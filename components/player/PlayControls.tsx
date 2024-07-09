@@ -7,9 +7,9 @@ import styles from './PlayerControls.module.css'
 interface PlayControlsProps {
   isPlaying: boolean
   isLoading: boolean
-  toggleSong: () => void
-  playPrevious: () => void
-  playNext: () => void
+  toggleSong: (e: React.MouseEvent) => void
+  playPrevious: (e: React.MouseEvent) => void
+  playNext: (e: React.MouseEvent) => void
   songIndex: number
   playlistLength: number
 }
@@ -24,7 +24,12 @@ export const PlayControls = ({
   playlistLength,
 }: PlayControlsProps) => {
   return (
-    <div className={styles.playerControls}>
+    <div
+      className={cx(
+        styles['player-controls'],
+        'flex flex-row justify-center relative',
+      )}
+    >
       <button
         className={cx({
           'opacity-30 cursor-pointer': songIndex === 0,

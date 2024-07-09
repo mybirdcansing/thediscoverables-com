@@ -5,7 +5,7 @@ export interface ContainerProps {
 }
 export const Container = ({ children, className }: ContainerProps) => {
   return (
-    <div className={cx('container mx-auto px-3 md:px-5', className)}>
+    <div className={cx('container mx-auto px-4 md:px-5', className)}>
       {children}
     </div>
   )
