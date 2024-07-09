@@ -3,12 +3,10 @@
 }
 html,
 body {
-  height: 100%;
-  overscroll-behavior-x: none;
+  @apply overscroll-x-none h-full;
 }
 body {
-  @apply bg-gray-750 p-0 m-0 text-gray-50 text-base font-sans;
-  touch-action: manipulation;
+  @apply bg-gray-750 p-0 m-0 text-gray-50 text-base font-sans touch-manipulation;
 }
 img {
   -webkit-user-drag: element;
@@ -17,4 +15,7 @@ img {
 
 h2 {
   @apply text-lg lg:text-xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty text-slate-200;
+}
+#player-bar {
+  @apply text-white;
 }

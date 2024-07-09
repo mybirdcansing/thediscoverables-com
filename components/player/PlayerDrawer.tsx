@@ -106,7 +106,7 @@ export const PlayerDrawer = () => {
   return (
     <div
       ref={drawerRef}
-      className="absolute w-full bg-[rgb(30,32,35)] text-white h-svh transition-[top] duration-400 ease-in-out"
+      className="absolute w-full bg-[rgb(30,32,35)] h-svh transition-[top] duration-400 ease-in-out"
       style={{
         top: isExpanded ? `${scrollY}px` : `${scrollY + height}px`,
       }}
