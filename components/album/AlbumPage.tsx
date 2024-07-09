@@ -70,7 +70,9 @@ export default function AlbumPage(props: AlbumPageProps) {
             </div>
           </div>
         </section>
-        <SongList songs={songsWithAlbum} bulletStyle={BulletStyle.Number} />
+        <Container className="flex flex-col place-items-center">
+          <SongList songs={songsWithAlbum} bulletStyle={BulletStyle.Number} />
+        </Container>
       </Container>
     </PageLayout>
   )

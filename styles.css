@@ -6,7 +6,7 @@ body {
   @apply overscroll-x-none h-full;
 }
 body {
-  @apply bg-gray-750 p-0 m-0 text-gray-50 text-base font-sans touch-manipulation;
+  @apply bg-gray-750 p-0 text-gray-50 text-base font-sans touch-manipulation;
 }
 img {
   -webkit-user-drag: element;

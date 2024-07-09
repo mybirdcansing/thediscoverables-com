@@ -544,6 +544,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;

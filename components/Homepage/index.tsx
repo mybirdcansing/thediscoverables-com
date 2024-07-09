@@ -54,13 +54,14 @@ export const Homepage = (props: IndexPageProps) => {
           />
         </div>
         <section className="flex flex-col gap-8">
-          <SongList
-            title={songsTitle}
-            songs={songs}
-            bulletStyle={BulletStyle.Artwork}
-            showAlbumLink
-          />
-          <Container className="flex flex-col place-items-center">
+          <Container className="flex flex-col gap-8 place-items-center">
+            <SongList
+              title={songsTitle}
+              songs={songs}
+              bulletStyle={BulletStyle.Artwork}
+              showAlbumLink
+            />
+
             <div className="max-w-4xl w-full flex flex-col ">
               <Link href="/songs" className="hover:underline">
                 ALL SONGS &gt;

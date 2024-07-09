@@ -1,8 +1,10 @@
 import { usePlayer } from 'components/player/hooks/usePlayer'
 import { PortableTextView } from 'components/PortableTextView'
-import type { Song } from 'lib/types/song'
+import { SongList } from 'components/SongList'
+import Image from 'next/image'
 import { useWindowContext } from 'lib/windowContext'
 import React from 'react'
+import { urlForImage } from 'lib/sanity.image'
 
 interface Tab {
   name: string
@@ -67,22 +69,20 @@ export const PlayerDrawer = () => {
       {
         name: 'Next up',
         content: (
-          <div>
-            {playlist?.map((song: Song, index: number) => (
-              <div key={index}>
-                <p>{song.title}</p>
-              </div>
-            ))}
+          <div className="w-full">
+            <SongList songs={playlist} />
           </div>
         ),
       },
     ]
 
     if (activeSong?.lyrics) {
+      console.log(height)
+
       tabsArray.push({
         name: 'Lyrics',
         content: (
-          <div className="h-[60vh] overflow-y-auto">
+          <div className="w-full">
             <PortableTextView content={activeSong.lyrics} />
           </div>
         ),
@@ -90,7 +90,7 @@ export const PlayerDrawer = () => {
     }
 
     return tabsArray
-  }, [activeSong, playlist])
+  }, [activeSong?.lyrics, height, playlist])
 
   // Reset active tab if it exceeds the number of tabs
   React.useEffect(() => {
@@ -99,6 +99,8 @@ export const PlayerDrawer = () => {
     }
   }, [tabs.length, activeTab])
 
+  const album = activeSong?.album
+
   if (!isVisible) {
     return null
   }
@@ -106,34 +108,53 @@ export const PlayerDrawer = () => {
   return (
     <div
       ref={drawerRef}
-      className="absolute w-full bg-[rgb(30,32,35)] h-svh transition-[top] duration-400 ease-in-out"
+      className="absolute w-full bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out flex flex-row justify-center"
       style={{
         top: isExpanded ? `${scrollY}px` : `${scrollY + height}px`,
+        height: `${height - 82}px`,
       }}
     >
-      <div className="w-full max-w-md mx-auto mt-8">
-        <div className="flex border-b border-gray-200">
-          {tabs.map((tab, index) => (
-            <button
-              key={index}
-              className={`flex-1 py-2 text-center ${
-                activeTab === index
-                  ? 'border-b-2 border-blue-500 text-blue-500'
-                  : 'text-gray-500'
-              }`}
-              onClick={() => handleTabClick(index)}
-              aria-selected={activeTab === index}
-              role="tab"
-            >
-              {tab.name}
-            </button>
-          ))}
-        </div>
-        {tabs.length > activeTab && (
-          <div className="p-4" role="tabpanel">
-            {tabs[activeTab].content}
+      <div className="w-full flex flex-row justify-between gap-8 px-24">
+        {album && (
+          <div className="w-full h-full place-content-center flex flex-row justify-center">
+            <div className="relative max-w-xl aspect-square">
+              <Image
+                objectFit="contain"
+                layout="fill"
+                alt={`Cover image for ${album.title}`}
+                src={urlForImage(album.coverImage).url()}
+              />
+            </div>
           </div>
         )}
+        <div className="max-w-xl min-w-lg w-full mx-auto mt-11">
+          <div className="flex border-b border-gray-200">
+            {tabs.map((tab, index) => (
+              <button
+                key={index}
+                className={`flex-1 py-2 text-center ${
+                  activeTab === index
+                    ? 'border-b-2 border-blue-500 text-blue-500'
+                    : 'text-gray-500'
+                }`}
+                onClick={() => handleTabClick(index)}
+                aria-selected={activeTab === index}
+                role="tab"
+              >
+                {tab.name}
+              </button>
+            ))}
+          </div>
+          {tabs.length > activeTab && (
+            <div
+              className="p-4 overflow-y-auto"
+              role="tabpanel"
+              style={{ height: `${height - 240}px` }}
+            >
+              {tabs[activeTab].content}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
