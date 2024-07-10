@@ -2,11 +2,13 @@ import { Close } from 'components/icons/Close'
 import { usePlayer } from 'components/player/hooks/usePlayer'
 import { PortableTextView } from 'components/PortableTextView'
 import { SongList } from 'components/SongList'
+import { Breakpoints } from 'lib/breakpoints'
 import { urlForImage } from 'lib/sanity.image'
-import { Breakpoints } from 'lib/styleHelper'
 import { useWindowContext } from 'lib/windowContext'
 import Image from 'next/image'
 import React from 'react'
+
+import styles from './PlayerControls.module.css'
 
 interface Tab {
   name: string
@@ -110,17 +112,17 @@ export const PlayerDrawer = () => {
       }}
     >
       <button
-        className="absolute top-0 right-0 p-2 opacity-75 scale-50"
+        className={styles['svg-container']}
         onClick={() => {
           toggleExpandDrawer()
         }}
       >
         <Close />
       </button>
-      <div className="w-full flex flex-col lg:flex-row justify-between gap-x-8 gap-y-12 px-4 lg:px-24 pt-8 lg:pt-4">
+      <div className="w-full flex flex-col lg:flex-row justify-between gap-x-8 gap-y-12 px-4 lg:px-24 pt-11 lg:pt-4">
         {album && (
           <div className="w-full h-full place-content-center flex flex-row justify-center">
-            <div className="relative max-w-xl w-full lg aspect-square">
+            <div className="relative max-w-xl w-full aspect-square">
               <Image
                 objectFit="contain"
                 layout="fill"
@@ -130,7 +132,7 @@ export const PlayerDrawer = () => {
             </div>
           </div>
         )}
-        <div className="max-w-xl min-w-lg w-full mx-auto lg:mt-11">
+        <div className="max-w-xl min-w-md w-full mx-auto lg:mt-11">
           <div className="flex border-b border-gray-200">
             {tabs.map((tab, index) => (
               <button
@@ -151,7 +153,7 @@ export const PlayerDrawer = () => {
           {tabs.length > activeTab && (
             <div
               role="tabpanel"
-              className="w-full p-4 overflow-y-auto min-w-80"
+              className="w-full p-4 overflow-y-auto min-w-full"
               style={{
                 height:
                   width >= Breakpoints.lg

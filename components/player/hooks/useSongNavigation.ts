@@ -63,13 +63,20 @@ export const useSongNavigation = (
         handleInnerClick(e)
       }
       const activeSongIndex = songIndex()
-      if (playlist.length === 0 || activeSongIndex < 1) {
+      const playlistLength = playlist.length
+      if (
+        !playlistLength ||
+        activeSongIndex < 0 ||
+        activeSongIndex >= playlist.length
+      ) {
         return
       }
-
+      const index = activeSongIndex === 0 ? 0 : activeSongIndex - 1
       dispatch({
         type: 'SET_ACTIVE_SONG',
-        payload: { song: playlist[activeSongIndex - 1] },
+        payload: {
+          song: playlist[index],
+        },
       })
     },
     [dispatch, playlist, songIndex],

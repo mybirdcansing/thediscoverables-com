@@ -1,3 +1,4 @@
+import { isClient } from 'lib/playerHelper'
 import React from 'react'
 
 export const useAirPlay = (
@@ -8,7 +9,7 @@ export const useAirPlay = (
     const player = audioRef.current
     const airPlay = airPlayRef.current
 
-    if (!player || !airPlay || typeof window === 'undefined') {
+    if (!player || !airPlay || !isClient) {
       return
     }
     const airPlayClickHandler = () => {

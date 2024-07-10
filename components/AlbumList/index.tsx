@@ -26,7 +26,7 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
             `grid gap-x-6 gap-y-8 w-full`,
             albums.length > 2
               ? 'grid-cols-1 md:grid-cols-3'
-              : 'grid-cols-1 sm:grid-cols-2',
+              : 'grid-cols-1 xs:grid-cols-2',
           )}
         >
           {albums.map((album) => {

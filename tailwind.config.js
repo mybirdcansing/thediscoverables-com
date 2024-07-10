@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const { BreakpointValues } = require('./lib/breakpoints.ts')
+
 module.exports = {
   content: [
     './components/**/*.{js,ts,jsx,tsx}',
@@ -45,11 +47,12 @@ module.exports = {
       },
     },
     screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '936px',
-      xl: '1280px',
-      '2xl': '1536px',
+      xs: BreakpointValues.xs,
+      sm: BreakpointValues.sm,
+      md: BreakpointValues.md,
+      lg: BreakpointValues.lg,
+      xl: BreakpointValues.xl,
+      '2xl': BreakpointValues['2xl'],
     },
   },
   plugins: [],

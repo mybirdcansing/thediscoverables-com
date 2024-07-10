@@ -3,7 +3,7 @@
 }
 html,
 body {
-  @apply overscroll-x-none h-full;
+  @apply overscroll-x-none h-full m-0;
 }
 body {
   @apply bg-gray-750 p-0 text-gray-50 text-base font-sans touch-manipulation;

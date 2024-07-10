@@ -10,8 +10,8 @@ interface PlayControlsProps {
   toggleSong: (e: React.MouseEvent) => void
   playPrevious: (e: React.MouseEvent) => void
   playNext: (e: React.MouseEvent) => void
-  songIndex: number
-  playlistLength: number
+  songIndex?: number
+  playlistLength?: number
 }
 
 export const PlayControls = ({
@@ -20,8 +20,6 @@ export const PlayControls = ({
   toggleSong,
   playPrevious,
   playNext,
-  songIndex,
-  playlistLength,
 }: PlayControlsProps) => {
   return (
     <div
@@ -30,12 +28,7 @@ export const PlayControls = ({
         'flex flex-row justify-center relative',
       )}
     >
-      <button
-        className={cx({
-          'opacity-30 cursor-pointer': songIndex === 0,
-        })}
-        onClick={playPrevious}
-      >
+      <button className="hidden xs:block" onClick={playPrevious}>
         <Image src="/previous-icon.svg" alt="Previous" width={46} height={46} />
       </button>
       <button onClick={toggleSong}>
@@ -67,12 +60,7 @@ export const PlayControls = ({
           />
         )}
       </button>
-      <button
-        className={cx({
-          'opacity-30 cursor-arrow': playlistLength === songIndex + 1,
-        })}
-        onClick={playNext}
-      >
+      <button onClick={playNext}>
         <Image
           src="/next-icon.svg"
           alt="Next"
