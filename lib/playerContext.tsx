@@ -41,6 +41,7 @@ export const reducer = (
         activeSong: action.payload.song,
         songClickIndex: state.songClickIndex + 1,
       }
+
     case 'PLAY':
       return { ...state, isPlaying: true }
     case 'PAUSE':

@@ -67,19 +67,25 @@ export const useSongNavigation = (
       if (
         !playlistLength ||
         activeSongIndex < 0 ||
-        activeSongIndex >= playlist.length
+        activeSongIndex >= playlistLength
       ) {
         return
       }
-      const index = activeSongIndex === 0 ? 0 : activeSongIndex - 1
-      dispatch({
-        type: 'SET_ACTIVE_SONG',
-        payload: {
-          song: playlist[index],
-        },
-      })
+      if (activeSongIndex === 0) {
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0
+          audioRef.current.play()
+        }
+      } else {
+        dispatch({
+          type: 'SET_ACTIVE_SONG',
+          payload: {
+            song: playlist[activeSongIndex - 1],
+          },
+        })
+      }
     },
-    [dispatch, playlist, songIndex],
+    [audioRef, dispatch, playlist, songIndex],
   )
 
   const playNext = React.useCallback(

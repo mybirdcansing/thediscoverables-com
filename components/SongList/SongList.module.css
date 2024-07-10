@@ -1,3 +1,8 @@
+.song-list-album-artwork {
+  width: 50px;
+  height: 50px;
+}
+
 .song-list-row:hover .play,
 .song-list-row.active-song.paused:hover .play {
   display: block;
@@ -50,10 +55,6 @@
   background-color: radial-gradient(crimson, skyblue);
 }
 
-.song-list-album-artwork {
-  width: 50px;
-  height: 50px;
-}
 .song-list-album-artwork img,
 .song-list-album-artwork svg {
   height: auto;

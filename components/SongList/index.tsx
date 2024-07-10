@@ -54,9 +54,10 @@ export const SongList = ({
             <div
               key={_id}
               className={cx(
-                'w-full flex flex-row gap-4 py-1',
+                'w-full flex flex-row py-1',
                 styles['song-list-row'],
                 {
+                  'gap-4': bulletStyle === BulletStyle.Artwork,
                   [styles['active-song']]: isActiveSong(song),
                   [styles.loading]: isActiveSong(song) && isLoading,
                   [styles.playing]: isActiveSong(song) && isPlaying,
@@ -105,7 +106,7 @@ export const SongList = ({
                       className={styles['song-list-index']}
                     >
                       <title>{`Song number ${songNumber}`}</title>
-                      <text x="16" y="27" fill="white">
+                      <text x="20" y="27" fill="white">
                         {songNumber}
                       </text>
                     </svg>
