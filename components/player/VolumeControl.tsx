@@ -1,3 +1,4 @@
+import { Breakpoints } from 'lib/breakpoints'
 import { useWindowContext } from 'lib/windowContext'
 import Image from 'next/image'
 import React from 'react'
@@ -21,7 +22,7 @@ export const VolumeControl = ({
 }: VolumeControlProps) => {
   const { width } = useWindowContext()
 
-  if (isIOS && width > 400) {
+  if (isIOS && width > Breakpoints.xs) {
     return (
       <span ref={airPlayRef}>
         <svg
