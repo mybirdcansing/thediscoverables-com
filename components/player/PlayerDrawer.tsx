@@ -112,7 +112,7 @@ export const PlayerDrawer = () => {
       }}
     >
       <button
-        className={styles['svg-container']}
+        className={styles['close-button-container']}
         onClick={() => {
           toggleExpandDrawer()
         }}

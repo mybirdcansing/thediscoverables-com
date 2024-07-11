@@ -1,20 +1,15 @@
 .player-controls img,
 .player-controls svg {
-  opacity: 0.8;
-  cursor: pointer;
-  height: auto;
-  aspect-ratio: 1 / 1;
+  @apply opacity-80 cursor-pointer h-auto aspect-square block;
 }
 .player-controls img:hover {
-  opacity: 1;
+  @apply opacity-100;
 }
 
-.svg-container {
+.close-button-container {
   @apply absolute p-1 top-1 right-1 opacity-75 inline-block w-full h-full max-h-8 max-w-8;
 }
 
-.svg-container svg {
-  width: 100%;
-  height: 100%;
-  display: block; /* Prevents inline-block space issue */
+.close-button-container svg {
+  @apply w-full h-full block;
 }
