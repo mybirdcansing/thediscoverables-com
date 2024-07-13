@@ -121,8 +121,8 @@ export const PlayerDrawer = () => {
       </button>
       <div className="w-full flex flex-col lg:flex-row justify-between gap-x-8 gap-y-12 px-4 lg:px-24 pt-11 lg:pt-4">
         {album && (
-          <div className="w-full h-full place-content-center flex flex-row justify-center">
-            <div className="relative max-w-xl w-full aspect-square">
+          <div className="w-full h-auto lg:h-full flex flex-row place-content-center justify-center">
+            <div className="relative max-w-xl w-full aspect-square lg:aspect-auto lg:h-full">
               <Image
                 objectFit="contain"
                 layout="fill"
@@ -132,7 +132,7 @@ export const PlayerDrawer = () => {
             </div>
           </div>
         )}
-        <div className="max-w-xl min-w-md w-full mx-auto lg:mt-11">
+        <div className="max-w-xl w-full mx-auto lg:mt-11">
           <div className="flex border-b border-gray-200">
             {tabs.map((tab, index) => (
               <button
@@ -153,7 +153,7 @@ export const PlayerDrawer = () => {
           {tabs.length > activeTab && (
             <div
               role="tabpanel"
-              className="w-full p-4 overflow-y-auto min-w-full"
+              className="w-full p-4 overflow-y-auto"
               style={{
                 height:
                   width >= Breakpoints.lg
