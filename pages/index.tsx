@@ -39,26 +39,11 @@ export const getStaticProps: GetStaticProps<any, Query> = async (ctx) => {
       notFound: true,
     }
   }
-  const {
-    backgroundImage,
-    description,
-    albums,
-    songs,
-    songsTitle,
-    albumsTitle,
-    allSongs,
-  } = homepage
 
   return {
     props: {
-      backgroundImage,
-      description,
-      albums,
-      songs,
-      songsTitle,
-      albumsTitle,
+      ...homepage,
       draftMode,
-      allSongs,
       token: draftMode ? readToken : '',
     },
     revalidate: Number(process.env.REVALIDATE_SECONDS ?? 900),

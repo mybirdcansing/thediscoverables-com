@@ -14,7 +14,7 @@ import type { Settings } from 'lib/types/settings'
 import { WindowProvider } from 'lib/windowContext'
 import type { AppContext, AppProps } from 'next/app'
 
-interface MyAppProps extends AppProps<SharedPageProps> {
+export interface MyAppProps extends AppProps<SharedPageProps> {
   settings: Settings
 }
 
@@ -40,8 +40,7 @@ function App({ Component, pageProps, settings }: MyAppProps) {
     </>
   )
 }
-
-App.getInitialProps = async (appContext: AppContext) => {
+export const getAppInitialProps = async (appContext: AppContext) => {
   const client = getClient()
   const settings = await getSettings(client)
   const appProps = await getPageProps(appContext)
@@ -51,5 +50,7 @@ App.getInitialProps = async (appContext: AppContext) => {
     settings,
   }
 }
+
+App.getInitialProps = getAppInitialProps
 
 export default App
