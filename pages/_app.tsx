@@ -4,7 +4,7 @@ import '../styles.css'
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppLayout } from 'components/AppLayout'
 import { useDraftMode } from 'lib/hooks/useDraftMode'
-import { useProviders } from 'lib/hooks/useProviders'
+import { usePreviewProvider } from 'lib/hooks/useProviders'
 import { PlayerProvider } from 'lib/playerContext'
 import type { SharedPageProps } from 'lib/types/pages'
 import { WindowProvider } from 'lib/windowContext'
@@ -15,7 +15,7 @@ export type MyAppProps = AppProps<SharedPageProps>
 const App = ({ Component, pageProps }: MyAppProps) => {
   const { token } = pageProps
 
-  const providers = useProviders({
+  const wrappedPage = usePreviewProvider({
     children: (
       <AppLayout>
         <Component {...pageProps} />
@@ -27,7 +27,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
   return (
     <>
       <WindowProvider>
-        <PlayerProvider>{providers}</PlayerProvider>
+        <PlayerProvider>{wrappedPage}</PlayerProvider>
       </WindowProvider>
       {useDraftMode() && <VisualEditing />}
     </>

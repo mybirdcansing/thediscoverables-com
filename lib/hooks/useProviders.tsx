@@ -4,7 +4,7 @@ import React from 'react'
 
 const PreviewProvider = dynamic(() => import('components/PreviewProvider'))
 
-export const useProviders = ({
+export const usePreviewProvider = ({
   children,
   token,
 }: {
