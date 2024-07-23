@@ -51,9 +51,9 @@ export const SettingsProvider = ({
 export const useSettings = (): Settings => {
   const context = React.useContext(SettingsContext)
 
-  // if (context === undefined) {
-  //   throw new Error('useSettings must be used within a SettingsProvider')
-  // }
+  if (context === undefined) {
+    throw new Error('useSettings must be used within a SettingsProvider')
+  }
 
   return context ?? {}
 }
