@@ -3,7 +3,6 @@ import { getYear } from 'date-fns/getYear'
 import { usePlayerContext } from 'lib/playerContext'
 import { handleInnerClick } from 'lib/playerHelper'
 import { hasAlbumArt, urlForImage } from 'lib/sanity.image'
-import { useSettings } from 'lib/settingsContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -13,7 +12,7 @@ interface SongDetailsProps {
 }
 
 export const SongDetails = ({ activeSong }: SongDetailsProps) => {
-  const album = activeSong.album
+  const { bandName, title, album } = activeSong
   const { dispatch } = usePlayerContext()
   const handleGoToPage = (e: React.MouseEvent) => {
     handleInnerClick(e)
@@ -30,8 +29,6 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
 
   const albumSlug = album?.slug?.current ? album.slug.current : undefined
 
-  const { title: bandName } = useSettings()
-
   return (
     <div className="flex flex-row place-items-center gap-2">
       {artSrc && (
@@ -46,7 +43,7 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
       )}
 
       <div className="flex flex-col gap-0.5 overflow-clip  whitespace-nowrap">
-        <div className="font-bold">{activeSong.title}</div>
+        <div className="font-bold">{title}</div>
         {albumSlug && (
           <div className="flex flex-row gap-1 text-sm">
             <Link
@@ -60,11 +57,11 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
             <div className="hidden md:flex flex-row gap-1">
               <Dot />
               <Link
-                href={`/albums/${activeSong.album.slug.current}`}
+                href={`/albums/${album.slug.current}`}
                 onClick={handleGoToPage}
                 className="hover:underline"
               >
-                {activeSong.album.title}
+                {album.title}
               </Link>
               <Dot />
               <span>{getYear(album.publishDate)}</span>

@@ -28,7 +28,12 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "components/*": ["components/*"],
+      "lib/*": ["lib/*"],
+      "pages/*": ["pages/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

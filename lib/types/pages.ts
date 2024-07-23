@@ -1,13 +1,13 @@
 import type { Album } from 'lib/types/album'
 import type { Playlist } from 'lib/types/playlist'
-import type { Settings } from 'lib/types/settings'
 import { PortableTextBlock } from 'sanity'
+
+import { Settings } from './settings'
 
 export interface SharedPageProps {
   draftMode: boolean
   token: string
   loading: boolean
-  settings?: Settings
 }
 
 export interface HomepageProps extends SharedPageProps {
@@ -31,4 +31,8 @@ export interface SongsViewProps extends SharedPageProps {
   songs?: Playlist
   title?: string
   description?: Array<PortableTextBlock>
+}
+
+export interface WithSettings {
+  settings: Settings
 }

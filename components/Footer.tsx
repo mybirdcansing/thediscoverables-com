@@ -6,7 +6,7 @@ export const Footer = () => {
     state: { activeSong },
   } = usePlayerContext()
 
-  const { title: bandName } = useSettings()
+  const { bandName } = useSettings()
 
   return (
     <footer className="flex flex-row justify-center p-4">

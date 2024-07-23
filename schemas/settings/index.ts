@@ -16,6 +16,12 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'bandName',
+      title: 'Band Name',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'description',
       description:
         'Used both for the <meta> description tag for SEO, and the site subheader.',
