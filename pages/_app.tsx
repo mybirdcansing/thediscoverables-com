@@ -3,22 +3,16 @@ import '../styles.css'
 
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppLayout } from 'components/AppLayout'
-import { getPageProps } from 'lib/getPageProps'
 import { useDraftMode } from 'lib/hooks/useDraftMode'
 import { useProviders } from 'lib/hooks/useProviders'
 import { PlayerProvider } from 'lib/playerContext'
-import { getClient } from 'lib/sanity.client'
-import { getSettings } from 'lib/sanity.getters'
 import type { SharedPageProps } from 'lib/types/pages'
-import type { Settings } from 'lib/types/settings'
 import { WindowProvider } from 'lib/windowContext'
-import type { AppContext, AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
 
-export interface MyAppProps extends AppProps<SharedPageProps> {
-  settings: Settings
-}
+export type MyAppProps = AppProps<SharedPageProps>
 
-function App({ Component, pageProps, settings }: MyAppProps) {
+const App = ({ Component, pageProps }: MyAppProps) => {
   const { token } = pageProps
 
   const providers = useProviders({
@@ -27,7 +21,6 @@ function App({ Component, pageProps, settings }: MyAppProps) {
         <Component {...pageProps} />
       </AppLayout>
     ),
-    settings,
     token,
   })
 
@@ -40,17 +33,5 @@ function App({ Component, pageProps, settings }: MyAppProps) {
     </>
   )
 }
-export const getAppInitialProps = async (appContext: AppContext) => {
-  const client = getClient()
-  const settings = await getSettings(client)
-  const appProps = await getPageProps(appContext)
-
-  return {
-    ...appProps,
-    settings,
-  }
-}
-
-App.getInitialProps = getAppInitialProps
 
 export default App

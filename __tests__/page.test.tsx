@@ -1,7 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import { getClient } from 'lib/sanity.client'
-import { getSettings } from 'lib/sanity.getters'
-import { AlbumViewProps, HomepageProps, SharedPageProps } from 'lib/types/pages'
+import {
+  AlbumViewProps,
+  HomepageProps,
+  SharedPageProps,
+  WithSettings,
+} from 'lib/types/pages'
 import { Router } from 'next/router'
 import App from 'pages/_app'
 import AlbumPage, {
@@ -13,31 +16,21 @@ import { expect, test } from 'vitest'
 const createMockRouter = (options?: Partial<Router>) =>
   options ? (options as Router) : ({} as Router)
 
-const getGlobalSettings = async () => {
-  return await getSettings(getClient())
-}
-
 const renderWithApp = async <P extends SharedPageProps>(
   Component: React.ComponentType<P>,
   props: P,
   routerOptions?: Partial<Router>,
 ) => {
-  const settings = await getGlobalSettings()
   const mockRouter = createMockRouter(routerOptions)
 
   render(
-    <App
-      Component={Component}
-      settings={settings}
-      pageProps={{ ...props, settings }}
-      router={mockRouter}
-    />,
+    <App Component={Component} pageProps={{ ...props }} router={mockRouter} />,
   )
 }
 
 test('Homepage renders without crashing and contains expected content', async () => {
   const { props } = (await getHomepageProps({ draftMode: false })) as {
-    props: HomepageProps
+    props: HomepageProps & WithSettings
   }
   await renderWithApp(Homepage, props)
 
@@ -52,7 +45,7 @@ test('Album page renders without crashing and contains expected content', async 
     draftMode: false,
     params: { slug: 'running-in-place' },
   })) as {
-    props: AlbumViewProps
+    props: AlbumViewProps & WithSettings
   }
   await renderWithApp(AlbumPage, props, { pathname: '/album/running-in-place' })
 

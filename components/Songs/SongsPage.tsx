@@ -9,13 +9,13 @@ import { SongsViewProps } from 'lib/types/pages'
 import isEmpty from 'lodash/isEmpty'
 
 export interface SongsPageProps {
-  preview?: boolean
+  draftMode?: boolean
   loading?: boolean
   songsView: SongsViewProps
 }
 
 export default function SongsPage(props: SongsPageProps) {
-  const { songsView, loading, preview } = props
+  const { songsView, loading, draftMode } = props
   const settings = useSettings()
   if (!songsView || isEmpty(songsView)) {
     return null
@@ -23,7 +23,7 @@ export default function SongsPage(props: SongsPageProps) {
   const { songs, description, title } = songsView
 
   return (
-    <PageLayout loading={loading} preview={preview}>
+    <PageLayout loading={loading} preview={draftMode}>
       <PageHead />
       <Container>
         <PageHeader
