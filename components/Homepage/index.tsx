@@ -5,6 +5,7 @@ import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
+import { urlForImage } from 'lib/sanity.image'
 import { useSettings } from 'lib/settingsContext'
 import { BulletStyle } from 'lib/types/bulletStyle'
 import type { HomepageProps } from 'lib/types/pages'
@@ -24,7 +25,8 @@ export const Homepage = (props: IndexPageProps) => {
   const { homepage, preview, loading } = props
   const settings = useSettings()
   const { title } = settings || {}
-  const { songsTitle, songs, albumsTitle, albums, allSongs } = homepage
+  const { songsTitle, songs, albumsTitle, albums, allSongs, backgroundImage } =
+    homepage
 
   const songsForQueue = React.useMemo(() => {
     if (!songs || !allSongs) {
@@ -50,9 +52,13 @@ export const Homepage = (props: IndexPageProps) => {
     <PageLayout preview={preview} loading={loading}>
       <div className="pb-20 relative">
         <PageHead />
-        <div className="w-full relative h-[180px] sm:h-[350px] lg:h-[650px] -z-50">
+        <div className="w-full relative h-[260px] sm:h-[340px] lg:h-[640px] -z-50">
           <Image
-            src="/xx-large-adam_bay5.jpg"
+            src={
+              backgroundImage?.asset._ref
+                ? urlForImage(backgroundImage).url()
+                : '/xx-large-adam_bay5.jpg'
+            }
             alt={`${title} hero image`}
             fill
             priority
