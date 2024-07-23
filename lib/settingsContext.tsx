@@ -55,5 +55,5 @@ export const useSettings = (): Settings => {
     throw new Error('useSettings must be used within a SettingsProvider')
   }
 
-  return context ?? {}
+  return context
 }
