@@ -52,7 +52,7 @@ export const SongList = ({
 
           return (
             <div
-              key={_id}
+              key={`${songNumber}-${_id}`}
               className={cx(
                 'w-full flex flex-row py-1',
                 styles['song-list-row'],

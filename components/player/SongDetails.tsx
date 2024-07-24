@@ -45,12 +45,8 @@ export const SongDetails = ({ activeSong }: SongDetailsProps) => {
       <div className="flex flex-col gap-0.5 overflow-clip  whitespace-nowrap">
         <div className="font-bold">{title}</div>
         {albumSlug && (
-          <div className="flex flex-row gap-1 text-sm">
-            <Link
-              href="/"
-              onClick={handleGoToPage}
-              className="hover:underline hidden md:flex"
-            >
+          <div className="hidden md:flex flex-row gap-1 text-sm">
+            <Link href="/" onClick={handleGoToPage} className="hover:underline">
               {bandName}
             </Link>
             <div className="md:hidden">{bandName}</div>

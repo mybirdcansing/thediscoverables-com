@@ -52,12 +52,16 @@ export const VolumeControl = ({
         />
       </button>
       <input
-        onInput={setVolume}
+        onChange={(e) => {
+          setVolume(e)
+        }}
         onClick={(e) => e.stopPropagation()}
         ref={playerVolumeSliderRef}
         type="range"
         min="0"
         max="100"
+        role="slider"
+        data-testid="volumeSlider"
       />
       <button onClick={raiseVolume}>
         <Image

@@ -116,6 +116,7 @@ export const AudioSlider = ({
           style={{ width: `${buffered}%` }}
         ></div>
         <animated.div
+          role="slider"
           className="absolute h-full bg-gray-500"
           style={{
             width: x.to(

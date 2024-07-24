@@ -15,9 +15,9 @@ export const currentTimeToString = (currentTime: number): string => {
     return '00:00'
   }
 
-  const minute = Number((currentTime / 60).toFixed()) % 60
-  const seconds = Number((currentTime % 60).toFixed())
-  return minute + ':' + (seconds < 10 ? '0' + seconds : seconds)
+  const minutes = Math.floor(currentTime / 60)
+  const seconds = Math.floor(currentTime % 60)
+  return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds)
 }
 
 export const isIOS = () => {

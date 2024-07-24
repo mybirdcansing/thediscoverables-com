@@ -19,7 +19,7 @@ export const PageHead = () => {
           content={toPlainText(description)}
         />
       )}
-      {ogImage && (
+      {ogImage?.asset?._ref && (
         <meta
           property="og:image"
           content={urlForImage(ogImage)
