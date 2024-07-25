@@ -2,6 +2,8 @@ import { useDraftMode } from 'lib/hooks/useDraftMode'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
+const PreviewProvider = dynamic(() => import('components/PreviewProvider'))
+
 export const usePreviewProvider = ({
   children,
   token,
@@ -12,7 +14,6 @@ export const usePreviewProvider = ({
   const draftMode = useDraftMode()
 
   if (draftMode) {
-    const PreviewProvider = dynamic(() => import('components/PreviewProvider'))
     return <PreviewProvider token={token}>{children}</PreviewProvider>
   }
 
