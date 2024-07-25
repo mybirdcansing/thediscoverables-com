@@ -1,58 +1,95 @@
-import { screen } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { VolumeControl } from 'components/player/VolumeControl'
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { Breakpoints } from 'lib/breakpoints'
+import React from 'react'
+import { describe, expect, it, vi } from 'vitest'
 
-import { render } from '../../testUtils'
+// Mock the useWindowContext hook
+vi.mock('lib/windowContext', () => ({
+  useWindowContext: () => ({ width: Breakpoints.md }),
+}))
 
-describe('VolumeControl Component', () => {
-  const mockSetVolume = vi.fn()
-  const mockLowerVolume = vi.fn()
-  const mockRaiseVolume = vi.fn()
-  const playerVolumeSliderRef = { current: document.createElement('input') }
-  const airPlayRef = { current: null }
+describe('VolumeControl', () => {
+  const lowerVolume = vi.fn()
+  const raiseVolume = vi.fn()
+  const setVolume = vi.fn()
+  const playerVolumeSliderRef = React.createRef<HTMLInputElement>()
+  const airPlayRef = React.createRef<HTMLSpanElement>()
+  const isIOS = false
 
-  // Set the viewport width to be greater than the md breakpoint
-  beforeEach(() => {
-    Object.defineProperty(window, 'innerWidth', {
-      writable: true,
-      configurable: true,
-      value: 1024,
-    })
-    window.dispatchEvent(new Event('resize'))
-  })
-
-  test('renders VolumeControl component', () => {
-    render(
+  it('fires onChange event', () => {
+    const { getByTestId } = render(
       <VolumeControl
-        setVolume={mockSetVolume}
-        lowerVolume={mockLowerVolume}
-        raiseVolume={mockRaiseVolume}
+        lowerVolume={lowerVolume}
+        raiseVolume={raiseVolume}
+        setVolume={setVolume}
         playerVolumeSliderRef={playerVolumeSliderRef}
-        isIOS={false}
+        isIOS={isIOS}
         airPlayRef={airPlayRef}
       />,
     )
 
-    expect(screen.getByAltText('volume down')).toBeDefined()
-    expect(screen.getByAltText('volume up')).toBeDefined()
-    expect(screen.getByTestId('volumeSlider')).toBeDefined()
+    const slider = getByTestId('volumeSlider') as HTMLInputElement
+    slider.value = '50'
+    fireEvent.change(slider, { target: { value: '40' } })
+
+    expect(setVolume).toHaveBeenCalledTimes(1)
+    expect(setVolume).toHaveBeenCalledWith(expect.any(Object))
   })
 
-  //   test('calls setVolume on slider change', () => {
-  //     render(
-  //       <VolumeControl
-  //         setVolume={mockSetVolume}
-  //         lowerVolume={mockLowerVolume}
-  //         raiseVolume={mockRaiseVolume}
-  //         playerVolumeSliderRef={playerVolumeSliderRef}
-  //         isIOS={false}
-  //         airPlayRef={airPlayRef}
-  //       />,
-  //     )
+  it('calls lowerVolume when the lower volume button is clicked', () => {
+    const { getByAltText } = render(
+      <VolumeControl
+        lowerVolume={lowerVolume}
+        raiseVolume={raiseVolume}
+        setVolume={setVolume}
+        playerVolumeSliderRef={playerVolumeSliderRef}
+        isIOS={isIOS}
+        airPlayRef={airPlayRef}
+      />,
+    )
 
-  //     const volumeSlider = screen.getByTestId('volumeSlider') as HTMLInputElement
-  //     volumeSlider.value = '0.5'
-  //     fireEvent.change(volumeSlider)
-  //     expect(mockSetVolume).toHaveBeenCalled()
-  //   })
+    const lowerVolumeButton = getByAltText('volume down')
+    fireEvent.click(lowerVolumeButton)
+
+    expect(lowerVolume).toHaveBeenCalledTimes(1)
+  })
+
+  it('calls raiseVolume when the raise volume button is clicked', () => {
+    const { getByAltText } = render(
+      <VolumeControl
+        lowerVolume={lowerVolume}
+        raiseVolume={raiseVolume}
+        setVolume={setVolume}
+        playerVolumeSliderRef={playerVolumeSliderRef}
+        isIOS={isIOS}
+        airPlayRef={airPlayRef}
+      />,
+    )
+
+    const raiseVolumeButton = getByAltText('volume up')
+    fireEvent.click(raiseVolumeButton)
+
+    expect(raiseVolume).toHaveBeenCalledTimes(1)
+  })
+
+  it('renders AirPlay icon on iOS devices when width is greater than Breakpoints.xs', () => {
+    vi.mock('lib/windowContext', () => ({
+      useWindowContext: () => ({ width: Breakpoints.md }),
+    }))
+
+    const { getByTestId } = render(
+      <VolumeControl
+        lowerVolume={lowerVolume}
+        raiseVolume={raiseVolume}
+        setVolume={setVolume}
+        playerVolumeSliderRef={playerVolumeSliderRef}
+        isIOS={true}
+        airPlayRef={airPlayRef}
+      />,
+    )
+
+    const airPlayIcon = getByTestId('airplayIcon')
+    expect(airPlayIcon).toBeTruthy()
+  })
 })

@@ -7,11 +7,6 @@ interface SongTimeProps {
 }
 
 export const SongTime = ({ currentTime, duration }: SongTimeProps) => {
-  console.log({
-    currentTime,
-    currentTimeToString: currentTimeToString(currentTime),
-  })
-
   return (
     <div className="flex flex-row justify-center gap-2">
       <span className="text-xs">

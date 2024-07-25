@@ -1,4 +1,5 @@
 import { Breakpoints } from 'lib/breakpoints'
+import { handleInnerClick } from 'lib/playerHelper'
 import { useWindowContext } from 'lib/windowContext'
 import Image from 'next/image'
 import React from 'react'
@@ -24,7 +25,7 @@ export const VolumeControl = ({
 
   if (isIOS && width > Breakpoints.xs) {
     return (
-      <span ref={airPlayRef}>
+      <span ref={airPlayRef} data-testId="airplayIcon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -52,10 +53,8 @@ export const VolumeControl = ({
         />
       </button>
       <input
-        onChange={(e) => {
-          setVolume(e)
-        }}
-        onClick={(e) => e.stopPropagation()}
+        onChange={setVolume}
+        onClick={handleInnerClick}
         ref={playerVolumeSliderRef}
         type="range"
         min="0"
