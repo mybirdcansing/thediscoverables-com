@@ -120,7 +120,7 @@ export const PlayerDrawer = () => {
         <Close />
       </button>
       <div className="w-full flex flex-col lg:flex-row justify-between gap-x-8 gap-y-12 px-4 lg:px-24 pt-11 lg:pt-4">
-        {album && (
+        {album && album.coverImage?.asset?._ref && (
           <div className="w-full h-auto lg:h-full flex flex-row place-content-center justify-center">
             <div className="relative max-w-xl w-full aspect-square lg:aspect-auto lg:h-full">
               <Image

@@ -55,7 +55,7 @@ export const Homepage = (props: IndexPageProps) => {
         <div className="w-full relative h-[260px] sm:h-[340px] lg:h-[640px] -z-50">
           <Image
             src={
-              backgroundImage?.asset._ref
+              backgroundImage?.asset?._ref
                 ? urlForImage(backgroundImage).url()
                 : '/xx-large-adam_bay5.jpg'
             }
