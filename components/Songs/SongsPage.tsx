@@ -1,6 +1,5 @@
 'use client'
 import { Container } from 'components/Container'
-import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
@@ -24,7 +23,6 @@ export default function SongsPage(props: SongsPageProps) {
 
   return (
     <PageLayout>
-      <PageHead />
       <Container>
         <PageHeader
           title={settings.title}

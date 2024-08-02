@@ -1,3 +1,4 @@
+import { generateMetadataForPage } from 'app/metadataGenerator'
 import { NotFound } from 'components/NotFound'
 import SongsPage, { SongsPageProps } from 'components/Songs/SongsPage'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
@@ -13,6 +14,8 @@ const PreviewSongsPage = dynamic<SongsPageProps>(
     ),
   { ssr: false },
 )
+
+export const generateMetadata = generateMetadataForPage
 
 export default async function Page() {
   const { isEnabled: isDraftModeEnabled = false } = draftMode()

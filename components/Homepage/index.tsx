@@ -2,7 +2,6 @@
 import cx from 'classnames'
 import { AlbumList } from 'components/AlbumList'
 import { Container } from 'components/Container'
-import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
@@ -10,6 +9,7 @@ import { urlForImage } from 'lib/sanity.image'
 import { useSettings } from 'lib/settingsContext'
 import { BulletStyle } from 'lib/types/bulletStyle'
 import type { HomepageProps } from 'lib/types/pages'
+import { Playlist } from 'lib/types/playlist'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -22,7 +22,13 @@ export interface IndexPageProps {
   homepage: HomepageProps
 }
 
+const sortSongsByCreatedAt = (songs: Playlist): Playlist => {
+  return [...songs].sort((a, b) => (b._createdAt! > a._createdAt! ? 1 : -1))
+}
+
 export const Homepage = (props: IndexPageProps) => {
+  // console.log(props)
+
   const { homepage, preview, loading } = props
   const settings = useSettings()
   const { title } = settings || {}
@@ -36,13 +42,8 @@ export const Homepage = (props: IndexPageProps) => {
 
     const songIds = new Set(songs.map((song) => song._id))
     const additionalSongs = allSongs.filter((song) => !songIds.has(song._id))
+    const sortedAdditionalSongs = sortSongsByCreatedAt(additionalSongs)
 
-    // Sort the additionalSongs by _createdAt in descending order
-    const sortedAdditionalSongs = additionalSongs.sort((a, b) =>
-      b._createdAt! > a._createdAt! ? 1 : -1,
-    )
-
-    // Create the new array by concatenating `songs` and `sortedAdditionalSongs`
     return [...songs, ...sortedAdditionalSongs]
   }, [songs, allSongs])
 
@@ -52,7 +53,6 @@ export const Homepage = (props: IndexPageProps) => {
   return (
     <PageLayout preview={preview} loading={loading}>
       <div className="pb-20 relative">
-        <PageHead />
         <div className="w-full relative h-[260px] sm:h-[340px] lg:h-[640px] -z-50">
           <Image
             src={

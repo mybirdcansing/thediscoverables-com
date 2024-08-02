@@ -2,9 +2,10 @@ import { Homepage, type IndexPageProps } from 'components/Homepage'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
 import { getHomepage, getSettings } from 'lib/sanity.getters'
 import { SettingsProvider } from 'lib/settingsContext'
-// import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
+
+import { generateMetadataForPage } from './metadataGenerator'
 
 const PreviewHomepage = dynamic<IndexPageProps>(
   () =>
@@ -16,26 +17,7 @@ const PreviewHomepage = dynamic<IndexPageProps>(
   },
 )
 
-// export async function generateMetadata(
-//   { params, searchParams }: Props,
-//   parent: ResolvingMetadata,
-// ): Promise<Metadata> {
-//   // read route params
-//   const id = params.id
-
-//   // fetch data
-//   const product = await fetch(`https://.../${id}`).then((res) => res.json())
-
-//   // optionally access and extend (rather than replace) parent metadata
-//   const previousImages = (await parent).openGraph?.images || []
-
-//   return {
-//     title: product.title,
-//     openGraph: {
-//       images: ['/some-specific-page-image.jpg', ...previousImages],
-//     },
-//   }
-// }
+export const generateMetadata = generateMetadataForPage
 
 export default async function Page() {
   const client = useSanityClient()

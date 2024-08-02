@@ -1,13 +1,19 @@
-// app/albums/[slug]/page.tsx
-
+import { toPlainText } from '@portabletext/react'
 import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
 import { NotFound } from 'components/NotFound'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
 import { getClient } from 'lib/sanity.client'
 import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
+import { urlForImage } from 'lib/sanity.image'
 import { SettingsProvider } from 'lib/settingsContext'
+import { Album } from 'lib/types/album'
+import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
+
+const isNonEmptyString = (value: any): boolean => {
+  return typeof value === 'string' && value.length > 0
+}
 
 const PreviewAlbumPage = dynamic<AlbumPageProps>(
   () =>
@@ -17,11 +23,46 @@ const PreviewAlbumPage = dynamic<AlbumPageProps>(
   { ssr: false },
 )
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const client = getClient()
+  const album: Album = await getAlbumBySlug(client, params.slug)
+  const settings = await getSettings(client)
+
+  const bandName = settings.title || process.env.NEXT_PUBLIC_BAND_NAME
+  const { description, title, coverImage } = album
+
+  return {
+    title: isNonEmptyString(title) ? `${title} by ${bandName}` : bandName,
+    description: Array.isArray(description)
+      ? toPlainText(description)
+      : undefined,
+    openGraph: {
+      title: isNonEmptyString(title) ? `${title} by ${bandName}` : bandName,
+      description: Array.isArray(description)
+        ? toPlainText(description)
+        : undefined,
+      images: isNonEmptyString(coverImage?.asset?._ref)
+        ? [
+            {
+              url: urlForImage(coverImage)
+                .width(1200)
+                .height(627)
+                .fit('crop')
+                .url(),
+            },
+          ]
+        : [],
+    },
+  }
+}
+
 export default async function Page({ params }: { params: { slug: string } }) {
   const { isEnabled: isDraftModeEnabled = false } = draftMode()
-
   const client = useSanityClient()
-
   const [album, settings] = await Promise.all([
     getAlbumBySlug(client, params.slug),
     getSettings(client),
