@@ -1,6 +1,6 @@
 import { generateMetadataForPage } from 'app/metadataGenerator'
 import { NotFound } from 'components/NotFound'
-import SongsPage, { SongsPageProps } from 'components/Songs/SongsPage'
+import SongsPage, { SongsPageProps } from 'components/pages/Songs/SongsPage'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
 import { getSettings, getSongs } from 'lib/sanity.getters'
 import { SettingsProvider } from 'lib/settingsContext'
@@ -9,7 +9,7 @@ import { draftMode } from 'next/headers'
 
 const PreviewSongsPage = dynamic<SongsPageProps>(
   () =>
-    import('components/Songs/PreviewSongsPage').then(
+    import('components/pages/Songs/PreviewSongsPage').then(
       (mod) => mod.PreviewSongsPage,
     ),
   { ssr: false },

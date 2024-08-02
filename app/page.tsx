@@ -1,4 +1,4 @@
-import { Homepage, type IndexPageProps } from 'components/Homepage'
+import { Homepage, type IndexPageProps } from 'components/pages/Homepage'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
 import { getHomepage, getSettings } from 'lib/sanity.getters'
 import { SettingsProvider } from 'lib/settingsContext'
@@ -9,7 +9,7 @@ import { generateMetadataForPage } from './metadataGenerator'
 
 const PreviewHomepage = dynamic<IndexPageProps>(
   () =>
-    import('components/Homepage/PreviewHomepage').then(
+    import('components/pages/Homepage/PreviewHomepage').then(
       (mod) => mod.PreviewHomepage,
     ),
   {

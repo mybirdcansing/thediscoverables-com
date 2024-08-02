@@ -1,6 +1,6 @@
 import { toPlainText } from '@portabletext/react'
-import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
 import { NotFound } from 'components/NotFound'
+import AlbumPage, { AlbumPageProps } from 'components/pages/Album/AlbumPage'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
 import { getClient } from 'lib/sanity.client'
 import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
@@ -17,7 +17,7 @@ const isNonEmptyString = (value: any): boolean => {
 
 const PreviewAlbumPage = dynamic<AlbumPageProps>(
   () =>
-    import('components/album/PreviewAlbumPage').then(
+    import('components/pages/Album/PreviewAlbumPage').then(
       (mod) => mod.PreviewAlbumPage,
     ),
   { ssr: false },

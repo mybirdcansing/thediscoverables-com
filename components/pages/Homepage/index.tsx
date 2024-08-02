@@ -8,7 +8,7 @@ import { SongList } from 'components/SongList'
 import { urlForImage } from 'lib/sanity.image'
 import { useSettings } from 'lib/settingsContext'
 import { BulletStyle } from 'lib/types/bulletStyle'
-import type { HomepageProps } from 'lib/types/pages'
+import type { HomepageProps, SharedPageProps } from 'lib/types/pages'
 import { Playlist } from 'lib/types/playlist'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -16,9 +16,7 @@ import React from 'react'
 
 import styles from './Homepage.module.css'
 
-export interface IndexPageProps {
-  preview?: boolean
-  loading?: boolean
+export interface IndexPageProps extends SharedPageProps {
   homepage: HomepageProps
 }
 
@@ -27,9 +25,7 @@ const sortSongsByCreatedAt = (songs: Playlist): Playlist => {
 }
 
 export const Homepage = (props: IndexPageProps) => {
-  // console.log(props)
-
-  const { homepage, preview, loading } = props
+  const { homepage, draftMode, loading } = props
   const settings = useSettings()
   const { title } = settings || {}
   const { songsTitle, songs, albumsTitle, albums, allSongs, backgroundImage } =
@@ -51,7 +47,7 @@ export const Homepage = (props: IndexPageProps) => {
     return null
   }
   return (
-    <PageLayout preview={preview} loading={loading}>
+    <PageLayout preview={draftMode} loading={loading}>
       <div className="pb-20 relative">
         <div className="w-full relative h-[260px] sm:h-[340px] lg:h-[640px] -z-50">
           <Image

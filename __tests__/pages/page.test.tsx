@@ -6,7 +6,13 @@
 // import Homepage, { getStaticProps as getHomepageProps } from 'pages/index'
 // import { describe, expect, test } from 'vitest'
 
+// import { Settings } from "lib/types/settings";
+
 // import { renderWithApp } from '../testUtils'
+
+// export interface WithSettings {
+//   settings: Settings
+// }
 
 // describe('Page Tests', () => {
 //   test('Homepage renders without crashing and contains expected content', async () => {
