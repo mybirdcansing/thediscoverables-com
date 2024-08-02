@@ -1,3 +1,4 @@
+'use client'
 import { Settings } from 'lib/types/settings'
 import dynamic from 'next/dynamic'
 import React from 'react'

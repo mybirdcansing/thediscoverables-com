@@ -1,3 +1,4 @@
+'use client'
 import { AlbumDescription } from 'components/album/AlbumBody'
 import { AlbumPageHead } from 'components/album/AlbumPageHead'
 import { Container } from 'components/Container'

@@ -1,3 +1,4 @@
+'use client'
 import cx from 'classnames'
 import { AlbumList } from 'components/AlbumList'
 import { Container } from 'components/Container'

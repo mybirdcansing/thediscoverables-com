@@ -13,7 +13,7 @@ import type { AppProps } from 'next/app'
 export type MyAppProps = AppProps<SharedPageProps>
 
 const App = ({ Component, pageProps }: MyAppProps) => {
-  const { token } = pageProps
+  const { token = '' } = pageProps
 
   const wrappedPage = usePreviewProvider({
     children: (

@@ -1,6 +1,7 @@
 import { validatePreviewUrl } from '@sanity/preview-url-secret'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { draftMode } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { createClient } from 'next-sanity'
 
 const token = process.env.SANITY_API_READ_TOKEN
@@ -17,10 +18,7 @@ const client = createClient({
   token,
 })
 
-export default async function handle(
-  req: NextApiRequest,
-  res: NextApiResponse<string | void>,
-) {
+export async function GET(req: Request) {
   if (!req.url) {
     throw new Error('Missing url')
   }
@@ -29,10 +27,8 @@ export default async function handle(
     req.url,
   )
   if (!isValid) {
-    return res.status(401).send('Invalid secret')
+    return new Response('Invalid slug', { status: 401 })
   }
-  // Enable Draft Mode by setting the cookies
-  res.setDraftMode({ enable: true })
-  res.writeHead(307, { Location: redirectTo })
-  res.end()
+  draftMode().enable()
+  redirect(redirectTo)
 }

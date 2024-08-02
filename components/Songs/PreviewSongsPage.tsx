@@ -1,3 +1,4 @@
+'use client'
 import { Loading } from 'components/Loading'
 import { songsQuery } from 'lib/sanity.queries'
 import { SongsViewProps } from 'lib/types/pages'

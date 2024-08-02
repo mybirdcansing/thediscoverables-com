@@ -6,9 +6,9 @@ import { SanityImage } from './sanityImage'
 import { Settings } from './settings'
 
 export interface SharedPageProps {
-  draftMode: boolean
-  token: string
-  loading: boolean
+  draftMode?: boolean
+  token?: string
+  loading?: boolean
 }
 
 export interface HomepageProps extends SharedPageProps {
@@ -28,7 +28,7 @@ export interface AlbumViewProps extends SharedPageProps {
 }
 
 export interface SongsViewProps extends SharedPageProps {
-  _type: 'songs'
+  _type?: 'songs'
   songs?: Playlist
   title?: string
   description?: Array<PortableTextBlock>

@@ -1,3 +1,4 @@
+'use client'
 import { usePlayerContext } from 'lib/playerContext'
 import dynamic from 'next/dynamic'
 

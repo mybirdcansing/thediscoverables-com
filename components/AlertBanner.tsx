@@ -1,3 +1,4 @@
+'use client'
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { Container } from 'components/Container'
 import { useSyncExternalStore } from 'react'

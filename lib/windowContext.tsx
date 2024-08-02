@@ -1,3 +1,4 @@
+'use client'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import React, { createContext, useContext, useEffect, useState } from 'react'
