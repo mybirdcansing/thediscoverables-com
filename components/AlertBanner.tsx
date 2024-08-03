@@ -1,10 +1,11 @@
+'use client'
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { Container } from 'components/Container'
 import { useSyncExternalStore } from 'react'
 
 const subscribe = () => () => {}
 
-export default function Alert({
+export default function AlertBanner({
   preview,
   loading,
 }: {
@@ -29,7 +30,7 @@ export default function Alert({
         <div className="py-2 text-center text-sm">
           {'Previewing drafts. '}
           <a
-            href="/api/disable-draft"
+            href={`/api/disable-draft?redirect=${encodeURIComponent(window.location.href)}`}
             className="underline transition-colors duration-200 hover:text-cyan"
           >
             Back to published

@@ -1,8 +1,8 @@
+'use client'
 import { Settings } from 'lib/types/settings'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-import { useDraftMode } from './hooks/useDraftMode'
 import { PreviewSettingsProviderProps } from './PreviewSettingsProvider'
 
 const PreviewSettingsProvider = dynamic<PreviewSettingsProviderProps>(
@@ -18,6 +18,7 @@ const PreviewSettingsProvider = dynamic<PreviewSettingsProviderProps>(
 interface SettingsProviderProps {
   children: React.ReactNode
   settings: Settings
+  draftMode: boolean
 }
 
 const SettingsContext = React.createContext<Settings | undefined>(undefined)
@@ -25,9 +26,8 @@ const SettingsContext = React.createContext<Settings | undefined>(undefined)
 export const SettingsProvider = ({
   children,
   settings,
+  draftMode,
 }: SettingsProviderProps) => {
-  const draftMode = useDraftMode()
-
   const memoizedSettings = React.useMemo(() => settings, [settings])
 
   if (draftMode) {

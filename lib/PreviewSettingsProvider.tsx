@@ -1,3 +1,4 @@
+'use client'
 import type { Settings } from 'lib/types/settings'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'

@@ -1,26 +1,25 @@
-import { AlbumDescription } from 'components/album/AlbumBody'
-import { AlbumPageHead } from 'components/album/AlbumPageHead'
+'use client'
 import { Container } from 'components/Container'
 import { CoverImage } from 'components/CoverImage'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
+import { AlbumDescription } from 'components/pages/Album/AlbumBody'
 import { SongList } from 'components/SongList'
 import { useSettings } from 'lib/settingsContext'
 import type { Album } from 'lib/types/album'
 import { BulletStyle } from 'lib/types/bulletStyle'
+import { SharedPageProps } from 'lib/types/pages'
 import isEmpty from 'lodash/isEmpty'
 
 import { AlbumDate } from './AlbumDate'
 import { AlbumTitle } from './AlbumTitle'
 
-export interface AlbumPageProps {
-  preview?: boolean
-  loading?: boolean
+export interface AlbumPageProps extends SharedPageProps {
   album: Album
 }
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { album, loading, preview } = props
+  const { album, loading, draftMode } = props
   const settings = useSettings()
   if (!album || isEmpty(album)) {
     return null
@@ -33,7 +32,9 @@ export default function AlbumPage(props: AlbumPageProps) {
       songs: undefined,
     },
   }))
+
   const { title: pageTitle } = settings
+
   const {
     coverImage,
     publishDate,
@@ -41,9 +42,9 @@ export default function AlbumPage(props: AlbumPageProps) {
     title: albumTitle,
     slug,
   } = album
+
   return (
-    <PageLayout loading={loading} preview={preview}>
-      <AlbumPageHead album={album} />
+    <PageLayout loading={loading} preview={draftMode}>
       <Container>
         <PageHeader title={pageTitle} isLightFont />
         <section className="flex flex-col place-items-center">
@@ -57,14 +58,11 @@ export default function AlbumPage(props: AlbumPageProps) {
                   slug={slug}
                 />
               </div>
-
               <div>
                 <AlbumTitle>{albumTitle}</AlbumTitle>
-
                 <div className="my-6 text-sm">
                   <AlbumDate dateString={publishDate} />
                 </div>
-
                 <div className="hidden md:block">
                   <AlbumDescription content={description} />
                 </div>

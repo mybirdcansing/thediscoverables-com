@@ -1,5 +1,6 @@
-import AlbumPage, { AlbumPageProps } from 'components/album/AlbumPage'
+'use client'
 import { Loading } from 'components/Loading'
+import AlbumPage, { AlbumPageProps } from 'components/pages/Album/AlbumPage'
 import { albumBySlugQuery } from 'lib/sanity.queries'
 import type { Album } from 'lib/types/album'
 import { useLiveQuery } from 'next-sanity/preview'
@@ -17,5 +18,5 @@ export const PreviewAlbumPage = (props: AlbumPageProps) => {
     return <Loading />
   }
 
-  return <AlbumPage preview album={album} loading={loadingAlbum} />
+  return <AlbumPage draftMode album={album} loading={loadingAlbum} />
 }

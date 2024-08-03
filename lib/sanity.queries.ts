@@ -8,13 +8,14 @@ const albumFields = groq`
   coverImage,
   _updatedAt,
   slug,
+  'bandName': *[_type == "settings"][0].bandName,
   "songs": songs[]->{
     _id,
     _createdAt,
     title,
     duration,
     lyrics,
-    'bandName': *[_type == "settings"][0].bandName,
+    'bandName':  *[_type == "settings"][0].bandName,
     audioFile{
       asset->{
         url,
@@ -39,11 +40,11 @@ const songFields = groq`
     'bandName': *[_type == "settings"][0].bandName,
     'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
       _id,
+      _updatedAt,
       title,
       description,
       publishDate,
       coverImage,
-      _updatedAt,
       slug,
     }
   `
@@ -79,12 +80,14 @@ export const homepageQuery = groq`
   description,
   backgroundImage,
   albumsTitle,
+  'bandName': *[_type == "settings"][0].bandName,
   'albums': *[_type == 'album']| order(publishDate desc){
     _id,
     title,
     slug,
     coverImage,
-    publishDate
+    publishDate,
+    'bandName': ^.bandName
   },
   songsTitle,
   songs[]->{

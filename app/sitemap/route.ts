@@ -1,7 +1,10 @@
+// app/api/sitemap/route.ts
+
 import { getClient } from 'lib/sanity.client'
-import { getAllAlbums } from 'lib/sanity.getters'
+import { getAllAlbums, getSongs } from 'lib/sanity.getters'
 import { Album } from 'lib/types/album'
-import { GetServerSidePropsContext } from 'next'
+import { Song } from 'lib/types/song'
+import { NextResponse } from 'next/server'
 
 type SitemapLocation = {
   url: string
@@ -17,18 +20,18 @@ type SitemapLocation = {
   lastmod?: Date
 }
 
-// Use this to manually add routes to the sitemap
+// Manually add routes to the sitemap
 const defaultUrls: Array<SitemapLocation> = [
   {
     url: '/',
     changefreq: 'daily',
     priority: 1,
-    lastmod: new Date(), // or custom date: '2023-06-12T00:00:00.000Z',
+    lastmod: new Date(),
   },
 ]
 
 const createSitemap = (locations: SitemapLocation[]) => {
-  const baseUrl = process.env.NEXT_PUBLIC_URL // Make sure to configure this
+  const baseUrl = process.env.NEXT_PUBLIC_URL
   return `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${locations
@@ -48,36 +51,52 @@ const createSitemap = (locations: SitemapLocation[]) => {
   `
 }
 
-export default function SiteMap() {
-  // getServerSideProps will do the heavy lifting
+const getMostRecentDate = (songs: Array<Song>): string | null => {
+  if (songs.length === 0) return null
+
+  const mostRecentSong = songs.reduce((latest, song) => {
+    const songDate = song._createdAt
+    return songDate > latest ? songDate : latest
+  }, songs[0]._createdAt)
+
+  return mostRecentSong
 }
 
-export async function getServerSideProps({ res }: GetServerSidePropsContext) {
+export async function GET() {
   const client = getClient()
 
   // Get list of Album urls
-  const [albums = []] = await Promise.all([getAllAlbums(client)])
-  const albumUrls: SitemapLocation[] = albums
+  const albums = await getAllAlbums(client)
+  const songsView = await getSongs(client)
+
+  const albumUrls: SitemapLocation[] = (albums ?? [])
     .filter(({ slug = '' }) => slug)
     .map((album: Album) => {
       return {
-        url: `/albums/${album.slug}`,
+        url: `/albums/${album.slug?.current}`,
         priority: 0.5,
         lastmod: new Date(album._updatedAt),
       }
     })
 
-  // ... get more routes here
-
-  // Return the default urls, combined with dynamic urls above
+  // Combine default urls with dynamic album urls
   const locations = [...defaultUrls, ...albumUrls]
-
-  // Set response to XML
-  res.setHeader('Content-Type', 'text/xml')
-  res.write(createSitemap(locations))
-  res.end()
-
-  return {
-    props: {},
+  const songs = songsView?.songs
+  const latestSongDate = songs ? getMostRecentDate(songs) : undefined
+  if (latestSongDate) {
+    locations.push({
+      url: `/songs`,
+      priority: 0.5,
+      lastmod: new Date(latestSongDate),
+    })
   }
+  // Generate the sitemap XML
+  const sitemap = createSitemap(locations)
+
+  // Set the response to XML
+  return new NextResponse(sitemap, {
+    headers: {
+      'Content-Type': 'text/xml',
+    },
+  })
 }

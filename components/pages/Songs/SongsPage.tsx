@@ -1,21 +1,20 @@
+'use client'
 import { Container } from 'components/Container'
-import { PageHead } from 'components/IndexPageHead'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { SongList } from 'components/SongList'
 import { useSettings } from 'lib/settingsContext'
 import { BulletStyle } from 'lib/types/bulletStyle'
-import { SongsViewProps } from 'lib/types/pages'
+import { SharedPageProps, SongsViewProps } from 'lib/types/pages'
 import isEmpty from 'lodash/isEmpty'
 
-export interface SongsPageProps {
-  draftMode?: boolean
-  loading?: boolean
+export interface SongsPageProps extends SharedPageProps {
+  _type?: 'songs'
   songsView: SongsViewProps
 }
 
 export default function SongsPage(props: SongsPageProps) {
-  const { songsView, loading, draftMode } = props
+  const { songsView, draftMode, loading } = props
   const settings = useSettings()
   if (!songsView || isEmpty(songsView)) {
     return null
@@ -23,8 +22,7 @@ export default function SongsPage(props: SongsPageProps) {
   const { songs, description, title } = songsView
 
   return (
-    <PageLayout loading={loading} preview={draftMode}>
-      <PageHead />
+    <PageLayout preview={draftMode} loading={loading}>
       <Container>
         <PageHeader
           title={settings.title}

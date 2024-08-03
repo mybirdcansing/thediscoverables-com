@@ -1,6 +1,5 @@
-// hooks/useSongNavigation.ts
 import { usePlayerContext } from 'lib/playerContext'
-import { handleInnerClick, isChromeDesktop } from 'lib/playerHelper'
+import { handleInnerClick } from 'lib/playerHelper'
 import { Song } from 'lib/types/song'
 import React from 'react'
 
@@ -13,6 +12,24 @@ export const useSongNavigation = (
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const { dispatch } = usePlayerContext()
+
+  React.useEffect(() => {
+    const player = audioRef.current
+    const handleCanPlay = () => {
+      if (player) {
+        playPromise = player.play()
+      }
+    }
+    if (player) {
+      player.addEventListener('canplay', handleCanPlay)
+    }
+
+    return () => {
+      if (player) {
+        player.removeEventListener('canplay', handleCanPlay)
+      }
+    }
+  }, [audioRef])
 
   const toggleSong = React.useCallback(
     (song: Song, e?: React.MouseEvent) => {
@@ -32,17 +49,9 @@ export const useSongNavigation = (
         dispatch({ type: 'SET_LOADING', payload: true })
         player.pause()
         player.setAttribute('title', `The Discoverables - ${song.title}`)
-        if (isChromeDesktop() && !player.paused) {
-          setTimeout(() => {
-            player.src = src
-            player.load()
-            playPromise = player.play()
-          }, 1000)
-        } else {
-          player.src = src
-          player.load()
-          playPromise = player.play()
-        }
+        player.src = src
+        player.load()
+
         setIsPlaying(true)
       } else if (player.paused) {
         playPromise = player.play()

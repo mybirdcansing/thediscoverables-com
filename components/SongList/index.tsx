@@ -153,7 +153,9 @@ export const SongList = ({
                     </Link>
                   )}
                 </div>
-                <div className={cx('flex flex-col justify-center pr-2')}>
+                <div
+                  className={cx('flex flex-col justify-center pr-2 lg:pr-4')}
+                >
                   {duration}
                 </div>
               </div>

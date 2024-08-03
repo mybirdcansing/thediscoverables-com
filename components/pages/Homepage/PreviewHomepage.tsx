@@ -1,8 +1,9 @@
+'use client'
+import { Loading } from 'components/Loading'
 import { homepageQuery } from 'lib/sanity.queries'
 import { HomepageProps } from 'lib/types/pages'
 import { useLiveQuery } from 'next-sanity/preview'
 
-import { Loading } from '../Loading'
 import { Homepage, type IndexPageProps } from '.'
 
 export const PreviewHomepage = (props: IndexPageProps) => {
@@ -15,5 +16,5 @@ export const PreviewHomepage = (props: IndexPageProps) => {
     return <Loading />
   }
 
-  return <Homepage homepage={homepage} preview loading={loadingHomepage} />
+  return <Homepage homepage={homepage} draftMode loading={loadingHomepage} />
 }
