@@ -73,7 +73,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <SettingsProvider settings={settings}>
+    <SettingsProvider settings={settings} draftMode={isDraftModeEnabled}>
       {isDraftModeEnabled ? (
         <PreviewAlbumPage album={album} />
       ) : (

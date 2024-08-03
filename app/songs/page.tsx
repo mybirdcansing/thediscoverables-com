@@ -30,7 +30,7 @@ export default async function Page() {
   }
 
   return (
-    <SettingsProvider settings={settings}>
+    <SettingsProvider settings={settings} draftMode={isDraftModeEnabled}>
       {isDraftModeEnabled ? (
         <PreviewSongsPage songsView={songsView} />
       ) : (
