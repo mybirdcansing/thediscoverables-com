@@ -1,8 +1,8 @@
 import 'tailwindcss/tailwind.css'
 import '../styles.css'
 
-import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppLayout } from 'components/AppLayout'
+import { VisualEditingView } from 'components/VisualEditingView'
 import { PlayerProvider } from 'lib/playerContext'
 import { WindowProvider } from 'lib/windowContext'
 import { draftMode } from 'next/headers'
@@ -12,7 +12,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { isEnabled: isDraftModeEnabled } = draftMode()
+  const { isEnabled: draftModeEnabled } = draftMode()
   return (
     <html>
       <body>
@@ -21,7 +21,7 @@ export default function RootLayout({
             <AppLayout>{children}</AppLayout>
           </PlayerProvider>
         </WindowProvider>
-        {isDraftModeEnabled && <VisualEditing />}
+        {draftModeEnabled && <VisualEditingView />}
       </body>
     </html>
   )

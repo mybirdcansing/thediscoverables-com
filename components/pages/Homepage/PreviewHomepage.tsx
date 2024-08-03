@@ -1,3 +1,4 @@
+'use client'
 import { Loading } from 'components/Loading'
 import { homepageQuery } from 'lib/sanity.queries'
 import { HomepageProps } from 'lib/types/pages'

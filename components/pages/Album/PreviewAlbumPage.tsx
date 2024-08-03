@@ -1,3 +1,4 @@
+'use client'
 import { Loading } from 'components/Loading'
 import AlbumPage, { AlbumPageProps } from 'components/pages/Album/AlbumPage'
 import { albumBySlugQuery } from 'lib/sanity.queries'
