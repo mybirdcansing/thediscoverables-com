@@ -1,4 +1,5 @@
 import { toPlainText } from '@portabletext/react'
+import { icons } from 'app/metadataGenerator'
 import { NotFound } from 'components/NotFound'
 import AlbumPage, { AlbumPageProps } from 'components/pages/Album/AlbumPage'
 import { useSanityClient } from 'lib/hooks/useSanityClient'
@@ -7,13 +8,10 @@ import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
 import { urlForImage } from 'lib/sanity.image'
 import { SettingsProvider } from 'lib/settingsContext'
 import { Album } from 'lib/types/album'
+import { isNonEmptyString } from 'lib/util'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
-
-const isNonEmptyString = (value: any): boolean => {
-  return typeof value === 'string' && value.length > 0
-}
 
 const PreviewAlbumPage = dynamic<AlbumPageProps>(
   () =>
@@ -36,10 +34,7 @@ export async function generateMetadata({
   const { description, title, coverImage } = album
 
   return {
-    icons: [
-      { rel: 'icon', url: '/favicon/favicon-32x32.png' },
-      { rel: 'apple-touch-icon', url: '/favicon/apple-touch-icon.png' },
-    ],
+    icons,
     title: isNonEmptyString(title) ? `${title} by ${bandName}` : bandName,
     description: Array.isArray(description)
       ? toPlainText(description)
