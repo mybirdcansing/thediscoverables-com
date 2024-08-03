@@ -8,7 +8,7 @@ export const PreviewProviderContainer = ({
 }: {
   children: React.ReactNode
   isEnabled?: boolean
-}): React.JSX.Element | React.ReactNode => {
+}): React.ReactNode => {
   if (isEnabled) {
     return <PreviewProvider token={readToken}>{children}</PreviewProvider>
   }
