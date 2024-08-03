@@ -1,13 +1,15 @@
 import { draftMode } from 'next/headers'
-import { redirect } from 'next/navigation'
 
-export async function GET(req: Request) {
-  if (!req.url) {
-    throw new Error('Missing url')
-  }
-  const { isEnabled, disable } = draftMode()
-  if (isEnabled) {
-    disable()
-  }
-  redirect(req.referrer ?? '/')
+export async function GET(request: Request) {
+  draftMode().disable()
+
+  const url = new URL(request.url)
+  const redirectUrl = url.searchParams.get('redirect') || '/'
+
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: redirectUrl,
+    },
+  })
 }

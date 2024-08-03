@@ -7,16 +7,15 @@ import { redirect } from 'next/navigation'
 const client = getClient({ token: readToken })
 
 export async function GET(req: Request) {
-  if (!req.url) {
-    throw new Error('Missing url')
-  }
   const { isValid, redirectTo = '/' } = await validatePreviewUrl(
     client,
     req.url,
   )
   if (!isValid) {
-    return new Response('Invalid slug', { status: 401 })
+    return new Response('Invalid secret', { status: 401 })
   }
+
   draftMode().enable()
+
   redirect(redirectTo)
 }
