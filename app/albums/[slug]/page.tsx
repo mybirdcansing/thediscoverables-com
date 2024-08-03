@@ -36,6 +36,10 @@ export async function generateMetadata({
   const { description, title, coverImage } = album
 
   return {
+    icons: [
+      { rel: 'icon', url: '/favicon/favicon-32x32.png' },
+      { rel: 'apple-touch-icon', url: '/favicon/apple-touch-icon.png' },
+    ],
     title: isNonEmptyString(title) ? `${title} by ${bandName}` : bandName,
     description: Array.isArray(description)
       ? toPlainText(description)

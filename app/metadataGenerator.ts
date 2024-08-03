@@ -11,6 +11,10 @@ export async function generateMetadataForPage(): Promise<Metadata> {
   const { title, description, ogImage } = settings
 
   return {
+    icons: [
+      { rel: 'icon', url: '/favicon/favicon-32x32.png' },
+      { rel: 'apple-touch-icon', url: '/favicon/apple-touch-icon.png' },
+    ],
     title,
     description: description ? toPlainText(description) : undefined,
     openGraph: {
