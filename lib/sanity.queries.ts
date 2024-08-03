@@ -8,13 +8,14 @@ const albumFields = groq`
   coverImage,
   _updatedAt,
   slug,
+  'bandName': *[_type == "settings"][0].bandName,
   "songs": songs[]->{
     _id,
     _createdAt,
     title,
     duration,
     lyrics,
-    'bandName': *[_type == "settings"][0].bandName,
+    'bandName': ^.bandName,
     audioFile{
       asset->{
         url,
@@ -39,11 +40,12 @@ const songFields = groq`
     'bandName': *[_type == "settings"][0].bandName,
     'album': *[ _type == 'album' && ^._id in songs[]._ref][0]{
       _id,
+      _updatedAt,
       title,
+      'bandName': ^.bandName,
       description,
       publishDate,
       coverImage,
-      _updatedAt,
       slug,
     }
   `

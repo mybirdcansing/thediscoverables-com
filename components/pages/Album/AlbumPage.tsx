@@ -4,7 +4,6 @@ import { CoverImage } from 'components/CoverImage'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
 import { AlbumDescription } from 'components/pages/Album/AlbumBody'
-import { AlbumPageHead } from 'components/pages/Album/AlbumPageHead'
 import { SongList } from 'components/SongList'
 import { useSettings } from 'lib/settingsContext'
 import type { Album } from 'lib/types/album'
@@ -46,7 +45,6 @@ export default function AlbumPage(props: AlbumPageProps) {
 
   return (
     <PageLayout loading={loading} preview={draftMode}>
-      <AlbumPageHead album={album} />
       <Container>
         <PageHeader title={pageTitle} isLightFont />
         <section className="flex flex-col place-items-center">

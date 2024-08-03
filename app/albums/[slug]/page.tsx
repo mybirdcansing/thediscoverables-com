@@ -28,9 +28,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const client = getClient()
   const album: Album = await getAlbumBySlug(client, params.slug)
-  const settings = await getSettings(client)
 
-  const bandName = settings.title || process.env.NEXT_PUBLIC_BAND_NAME
+  const bandName = album.bandName || process.env.NEXT_PUBLIC_BAND_NAME
   const { description, title, coverImage } = album
 
   return {

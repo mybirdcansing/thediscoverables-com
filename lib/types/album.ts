@@ -6,11 +6,12 @@ import { SanityImage } from './sanityImage'
 export interface Album {
   _type?: 'album'
   _id?: string
+  _updatedAt: string
   slug?: { current: string }
   title?: string
+  bandName?: string
   description?: Array<PortableTextBlock>
   songs?: Playlist
   coverImage?: SanityImage
   publishDate?: string
-  _updatedAt: string
 }
