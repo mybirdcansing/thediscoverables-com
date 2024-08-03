@@ -15,7 +15,7 @@ const albumFields = groq`
     title,
     duration,
     lyrics,
-    'bandName': ^.bandName,
+    'bandName':  *[_type == "settings"][0].bandName,
     audioFile{
       asset->{
         url,
@@ -42,7 +42,6 @@ const songFields = groq`
       _id,
       _updatedAt,
       title,
-      'bandName': ^.bandName,
       description,
       publishDate,
       coverImage,
@@ -81,12 +80,14 @@ export const homepageQuery = groq`
   description,
   backgroundImage,
   albumsTitle,
+  'bandName': *[_type == "settings"][0].bandName,
   'albums': *[_type == 'album']| order(publishDate desc){
     _id,
     title,
     slug,
     coverImage,
-    publishDate
+    publishDate,
+    'bandName': ^.bandName
   },
   songsTitle,
   songs[]->{

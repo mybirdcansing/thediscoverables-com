@@ -10,6 +10,6 @@ export const useSanityClient = (): SanityClient => {
       'A secret is provided but there is no `SANITY_API_READ_TOKEN` environment variable setup.',
     )
   }
-  const { isEnabled: isDraftModeEnabled = false } = draftMode()
-  return getClient(isDraftModeEnabled ? { token: readToken } : undefined)
+
+  return getClient(draftMode().isEnabled ? { token: readToken } : undefined)
 }

@@ -59,7 +59,7 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { isEnabled: isDraftModeEnabled = false } = draftMode()
+  const isDraft = draftMode().isEnabled
   const client = useSanityClient()
   const [album, settings] = await Promise.all([
     getAlbumBySlug(client, params.slug),
@@ -71,8 +71,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <SettingsProvider settings={settings} draftMode={isDraftModeEnabled}>
-      {isDraftModeEnabled ? (
+    <SettingsProvider settings={settings} draftMode={isDraft}>
+      {isDraft ? (
         <PreviewAlbumPage album={album} />
       ) : (
         <AlbumPage album={album} />
