@@ -1,22 +1,10 @@
 import { validatePreviewUrl } from '@sanity/preview-url-secret'
-import { apiVersion, dataset, projectId } from 'lib/sanity.api'
+import { readToken } from 'lib/sanity.api'
+import { getClient } from 'lib/sanity.client'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { createClient } from 'next-sanity'
 
-const token = process.env.SANITY_API_READ_TOKEN
-if (!token) {
-  throw new Error(
-    'A secret is provided but there is no `SANITY_API_READ_TOKEN` environment variable setup.',
-  )
-}
-const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: false,
-  token,
-})
+const client = getClient({ token: readToken })
 
 export async function GET(req: Request) {
   if (!req.url) {
