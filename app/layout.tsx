@@ -14,19 +14,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { isEnabled } = draftMode()
+  const isDraft = draftMode().isEnabled
 
   return (
     <html>
       <body>
         <WindowProvider>
           <PlayerProvider>
-            <PreviewProviderContainer isEnabled={isEnabled}>
+            <PreviewProviderContainer isEnabled={isDraft}>
               <AppLayout>{children}</AppLayout>
             </PreviewProviderContainer>
           </PlayerProvider>
         </WindowProvider>
-        {isEnabled && <VisualEditingView />}
+        {isDraft && <VisualEditingView />}
       </body>
     </html>
   )
