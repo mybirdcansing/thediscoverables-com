@@ -17,7 +17,7 @@ export default function RootLayout({
   const isDraft = draftMode().isEnabled
 
   return (
-    <html>
+    <html lang="en">
       <body>
         <WindowProvider>
           <PlayerProvider>
