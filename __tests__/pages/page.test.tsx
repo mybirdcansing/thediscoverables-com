@@ -89,12 +89,11 @@ describe('Page with RootLayout component', () => {
     })
   })
 
-  // it('uses the settings data within the SettingsProvider', async () => {
-  //   render(await TestWrapper())
+  it('uses the settings data within the SettingsProvider', async () => {
+    render(await TestWrapper())
 
-  //   await waitFor(() => {
-  //     expect(screen.queryByText('My Band Settings')).toBeTruthy()
-  //     expect(screen.queryByText('The Band')).toBeTruthy()
-  //   })
-  // })
+    await waitFor(() => {
+      expect(screen.queryByText('The Discoverables')).toBeTruthy()
+    })
+  })
 })
