@@ -25,6 +25,7 @@ export default async function Page() {
     getHomepage(client),
     getSettings(client),
   ])
+
   const { isEnabled: isDraftModeEnabled } = draftMode()
 
   return (

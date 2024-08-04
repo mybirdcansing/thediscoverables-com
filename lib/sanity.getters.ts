@@ -20,11 +20,11 @@ export async function getAllAlbums(
 }
 
 export async function getSettings(client: SanityClient): Promise<Settings> {
-  return (await client.fetch(settingsQuery)) || {}
+  return (await client.fetch<Settings>(settingsQuery)) || {}
 }
 
 export async function getSongs(client: SanityClient): Promise<SongsViewProps> {
-  return (await client.fetch(songsQuery)) || []
+  return (await client.fetch<SongsViewProps>(songsQuery)) || []
 }
 
 export async function getAlbumSlugs(
@@ -37,11 +37,15 @@ export async function getAlbumBySlug(
   client: SanityClient,
   slug: string,
 ): Promise<Album> {
-  return (await client.fetch(albumBySlugQuery, { slug })) || ({} as Album)
+  return (
+    (await client.fetch<Album>(albumBySlugQuery, { slug })) || ({} as Album)
+  )
 }
 
 export async function getHomepage(
   client: SanityClient,
 ): Promise<HomepageProps> {
-  return (await client.fetch(homepageQuery)) || ({} as HomepageProps)
+  return (
+    (await client.fetch<HomepageProps>(homepageQuery)) || ({} as HomepageProps)
+  )
 }
