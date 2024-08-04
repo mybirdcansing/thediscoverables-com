@@ -7,7 +7,7 @@ export interface Album {
   _type?: 'album'
   _id?: string
   _updatedAt: string
-  slug?: { current: string }
+  slug?: { current: string; _type?: 'slug' }
   title?: string
   bandName?: string
   description?: Array<PortableTextBlock>

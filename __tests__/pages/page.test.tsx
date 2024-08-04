@@ -1,44 +1,99 @@
-// import { screen } from '@testing-library/react'
-// import { AlbumViewProps, HomepageProps, WithSettings } from 'lib/types/pages'
-// import AlbumPage, {
-//   getStaticProps as getAlbumPageProps,
-// } from 'pages/albums2/[slug]'
-// import Homepage, { getStaticProps as getHomepageProps } from 'pages/index'
-// import { describe, expect, test } from 'vitest'
+// __tests__/pages/page.test.tsx
+import { render, screen, waitFor } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 
-// import { Settings } from "lib/types/settings";
+import RootLayout from '../../app/layout'
+import Page from '../../app/page'
+import { homepageFixture } from './fixtures/homepageFixture'
+import { settingsFixture } from './fixtures/settingsFixture'
 
-// import { renderWithApp } from '../testUtils'
+// Mock Sanity client and getters to return fixtures
+vi.mock('../../lib/hooks/useSanityClient', () => ({
+  useSanityClient: () => ({
+    fetch: vi.fn((query: string) => {
+      if (query.includes('homepage')) return Promise.resolve(homepageFixture)
+      if (query.includes('settings')) return Promise.resolve(settingsFixture)
+      return Promise.resolve({})
+    }),
+  }),
+}))
 
-// export interface WithSettings {
-//   settings: Settings
-// }
+vi.mock('../../lib/sanity.getters', () => ({
+  getHomepage: () => Promise.resolve(homepageFixture),
+  getSettings: () => Promise.resolve(settingsFixture),
+}))
 
-// describe('Page Tests', () => {
-//   test('Homepage renders without crashing and contains expected content', async () => {
-//     const { props } = (await getHomepageProps({ draftMode: false })) as {
-//       props: HomepageProps & WithSettings
-//     }
-//     await renderWithApp(Homepage, props)
+import * as nextHeaders from 'next/headers'
 
-//     expect(screen.getByText('The Discoverables')).toBeDefined()
-//     expect(screen.getAllByText('Running In Place').length).toBeGreaterThan(3)
-//     expect(screen.getByText('Albums')).toBeDefined()
-//     expect(screen.getByText('Songs')).toBeDefined()
-//   })
+// Define a draft mode mock with enable and disable methods
+const mockDraftMode = () => ({
+  isEnabled: false,
+  enable() {
+    this.isEnabled = true
+  },
+  disable() {
+    this.isEnabled = false
+  },
+})
 
-//   test('Album page renders without crashing and contains expected content', async () => {
-//     const { props } = (await getAlbumPageProps({
-//       draftMode: false,
-//       params: { slug: 'running-in-place' },
-//     })) as {
-//       props: AlbumViewProps & WithSettings
-//     }
-//     await renderWithApp(AlbumPage, props, {
-//       pathname: '/album/running-in-place',
-//     })
+vi.mock('next/headers', () => ({
+  draftMode: vi.fn(() => mockDraftMode()),
+}))
 
-//     expect(screen.getByText('The Discoverables')).toBeDefined()
-//     expect(screen.getAllByText('Running In Place').length).toBe(2)
-//   })
-// })
+describe('Page with RootLayout component', () => {
+  const TestWrapper = async () => {
+    return <RootLayout>{await Page()}</RootLayout>
+  }
+
+  it('renders the Homepage component within the RootLayout', async () => {
+    render(await TestWrapper())
+
+    await waitFor(() => {
+      expect(screen.getByText('Albums')).toBeTruthy()
+    })
+  })
+
+  it('renders the PreviewHomepage component within the RootLayout when in draft mode', async () => {
+    const draftModeInstance = mockDraftMode()
+    draftModeInstance.enable()
+
+    vi.mocked(nextHeaders.draftMode).mockReturnValueOnce(draftModeInstance)
+
+    render(await TestWrapper())
+
+    await waitFor(() => {
+      // Use a flexible matcher function
+      const previewElement = screen.getByText((content, element) => {
+        const hasText = (text: string) => text.includes('Albums')
+        const elementHasText = hasText(content)
+        const childrenDontHaveText = Array.from(element?.children || []).every(
+          (child) => !hasText(child.textContent || ''),
+        )
+        return elementHasText && childrenDontHaveText
+      })
+
+      expect(previewElement).toBeTruthy()
+    })
+  })
+
+  it('renders VisualEditingView when in draft mode', async () => {
+    const draftModeInstance = mockDraftMode()
+    draftModeInstance.enable()
+
+    vi.mocked(nextHeaders.draftMode).mockReturnValue(draftModeInstance)
+
+    render(await TestWrapper())
+
+    await waitFor(() => {
+      expect(screen.getByTestId('visual-editing')).toBeTruthy()
+    })
+  })
+
+  it('uses the settings data within the SettingsProvider', async () => {
+    render(await TestWrapper())
+
+    await waitFor(() => {
+      expect(screen.queryByText('The Discoverables')).toBeTruthy()
+    })
+  })
+})

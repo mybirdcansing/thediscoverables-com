@@ -13,4 +13,5 @@ export interface Song {
   duration?: string
   album?: Album
   audioFile?: AudioFile
+  bandName?: string
 }

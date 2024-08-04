@@ -1,14 +1,14 @@
 export interface SanityImage {
-  _id: string
+  _id?: string
   _type: 'image'
   asset: {
     _ref: string
     _type: 'reference'
-    to: {
+    to?: {
       _type: 'file'
     }
   }
-  hotspot: {
+  hotspot?: {
     x: number
     y: number
   }
