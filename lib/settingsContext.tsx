@@ -18,7 +18,7 @@ const PreviewSettingsProvider = dynamic<PreviewSettingsProviderProps>(
 interface SettingsProviderProps {
   children: React.ReactNode
   settings: Settings
-  draftMode: boolean
+  isDraft: boolean
 }
 
 const SettingsContext = React.createContext<Settings | undefined>(undefined)
@@ -26,11 +26,11 @@ const SettingsContext = React.createContext<Settings | undefined>(undefined)
 export const SettingsProvider = ({
   children,
   settings,
-  draftMode,
+  isDraft,
 }: SettingsProviderProps) => {
   const memoizedSettings = React.useMemo(() => settings, [settings])
 
-  if (draftMode) {
+  if (isDraft) {
     return (
       <PreviewSettingsProvider
         initialSettings={settings}

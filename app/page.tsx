@@ -26,11 +26,11 @@ export default async function Page() {
     getSettings(client),
   ])
 
-  const { isEnabled: isDraftModeEnabled } = draftMode()
+  const isDraft = draftMode().isEnabled
 
   return (
-    <SettingsProvider settings={settings} draftMode={isDraftModeEnabled}>
-      {isDraftModeEnabled ? (
+    <SettingsProvider settings={settings} isDraft={isDraft}>
+      {isDraft ? (
         <PreviewHomepage homepage={homepage} />
       ) : (
         <Homepage homepage={homepage} />

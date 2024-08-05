@@ -14,7 +14,7 @@ export interface SongsPageProps extends SharedPageProps {
 }
 
 export default function SongsPage(props: SongsPageProps) {
-  const { songsView, draftMode, loading } = props
+  const { songsView, isDraft, loading } = props
   const settings = useSettings()
   if (!songsView || isEmpty(songsView)) {
     return null
@@ -22,7 +22,7 @@ export default function SongsPage(props: SongsPageProps) {
   const { songs, description, title } = songsView
 
   return (
-    <PageLayout preview={draftMode} loading={loading}>
+    <PageLayout isDraft={isDraft} loading={loading}>
       <Container>
         <PageHeader
           title={settings.title}

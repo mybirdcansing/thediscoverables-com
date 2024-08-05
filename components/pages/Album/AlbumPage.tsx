@@ -19,7 +19,7 @@ export interface AlbumPageProps extends SharedPageProps {
 }
 
 export default function AlbumPage(props: AlbumPageProps) {
-  const { album, loading, draftMode } = props
+  const { album, loading, isDraft } = props
   const settings = useSettings()
   if (!album || isEmpty(album)) {
     return null
@@ -44,7 +44,7 @@ export default function AlbumPage(props: AlbumPageProps) {
   } = album
 
   return (
-    <PageLayout loading={loading} preview={draftMode}>
+    <PageLayout loading={loading} isDraft={isDraft}>
       <Container>
         <PageHeader title={pageTitle} isLightFont />
         <section className="flex flex-col place-items-center">

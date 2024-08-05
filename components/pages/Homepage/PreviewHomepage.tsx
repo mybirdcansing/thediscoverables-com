@@ -16,5 +16,5 @@ export const PreviewHomepage = (props: IndexPageProps) => {
     return <Loading />
   }
 
-  return <Homepage homepage={homepage} draftMode loading={loadingHomepage} />
+  return <Homepage homepage={homepage} isDraft loading={loadingHomepage} />
 }

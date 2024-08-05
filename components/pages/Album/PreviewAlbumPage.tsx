@@ -18,5 +18,5 @@ export const PreviewAlbumPage = (props: AlbumPageProps) => {
     return <Loading />
   }
 
-  return <AlbumPage draftMode album={album} loading={loadingAlbum} />
+  return <AlbumPage isDraft album={album} loading={loadingAlbum} />
 }

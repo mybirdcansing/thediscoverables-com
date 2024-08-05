@@ -18,7 +18,7 @@ const PreviewSongsPage = dynamic<SongsPageProps>(
 export const generateMetadata = generateMetadataForPage
 
 export default async function Page() {
-  const { isEnabled: isDraftModeEnabled = false } = draftMode()
+  const isDraft = draftMode().isEnabled
   const client = useSanityClient()
   const [songsView, settings] = await Promise.all([
     getSongs(client),
@@ -30,8 +30,8 @@ export default async function Page() {
   }
 
   return (
-    <SettingsProvider settings={settings} draftMode={isDraftModeEnabled}>
-      {isDraftModeEnabled ? (
+    <SettingsProvider settings={settings} isDraft={isDraft}>
+      {isDraft ? (
         <PreviewSongsPage songsView={songsView} />
       ) : (
         <SongsPage songsView={songsView} />

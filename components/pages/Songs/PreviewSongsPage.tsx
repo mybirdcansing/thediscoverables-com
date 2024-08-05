@@ -14,5 +14,5 @@ export const PreviewSongsPage = (props: SongsPageProps) => {
 
   if (!songsView) return <Loading />
 
-  return <SongsPage draftMode songsView={songsView} loading={loadingSongs} />
+  return <SongsPage isDraft songsView={songsView} loading={loadingSongs} />
 }

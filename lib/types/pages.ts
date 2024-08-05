@@ -6,7 +6,7 @@ import { SanityImage } from './sanityImage'
 import { Settings } from './settings'
 
 export interface SharedPageProps {
-  draftMode?: boolean
+  isDraft?: boolean
   token?: string
   loading?: boolean
 }
