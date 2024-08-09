@@ -8,7 +8,7 @@ import { homepageFixture } from './fixtures/homepageFixture'
 import { settingsFixture } from './fixtures/settingsFixture'
 
 // Mock Sanity client and getters to return fixtures
-vi.mock('../../lib/hooks/useSanityClient', () => ({
+vi.mock('../../lib/getSanityClient', () => ({
   useSanityClient: () => ({
     fetch: vi.fn((query: string) => {
       if (query.includes('homepage')) return Promise.resolve(homepageFixture)
@@ -16,11 +16,6 @@ vi.mock('../../lib/hooks/useSanityClient', () => ({
       return Promise.resolve({})
     }),
   }),
-}))
-
-vi.mock('../../lib/sanity.getters', () => ({
-  getHomepage: () => Promise.resolve(homepageFixture),
-  getSettings: () => Promise.resolve(settingsFixture),
 }))
 
 import * as nextHeaders from 'next/headers'

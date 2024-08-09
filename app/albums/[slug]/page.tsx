@@ -2,11 +2,10 @@ import { toPlainText } from '@portabletext/react'
 import { icons } from 'app/metadataGenerator'
 import { NotFound } from 'components/NotFound'
 import AlbumPage, { AlbumPageProps } from 'components/pages/Album/AlbumPage'
-import { useSanityClient } from 'lib/hooks/useSanityClient'
+import { getSanityClient } from 'lib/getSanityClient'
 import { getClient } from 'lib/sanity.client'
-import { getAlbumBySlug, getAlbumSlugs, getSettings } from 'lib/sanity.getters'
+import { getAlbumBySlug, getAlbumSlugs } from 'lib/sanity.getters'
 import { urlForImage } from 'lib/sanity.image'
-import { SettingsProvider } from 'lib/settingsContext'
 import { Album } from 'lib/types/album'
 import { isNonEmptyString } from 'lib/util'
 import { Metadata } from 'next'
@@ -26,8 +25,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  const client = getClient()
-  const album: Album = await getAlbumBySlug(client, params.slug)
+  const album: Album = await getAlbumBySlug(getSanityClient(), params.slug)
 
   const bandName = album.bandName || process.env.NEXT_PUBLIC_BAND_NAME
   const { description, title, coverImage } = album
@@ -59,31 +57,21 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const isDraft = draftMode().isEnabled
-  const client = useSanityClient()
-  const [album, settings] = await Promise.all([
-    getAlbumBySlug(client, params.slug),
-    getSettings(client),
-  ])
+  const album = await getAlbumBySlug(getSanityClient(), params.slug)
 
   if (!album) {
     return <NotFound />
   }
 
-  return (
-    <SettingsProvider settings={settings} isDraft={isDraft}>
-      {isDraft ? (
-        <PreviewAlbumPage album={album} />
-      ) : (
-        <AlbumPage album={album} />
-      )}
-    </SettingsProvider>
+  return draftMode().isEnabled ? (
+    <PreviewAlbumPage album={album} />
+  ) : (
+    <AlbumPage album={album} />
   )
 }
 
 export async function generateStaticParams() {
-  const client = getClient()
-  const albumSlugs = await getAlbumSlugs(client)
+  const albumSlugs = await getAlbumSlugs(getClient())
 
   return (
     albumSlugs?.map((slug) => ({
