@@ -1,7 +1,6 @@
 import { Homepage, type IndexPageProps } from 'components/pages/Homepage'
-import { useSanityClient } from 'lib/hooks/useSanityClient'
-import { getHomepage, getSettings } from 'lib/sanity.getters'
-import { SettingsProvider } from 'lib/settingsContext'
+import { getSanityClient } from 'lib/getSanityClient'
+import { getHomepage } from 'lib/sanity.getters'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 
@@ -20,21 +19,11 @@ const PreviewHomepage = dynamic<IndexPageProps>(
 export const generateMetadata = generateMetadataForPage
 
 export default async function Page() {
-  const client = useSanityClient()
-  const [homepage, settings] = await Promise.all([
-    getHomepage(client),
-    getSettings(client),
-  ])
+  const homepage = await getHomepage(getSanityClient())
 
-  const isDraft = draftMode().isEnabled
-
-  return (
-    <SettingsProvider settings={settings} isDraft={isDraft}>
-      {isDraft ? (
-        <PreviewHomepage homepage={homepage} />
-      ) : (
-        <Homepage homepage={homepage} />
-      )}
-    </SettingsProvider>
+  return draftMode().isEnabled ? (
+    <PreviewHomepage homepage={homepage} />
+  ) : (
+    <Homepage homepage={homepage} />
   )
 }

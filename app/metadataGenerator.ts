@@ -1,5 +1,5 @@
 import { toPlainText } from '@portabletext/react'
-import { getClient } from 'lib/sanity.client'
+import { getSanityClient } from 'lib/getSanityClient'
 import { getSettings } from 'lib/sanity.getters'
 import { urlForImage } from 'lib/sanity.image'
 import { Metadata } from 'next'
@@ -10,7 +10,7 @@ export const icons = [
 ]
 
 export async function generateMetadataForPage(): Promise<Metadata> {
-  const client = getClient()
+  const client = getSanityClient()
   const settings = await getSettings(client)
 
   const { title, description, ogImage } = settings

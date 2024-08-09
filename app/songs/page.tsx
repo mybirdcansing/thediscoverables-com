@@ -1,9 +1,8 @@
 import { generateMetadataForPage } from 'app/metadataGenerator'
 import { NotFound } from 'components/NotFound'
 import SongsPage, { SongsPageProps } from 'components/pages/Songs/SongsPage'
-import { useSanityClient } from 'lib/hooks/useSanityClient'
-import { getSettings, getSongs } from 'lib/sanity.getters'
-import { SettingsProvider } from 'lib/settingsContext'
+import { getSanityClient } from 'lib/getSanityClient'
+import { getSongs } from 'lib/sanity.getters'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 
@@ -18,24 +17,15 @@ const PreviewSongsPage = dynamic<SongsPageProps>(
 export const generateMetadata = generateMetadataForPage
 
 export default async function Page() {
-  const isDraft = draftMode().isEnabled
-  const client = useSanityClient()
-  const [songsView, settings] = await Promise.all([
-    getSongs(client),
-    getSettings(client),
-  ])
+  const songsView = await getSongs(getSanityClient())
 
   if (!songsView) {
     return <NotFound />
   }
 
-  return (
-    <SettingsProvider settings={settings} isDraft={isDraft}>
-      {isDraft ? (
-        <PreviewSongsPage songsView={songsView} />
-      ) : (
-        <SongsPage songsView={songsView} />
-      )}
-    </SettingsProvider>
+  return draftMode().isEnabled ? (
+    <PreviewSongsPage songsView={songsView} />
+  ) : (
+    <SongsPage songsView={songsView} />
   )
 }
