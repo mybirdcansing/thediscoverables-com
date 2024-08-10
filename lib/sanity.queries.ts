@@ -16,6 +16,13 @@ const albumFields = groq`
     duration,
     lyrics,
     'bandName':  *[_type == "settings"][0].bandName,
+    'album': {
+      'title': ^.title,
+      'description': ^.description,
+      'coverImage': ^.coverImage,
+      'slug': ^.slug,
+      'publishDate': ^.publishDate
+    },
     audioFile{
       asset->{
         url,

@@ -21,17 +21,10 @@ export interface AlbumPageProps extends SharedPageProps {
 export default function AlbumPage(props: AlbumPageProps) {
   const { album, loading, isDraft } = props
   const settings = useSettings()
-  if (!album || isEmpty(album)) {
+
+  if (isEmpty(album)) {
     return null
   }
-
-  const songsWithAlbum = album.songs?.map((song) => ({
-    ...song,
-    album: {
-      ...album,
-      songs: undefined,
-    },
-  }))
 
   const { title: pageTitle } = settings
 
@@ -70,9 +63,11 @@ export default function AlbumPage(props: AlbumPageProps) {
             </div>
           </div>
         </section>
-        <div className="flex flex-col place-items-center">
-          <SongList songs={songsWithAlbum} bulletStyle={BulletStyle.Number} />
-        </div>
+        {album.songs && (
+          <div className="flex flex-col place-items-center">
+            <SongList songs={album.songs} bulletStyle={BulletStyle.Number} />
+          </div>
+        )}
         <div className="md:hidden">
           <AlbumDescription content={description} />
         </div>
