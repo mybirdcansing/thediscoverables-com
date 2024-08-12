@@ -6,11 +6,11 @@ const Player = dynamic(() =>
   import('components/player').then((mod) => mod.Player),
 )
 
-interface AppLayoutProps {
+interface PageContainerProps {
   children: React.ReactNode
 }
 
-export const PageContent = ({ children }: AppLayoutProps) => {
+export const PageContainer = ({ children }: PageContainerProps) => {
   const {
     state: { activeSong },
   } = usePlayerContext()
