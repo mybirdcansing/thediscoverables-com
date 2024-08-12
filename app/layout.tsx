@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css'
 import '../styles.css'
 
-import { PageContent } from 'components/PageContent'
+import { PageContainer } from 'components/PageContainer'
 import { PreviewProviderContainer } from 'components/PreviewProviderContainer'
 import { VisualEditingView } from 'components/VisualEditingView'
 import { getSanityClient } from 'lib/getSanityClient'
@@ -27,7 +27,7 @@ export default async function RootLayout({
           <PlayerProvider>
             <PreviewProviderContainer isEnabled={isDraft}>
               <SettingsProvider settings={settings} isDraft={isDraft}>
-                <PageContent>{children}</PageContent>
+                <PageContainer>{children}</PageContainer>
               </SettingsProvider>
             </PreviewProviderContainer>
           </PlayerProvider>
