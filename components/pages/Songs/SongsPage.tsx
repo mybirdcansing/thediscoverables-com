@@ -24,13 +24,11 @@ export default function SongsPage(props: SongsPageProps) {
   return (
     <PageLayout darkBg isDraft={isDraft} loading={loading}>
       <Container>
-        <div className="mt-6">
-          <PageHeader
-            title={settings.title}
-            description={description}
-            isLightFont
-          />
-        </div>
+        <PageHeader
+          title={settings.title}
+          description={description}
+          isLightFont
+        />
         <div className="flex flex-col place-items-center">
           <SongList
             title={title}
