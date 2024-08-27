@@ -1,9 +1,13 @@
+:root {
+  --header-height: 34px;
+}
+
 * {
   box-sizing: border-box;
 }
 html,
 body {
-  @apply overscroll-x-none h-full m-0;
+  @apply overscroll-x-none h-full m-0 text-gray-800;
 }
 body {
   @apply bg-gray-750 p-0 text-gray-50 text-base font-sans touch-manipulation;

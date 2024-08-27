@@ -37,5 +37,3 @@ export function getClient(draft?: { token: string }): SanityClient {
 export interface Query {
   [key: string]: string
 }
-
-export const getSanityImageConfig = () => getClient()

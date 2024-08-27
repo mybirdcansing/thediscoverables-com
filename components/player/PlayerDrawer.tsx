@@ -47,7 +47,7 @@ export const PlayerDrawer = () => {
       drawerElement.addEventListener('transitionend', handleTransitionEnd)
     }
 
-    let timer: NodeJS.Timeout | null = null
+    let timer: ReturnType<typeof setTimeout> | null = null
 
     if (isDrawerExpanded) {
       setIsVisible(true)
@@ -105,7 +105,7 @@ export const PlayerDrawer = () => {
   return (
     <div
       ref={drawerRef}
-      className="absolute w-full bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out flex flex-row justify-center overflow-y-auto"
+      className="absolute w-full md:mt-header bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out flex flex-row justify-center overflow-y-auto"
       style={{
         top: isExpanded ? `${scrollY}px` : `${scrollY + height}px`,
         height: `${height - PLAYER_HEIGHT}px`,

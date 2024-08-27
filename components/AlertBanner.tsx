@@ -1,5 +1,6 @@
 'use client'
 /* eslint-disable @next/next/no-html-link-for-pages */
+import cx from 'classnames'
 import { Container } from 'components/Container'
 import { useSyncExternalStore } from 'react'
 
@@ -22,9 +23,10 @@ export default function AlertBanner({
 
   return (
     <div
-      className={`${
-        loading ? 'animate-pulse' : ''
-      } border-b border-accent-7 bg-accent-7 text-white`}
+      className={cx(
+        'order-b border-accent-7 bg-slate-400 text-white bottom-10 left-10 fixed z-50 rounded-xl',
+        { 'animate-pulse': loading },
+      )}
     >
       <Container>
         <div className="py-2 text-center text-sm">

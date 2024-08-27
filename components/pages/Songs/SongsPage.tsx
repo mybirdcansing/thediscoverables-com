@@ -22,13 +22,15 @@ export default function SongsPage(props: SongsPageProps) {
   const { songs, description, title } = songsView
 
   return (
-    <PageLayout isDraft={isDraft} loading={loading}>
+    <PageLayout darkBg isDraft={isDraft} loading={loading}>
       <Container>
-        <PageHeader
-          title={settings.title}
-          description={description}
-          isLightFont
-        />
+        <div className="mt-6">
+          <PageHeader
+            title={settings.title}
+            description={description}
+            isLightFont
+          />
+        </div>
         <div className="flex flex-col place-items-center">
           <SongList
             title={title}

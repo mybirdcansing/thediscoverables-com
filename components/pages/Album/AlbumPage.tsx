@@ -37,9 +37,11 @@ export default function AlbumPage(props: AlbumPageProps) {
   } = album
 
   return (
-    <PageLayout loading={loading} isDraft={isDraft}>
+    <PageLayout darkBg loading={loading} isDraft={isDraft}>
       <Container>
-        <PageHeader title={pageTitle} isLightFont />
+        <div className="mt-6">
+          <PageHeader title={pageTitle} isLightFont />
+        </div>
         <section className="flex flex-col place-items-center">
           <div className="max-w-4xl w-full flex flex-col gap-4">
             <div className="flex flex-col md:flex-row gap-5">

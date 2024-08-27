@@ -52,7 +52,7 @@ export const WindowProvider = ({ children }: { children: React.ReactNode }) => {
         scrollX: window.scrollX,
         scrollY: window.scrollY,
       }))
-    }, 200)
+    }, 50)
 
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleScroll)
