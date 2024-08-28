@@ -88,11 +88,11 @@ export const Header = ({ darkBg }: HeaderProps): React.ReactNode => {
               Home
             </Link>
           </li>
-          <li>
+          {/* <li>
             <a href="/about" className="hover:underline">
               About
             </a>
-          </li>
+          </li> */}
           <li>
             <a href="/contact" className="hover:underline">
               Contact

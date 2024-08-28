@@ -1,8 +1,8 @@
 'use client'
-import { handleContactForm } from 'app/api/handle-contact-form/route'
 import { Container } from 'components/Container'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
+import { handleContactForm } from 'lib/server-actions/handleContactForm'
 import { useSettings } from 'lib/settingsContext'
 import React from 'react'
 
