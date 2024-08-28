@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import { useSettings } from 'lib/settingsContext'
+import { useDisableScrolling } from 'lib/useDisableScrolling'
 import { useWindowContext } from 'lib/windowContext'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,14 +18,7 @@ export const Header = ({ darkBg }: HeaderProps): React.ReactNode => {
   const isScrolled = Boolean(scrollY)
   const { title } = useSettings()
   const [openMenu, setOpenMenu] = React.useState<boolean>(false)
-
-  // React.useEffect(() => {
-  //   if (openMenu) {
-  //     document.body.classList.add('overflow-hidden')
-  //   } else {
-  //     document.body.classList.remove('overflow-hidden')
-  //   }
-  // }, [openMenu])
+  useDisableScrolling(openMenu)
 
   return (
     <>
