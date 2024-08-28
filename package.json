@@ -44,6 +44,7 @@
     "@testing-library/dom": "^10.3.2",
     "@testing-library/react": "^16.0.0",
     "@testing-library/react-hooks": "^8.0.1",
+    "@types/nodemailer": "^6.4.15",
     "@types/react": "18.2.64",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "10.4.18",
