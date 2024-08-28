@@ -105,7 +105,7 @@ export const PlayerDrawer = () => {
   return (
     <div
       ref={drawerRef}
-      className="absolute w-full md:mt-header bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out flex flex-row justify-center overflow-y-auto"
+      className="absolute w-full z-50 bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out flex flex-row justify-center overflow-y-auto"
       style={{
         top: isExpanded ? `${scrollY}px` : `${scrollY + height}px`,
         height: `${height - PLAYER_HEIGHT}px`,

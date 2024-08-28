@@ -9,8 +9,6 @@ export async function handleContactForm(data: FormData) {
   const smtpUser = process.env.SMTP_USER
   const smtpPass = process.env.SMTP_PASS
 
-  console.log({ name, email, message })
-
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: Number(process.env.SMTP_PORT) || 587,
@@ -21,7 +19,6 @@ export async function handleContactForm(data: FormData) {
     },
   })
 
-  // Set up email data
   const mailOptions = {
     from: email,
     to: smtpUser,

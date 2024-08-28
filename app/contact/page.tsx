@@ -6,7 +6,7 @@ import { handleContactForm } from 'lib/server-actions/handleContactForm'
 import { useSettings } from 'lib/settingsContext'
 import React from 'react'
 
-const ContactPage: React.FC = () => {
+const ContactPage = () => {
   const { title } = useSettings()
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -41,7 +41,7 @@ const ContactPage: React.FC = () => {
                   type="text"
                   id="name"
                   name="name"
-                  className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 />
               </div>
@@ -54,7 +54,7 @@ const ContactPage: React.FC = () => {
                   type="email"
                   id="email"
                   name="email"
-                  className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 />
               </div>
@@ -67,7 +67,7 @@ const ContactPage: React.FC = () => {
                   id="message"
                   name="message"
                   rows={4}
-                  className="text-black mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 />
               </div>

@@ -18,10 +18,11 @@ module.exports = {
         'blue-500': '#2276FC',
         'yellow-100': '#fef7da',
         'gray-750': '#262626',
+        'gray-850': '#212121',
       },
       spacing: {
         28: '7rem',
-        header: '2.125rem',
+        header: '2.25rem',
       },
       letterSpacing: {
         tighter: '-.04em',
