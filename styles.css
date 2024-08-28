@@ -19,6 +19,7 @@ h2 {
 #player-bar {
   @apply text-white bg-slate-400;
 }
+textarea,
 input {
   @apply text-black;
 }
