@@ -6,7 +6,7 @@ import { PageLayout } from 'components/PageLayout'
 import { handleContactForm } from 'lib/server-actions/handleContactForm'
 import { useSettings } from 'lib/settingsContext'
 import { useReCAPTCHA } from 'lib/useReCAPTCHA'
-import React from 'react'
+import React, { useState } from 'react'
 
 export const ContactFormContent = () => {
   const { title } = useSettings()
@@ -14,13 +14,20 @@ export const ContactFormContent = () => {
     action: 'contact_form',
   })
 
+  const [loading, setLoading] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
+  const [formSuccess, setFormSuccess] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
+    setFormError(null) // Clear previous errors
     const form = e.currentTarget
     const formData = new FormData(form)
 
     if (!recaptchaToken) {
-      alert(recaptchaError)
+      setFormError(recaptchaError || 'ReCAPTCHA verification failed.')
+      setLoading(false)
       return
     }
 
@@ -28,11 +35,19 @@ export const ContactFormContent = () => {
 
     const response = await handleContactForm(formData)
     if (response.success) {
-      alert(response.message)
+      setFormSuccess(true)
       form.reset()
     } else {
-      alert('There was an issue submitting the form.')
+      setFormError('There was an issue submitting the form. Please try again.')
     }
+
+    setLoading(false)
+  }
+
+  // Function to reset the form state to show the form again
+  const resetForm = () => {
+    setFormSuccess(false)
+    setFormError(null)
   }
 
   return (
@@ -54,60 +69,83 @@ export const ContactFormContent = () => {
                 soon as possible.
               </p>
             </div>
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-4 w-full"
-            >
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  required
-                />
+            {formSuccess ? (
+              <div className="my-4">
+                <p className="text-green-600 mb-4">
+                  Thank you for reaching out! We have received your message and
+                  will get back to you shortly.
+                </p>
+                <button
+                  onClick={resetForm}
+                  className="mt-2 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Send Another Message
+                </button>
               </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="mt-2 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-4 w-full"
               >
-                Send
-              </button>
-            </form>
-            <p className="my-4">
-              Thank you for reaching out to The Discoverables! We look forward
-              to hearing from you.
-            </p>
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    required
+                  />
+                </div>
+
+                {formError && <p className="text-red-600">{formError}</p>}
+
+                <button
+                  type="submit"
+                  className="mt-2 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  disabled={loading}
+                >
+                  {loading ? 'Sending...' : 'Send'}
+                </button>
+              </form>
+            )}
+            {!formSuccess && (
+              <p className="my-4">
+                Thank you for reaching out to The Discoverables! We look forward
+                to hearing from you.
+              </p>
+            )}
           </div>
         </div>
       </Container>
