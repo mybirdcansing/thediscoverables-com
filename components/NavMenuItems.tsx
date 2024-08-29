@@ -19,7 +19,7 @@ export const NavMenuItems: React.FC<NavMenuItemsProps> = ({ onClick }) => {
           </li> 
       */}
       <li>
-        <Link href="/contact" className="hover:underline">
+        <Link href="/contact" className="hover:underline" onClick={onClick}>
           Contact
         </Link>
       </li>
