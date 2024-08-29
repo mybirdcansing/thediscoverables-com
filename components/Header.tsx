@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import { handleInnerClick } from 'lib/playerHelper'
 import { useSettings } from 'lib/settingsContext'
 import { useDisableScrolling } from 'lib/useDisableScrolling'
 import { useWindowContext } from 'lib/windowContext'
@@ -8,7 +9,6 @@ import React from 'react'
 
 import { Hamburger } from './icons/Hamburger'
 import { NavMenuItems } from './NavMenuItems'
-import { handleInnerClick } from 'lib/playerHelper'
 
 export interface HeaderProps {
   darkBg?: boolean
