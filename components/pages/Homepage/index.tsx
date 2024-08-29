@@ -63,7 +63,7 @@ export const Homepage = (props: IndexPageProps) => {
           />
 
           <Container className="relative">
-            <div className="absolute md:pt-18 lg:pt-20 xl:pt-28">
+            <div className="absolute -mt-10 md:pt-18 lg:pt-20 xl:pt-28">
               <PageHeader title={title} />
             </div>
           </Container>

@@ -8,6 +8,7 @@ import React from 'react'
 
 import { Hamburger } from './icons/Hamburger'
 import { NavMenuItems } from './NavMenuItems'
+import { handleInnerClick } from 'lib/playerHelper'
 
 export interface HeaderProps {
   darkBg?: boolean
@@ -32,7 +33,11 @@ export const Header = ({ darkBg }: HeaderProps): React.ReactNode => {
           },
         )}
       >
-        <div className={cx({ hidden: !isScrolled && !darkBg })}>
+        <div
+          className={cx({
+            hidden: !isScrolled && !darkBg,
+          })}
+        >
           <Link href="/">
             <Image
               height={22}
@@ -69,9 +74,10 @@ export const Header = ({ darkBg }: HeaderProps): React.ReactNode => {
             'h-screen fixed bg-gray-500 z-40 transition-all top-0 p-10',
             openMenu ? 'opacity-100 left-10' : 'opacity-0 left-full',
           )}
+          onClick={handleInnerClick}
           style={{ width: 'calc(100vw - 40px)' }}
         >
-          <NavMenuItems />
+          <NavMenuItems onClick={() => setOpenMenu(false)} />
         </nav>
       </div>
     </>

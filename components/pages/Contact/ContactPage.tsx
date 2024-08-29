@@ -56,7 +56,7 @@ export const ContactFormContent = () => {
         <PageHeader title={title} isLightFont />
         <div className="flex flex-col w-full">
           <div className="max-w-[600px] w-full mx-auto">
-            <h2 className="text-3xl font-bold mb-5">Contact Us</h2>
+            <h2 className="text-xl font-bold mb-5">Contact Us</h2>
             <div className="space-y-4 my-4">
               <p>
                 We’d love to hear from you! Whether you have questions,
@@ -138,6 +138,11 @@ export const ContactFormContent = () => {
                 >
                   {loading ? 'Sending...' : 'Send'}
                 </button>
+
+                <p className="mt-4">
+                  We value your privacy. Your personal information and email
+                  address will not be shared or sold to third parties.
+                </p>
               </form>
             )}
             {!formSuccess && (

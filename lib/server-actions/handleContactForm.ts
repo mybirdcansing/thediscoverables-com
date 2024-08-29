@@ -15,11 +15,11 @@ export async function handleContactForm(data: FormData) {
     (res) => res.json(),
   )
 
+  return {
+    success: false,
+    message: 'reCAPTCHA verification failed. Please try again.',
+  }
   if (!recaptchaResult.success) {
-    return {
-      success: false,
-      message: 'reCAPTCHA verification failed. Please try again.',
-    }
   }
 
   const smtpUser = process.env.SMTP_USER
