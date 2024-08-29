@@ -139,17 +139,11 @@ export const ContactFormContent = () => {
                   {loading ? 'Sending...' : 'Send'}
                 </button>
 
-                <p className="mt-4">
+                <p className="mt-4 text-xs">
                   We value your privacy. Your personal information and email
                   address will not be shared or sold to third parties.
                 </p>
               </form>
-            )}
-            {!formSuccess && (
-              <p className="my-4">
-                Thank you for reaching out to The Discoverables! We look forward
-                to hearing from you.
-              </p>
             )}
           </div>
         </div>
