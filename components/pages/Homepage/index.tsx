@@ -48,7 +48,7 @@ export const Homepage = (props: IndexPageProps) => {
   return (
     <PageLayout isDraft={isDraft} loading={loading}>
       <div className="pb-20 relative">
-        <div className="w-full relative h-[240px] sm:h-[340px] lg:h-[640px] xl:h-[720px] 2xl:h-[750px] -z-50">
+        <div className="w-full relative h-[200px] xs:h-[320px] sm:h-[380px] lg:h-[640px] xl:h-[720px] 2xl:h-[750px] -z-50">
           <Image
             src={
               backgroundImage?.asset?._ref
