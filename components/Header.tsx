@@ -28,7 +28,7 @@ export const Header = ({ darkBg }: HeaderProps): React.ReactNode => {
           'fixed flex flex-row top-0 z-30 w-full place-items-center px-2 md:px-4 h-header max-h-header',
           darkBg || isScrolled ? 'justify-between' : 'justify-end',
           {
-            'bg-gray-900 text-gray-50': darkBg || isScrolled,
+            'bg-[#303032] text-gray-50': darkBg || isScrolled,
             'transparent text-gray-800': !isScrolled && !darkBg,
           },
         )}

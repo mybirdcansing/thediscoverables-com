@@ -22,7 +22,7 @@ module.exports = {
       },
       spacing: {
         28: '7rem',
-        header: '2.25rem',
+        header: '2.50rem',
       },
       letterSpacing: {
         tighter: '-.04em',

@@ -24,7 +24,7 @@ export const Footer = () => {
       <div className="text-center sm:ml-8">
         Copyright © 2019 - {new Date().getFullYear()} {bandName}
       </div>
-      <div className={activeSong ? 'h-32' : 'h-6'}></div>
+      <div className={activeSong ? 'h-48' : 'h-2'}></div>
     </footer>
   )
 }
