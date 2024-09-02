@@ -3,7 +3,7 @@
 }
 html,
 body {
-  @apply overscroll-x-none h-full m-0;
+  @apply overscroll-x-none h-full m-0 text-gray-800;
 }
 body {
   @apply bg-gray-750 p-0 text-gray-50 text-base font-sans touch-manipulation;
@@ -18,4 +18,8 @@ h2 {
 }
 #player-bar {
   @apply text-white bg-slate-400;
+}
+textarea,
+input {
+  @apply text-black;
 }

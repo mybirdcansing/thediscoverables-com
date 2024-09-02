@@ -28,7 +28,7 @@ export const SettingsProvider = ({
   settings,
   isDraft,
 }: SettingsProviderProps) => {
-  const memoizedSettings = React.useMemo(() => settings, [settings])
+  const providerSettings = React.useMemo(() => settings, [settings])
 
   if (isDraft) {
     return (
@@ -42,7 +42,7 @@ export const SettingsProvider = ({
   }
 
   return (
-    <SettingsContext.Provider value={memoizedSettings}>
+    <SettingsContext.Provider value={providerSettings}>
       {children}
     </SettingsContext.Provider>
   )
@@ -55,5 +55,5 @@ export const useSettings = (): Settings => {
     throw new Error('useSettings must be used within a SettingsProvider')
   }
 
-  return context
+  return context ?? {}
 }

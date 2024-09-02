@@ -15,10 +15,10 @@ export const PageHeader = ({
   isLightFont?: boolean
 }) => {
   return (
-    <div className="flex flex-col mb-5 md:mb-10 md:flex-row md:justify-between text-pretty">
+    <div className="flex flex-col mb-6 mt-10 md:mb-10 md:flex-row md:justify-between text-pretty">
       <h1
         className={cx(
-          'mt-4 md:mt-8 text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty',
+          'mt-4 md:mt-11 text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight md:tracking-tighter text-pretty',
           isLightFont ? 'text-slate-300' : 'text-slate-700',
         )}
       >

@@ -15,20 +15,16 @@ export interface SongsPageProps extends SharedPageProps {
 
 export default function SongsPage(props: SongsPageProps) {
   const { songsView, isDraft, loading } = props
-  const settings = useSettings()
+  const { title: pageTitle } = useSettings()
   if (!songsView || isEmpty(songsView)) {
     return null
   }
   const { songs, description, title } = songsView
 
   return (
-    <PageLayout isDraft={isDraft} loading={loading}>
+    <PageLayout darkBg isDraft={isDraft} loading={loading}>
       <Container>
-        <PageHeader
-          title={settings.title}
-          description={description}
-          isLightFont
-        />
+        <PageHeader title={pageTitle} description={description} isLightFont />
         <div className="flex flex-col place-items-center">
           <SongList
             title={title}

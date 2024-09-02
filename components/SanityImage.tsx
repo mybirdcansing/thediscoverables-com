@@ -1,17 +1,17 @@
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
-import { getSanityImageConfig } from 'lib/sanity.client'
+import { getClient } from 'lib/sanity.client'
 import Image from 'next/image'
 import { useNextSanityImage } from 'next-sanity-image'
 
-interface Props {
+export interface SanityImageProps {
   asset: SanityImageSource
   alt: string
   caption?: string
 }
 
-export const SanityImage = (props: Props) => {
+export const SanityImage = (props: SanityImageProps) => {
   const { asset, alt, caption } = props
-  const imageProps = useNextSanityImage(getSanityImageConfig(), asset)
+  const imageProps = useNextSanityImage(getClient(), asset)
 
   if (!imageProps) return null
 
