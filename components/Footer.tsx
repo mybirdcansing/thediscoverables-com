@@ -11,21 +11,19 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="flex flex-col items-top pb-4 sm:flex-row justify-center sm:space-x-4">
-        <div className="flex space-x-2 mb-2 sm:mb-0 justify-center ">
-          <Link href="/" className="hover:underline">
-            Home
-          </Link>
+      <footer className="flex flex-col items-top p-6 sm:flex-row justify-center sm:space-x-4">
+        <div className="flex space-x-2 mb-2 sm:mb-0 justify-center footer-links">
+          <Link href="/">Home</Link>
           <span>|</span>
-          <Link href="/contact" className="hover:underline">
-            Contact
-          </Link>
+          <Link href="/contact">Contact</Link>
+          <span>|</span>
+          <Link href="/privacy">Privacy</Link>
         </div>
 
         <div className="text-center sm:ml-8">
           Copyright © 2019 - {new Date().getFullYear()} {bandName}
         </div>
-        <div className={activeSong ? 'h-28' : 'h-4'}></div>
+        <div className={activeSong ? 'h-24' : 'h-4'}></div>
       </footer>
     </>
   )

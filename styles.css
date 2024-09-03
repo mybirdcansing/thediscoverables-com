@@ -23,3 +23,7 @@ textarea,
 input {
   @apply text-black;
 }
+
+.footer-links a:hover {
+  @apply underline;
+}
