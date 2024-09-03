@@ -1,3 +1,4 @@
+import { captureException as captureSentryException } from '@sentry/nextjs'
 import { useCallback, useEffect, useState } from 'react'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 
@@ -22,6 +23,7 @@ export const useReCAPTCHA = ({ action }: UseReCAPTCHAProps) => {
       setError(null)
     } catch (error) {
       setError('Failed to verify recaptcha. Please try again.')
+      captureSentryException(`Failed to verify recaptcha: ${error}`)
     }
   }, [executeRecaptcha, action])
 

@@ -2,15 +2,9 @@
 import { captureException as captureSentryException } from '@sentry/nextjs'
 import nodemailer from 'nodemailer'
 
-export enum RecaptchaErrorCode {
-  'missing-input-secret',
-  'invalid-input-secret',
-  'missing-input-response',
-  'invalid-input-response',
-  'bad-request',
-  'timeout-or-duplicate',
-}
-export interface RecaptchaResult {
+import { RecaptchaErrorCode } from './RecaptchaErrorCode'
+
+interface RecaptchaResult {
   success: true | false
   'error-codes'?: RecaptchaErrorCode[]
 }
