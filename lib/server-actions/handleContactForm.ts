@@ -1,7 +1,13 @@
 'use server'
-// lib/server-actions/handleContactForm.ts
+import { captureException as captureSentryException } from '@sentry/nextjs'
 import nodemailer from 'nodemailer'
 
+import { RecaptchaErrorCode } from './RecaptchaErrorCode'
+
+interface RecaptchaResult {
+  success: true | false
+  'error-codes'?: RecaptchaErrorCode[]
+}
 export async function handleContactForm(data: FormData) {
   const name = data.get('name')?.toString() || ''
   const email = data.get('email')?.toString() || ''
@@ -11,11 +17,16 @@ export async function handleContactForm(data: FormData) {
   const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
   const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptcha}`
 
-  const recaptchaResult = await fetch(recaptchaUrl, { method: 'POST' }).then(
+  const recaptchaResult = (await fetch(recaptchaUrl, { method: 'POST' }).then(
     (res) => res.json(),
-  )
+  )) as RecaptchaResult
 
-  if (!recaptchaResult.success) {
+  if (!recaptchaResult?.success) {
+    const errorCodes = recaptchaResult['error-codes'] ?? []
+
+    captureSentryException(
+      `reCAPTCHA verification failed with error code${errorCodes.length > 1 ? 's' : ''}: ${errorCodes.join(', ')}`,
+    )
     return {
       success: false,
       message: 'reCAPTCHA verification failed. Please try again.',
@@ -38,19 +49,18 @@ export async function handleContactForm(data: FormData) {
   const mailOptions = {
     from: email,
     to: smtpUser,
-    subject: `Contact form submission from ${name}`,
+    subject: `Fan mail from ${name}`,
     text: message,
   }
 
   try {
-    // Send the email
     await transporter.sendMail(mailOptions)
     return {
       success: true,
       message: 'Email sent successfully!',
     }
   } catch (error) {
-    console.error('Error sending email:', error)
+    captureSentryException(`Error sending email: ${error}`)
     return {
       success: false,
       message: 'Failed to send email.',

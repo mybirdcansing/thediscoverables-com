@@ -23,6 +23,7 @@
     "@sanity/ui": "2.4.0",
     "@sanity/vision": "3.32.0",
     "@sanity/visual-editing": "1.6.0",
+    "@sentry/nextjs": "^8",
     "@use-gesture/react": "^10.3.1",
     "classnames": "^2.5.1",
     "date-fns": "3.3.1",

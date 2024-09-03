@@ -1,5 +1,6 @@
 'use client'
 
+import { captureException as captureSentryException } from '@sentry/nextjs'
 import { Container } from 'components/Container'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
@@ -21,7 +22,7 @@ export const ContactFormContent = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    setFormError(null) // Clear previous errors
+    setFormError(null)
     const form = e.currentTarget
     const formData = new FormData(form)
 
@@ -33,15 +34,24 @@ export const ContactFormContent = () => {
 
     formData.append('recaptcha', recaptchaToken)
 
-    const response = await handleContactForm(formData)
-    if (response.success) {
-      setFormSuccess(true)
-      form.reset()
-    } else {
-      setFormError('There was an issue submitting the form. Please try again.')
+    try {
+      const response = await handleContactForm(formData)
+      if (response.success) {
+        setFormSuccess(true)
+        form.reset()
+      } else {
+        setFormError(
+          'There was an issue submitting the form. Please try again.',
+        )
+      }
+    } catch (error) {
+      captureSentryException(`Failed to verify send contact form: ${error}`)
+      setFormError(
+        'There was an issue submitting the form. Please try again later.',
+      )
+    } finally {
+      setLoading(false)
     }
-
-    setLoading(false)
   }
 
   // Function to reset the form state to show the form again
