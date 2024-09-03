@@ -16,7 +16,7 @@ export const PageLayout = ({
   darkBg?: boolean
 }) => {
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col justify-between h-full">
       <div>
         <AlertBanner preview={isDraft} loading={loading} />
         <Header darkBg={darkBg} />
