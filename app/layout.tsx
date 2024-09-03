@@ -1,6 +1,7 @@
 import 'tailwindcss/tailwind.css'
 import '../styles.css'
 
+import { CookieConsentBanner } from 'components/CookieConsentBanner'
 import { PageContainer } from 'components/PageContainer'
 import { PreviewProviderContainer } from 'components/PreviewProviderContainer'
 import { VisualEditingView } from 'components/VisualEditingView'
@@ -22,12 +23,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className="min-h-screen">
         <WindowProvider>
           <PlayerProvider>
             <PreviewProviderContainer isEnabled={isDraft}>
               <SettingsProvider settings={settings} isDraft={isDraft}>
                 <PageContainer>{children}</PageContainer>
+                <CookieConsentBanner />
               </SettingsProvider>
             </PreviewProviderContainer>
           </PlayerProvider>

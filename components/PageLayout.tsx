@@ -16,11 +16,13 @@ export const PageLayout = ({
   darkBg?: boolean
 }) => {
   return (
-    <>
-      <AlertBanner preview={isDraft} loading={loading} />
-      <Header darkBg={darkBg} />
-      <main className="min-h-screen relative">{children}</main>
+    <div className="flex flex-col justify-between">
+      <div>
+        <AlertBanner preview={isDraft} loading={loading} />
+        <Header darkBg={darkBg} />
+        <main className="relative">{children}</main>
+      </div>
       <Footer />
-    </>
+    </div>
   )
 }
