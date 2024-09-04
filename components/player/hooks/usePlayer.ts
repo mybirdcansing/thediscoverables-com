@@ -8,6 +8,7 @@ import { useAudioEventHandlers } from './useAudioEventHandlers'
 import { useCurrentTimeAndDuration } from './useCurrentTimeAndDuration'
 import { useSongNavigation } from './useSongNavigation'
 import { useVolumeControl } from './useVolumeControl'
+import { usePathname } from 'next/navigation'
 
 export interface PlayerHook {
   activeSong: Song | null
@@ -68,7 +69,7 @@ export const usePlayer = (): PlayerHook => {
     songIndex,
     setIsPlaying,
   )
-
+  const pathname = usePathname()
   useAudioEventHandlers(audioRef, playNext, setIsPlaying)
 
   React.useEffect(() => {
@@ -77,8 +78,11 @@ export const usePlayer = (): PlayerHook => {
     }
   }, [activeSong, toggleSong, songClickIndex])
 
-  React.useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+  const handleKeyDown = React.useCallback(
+    (event: KeyboardEvent) => {
+      if (pathname === '/contact') {
+        return
+      }
       if (event.code === 'Space') {
         event.preventDefault()
         if (isPlaying) {
@@ -89,14 +93,16 @@ export const usePlayer = (): PlayerHook => {
           setIsPlaying(true)
         }
       }
-    }
-
+    },
+    [isPlaying, pathname],
+  )
+  React.useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isPlaying])
+  }, [handleKeyDown])
 
   return {
     activeSong,
