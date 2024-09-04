@@ -19,8 +19,8 @@ const config = {
   env: {
     NEXT_PUBLIC_BAND_NAME: 'The Discoverables' || process.env.BAND_NAME,
   },
-  // Prevent generating source maps in production
-  productionBrowserSourceMaps: false,
+  // Allow source maps in production for Sentry to use
+  productionBrowserSourceMaps: true,
 }
 
 export default withSentryConfig(config, {
