@@ -55,9 +55,6 @@ export const PuzzlePiece = ({
 
   const bindDrag = useDrag(
     ({ offset: [x, y], dragging }) => {
-      if (isSolved) {
-        return
-      }
       const isDragging = !!dragging
       setIsDragging(isDragging)
       if (isDragging) {
@@ -68,7 +65,10 @@ export const PuzzlePiece = ({
         onDrop(id, nearestQuadrant)
       }
     },
-    { from: () => [springProps.x.get(), springProps.y.get()] },
+    {
+      enabled: !isSolved,
+      from: () => [springProps.x.get(), springProps.y.get()],
+    },
   )
 
   return (
