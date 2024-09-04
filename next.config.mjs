@@ -19,8 +19,8 @@ const config = {
   env: {
     NEXT_PUBLIC_BAND_NAME: 'The Discoverables' || process.env.BAND_NAME,
   },
-  // Prevent generating source maps in production
-  productionBrowserSourceMaps: false,
+  // Allow source maps in production for Sentry to use
+  productionBrowserSourceMaps: true,
 }
 
 export default withSentryConfig(config, {
@@ -29,6 +29,9 @@ export default withSentryConfig(config, {
 
   org: 'the-discoverables',
   project: 'javascript-nextjs',
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  // Upload a larger set of source maps for prettier stack traces (increases build time)
+  widenClientFileUpload: true,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
