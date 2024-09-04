@@ -1,5 +1,3 @@
-// components/Puzzle/PuzzlePiece.tsx
-
 import { animated, useSpring } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 import cx from 'classnames'
@@ -24,19 +22,17 @@ export const PuzzlePiece = ({
   isSolved,
 }: PuzzlePieceProps) => {
   const [isDragging, setIsDragging] = React.useState(false)
-  const [isMounted, setIsMounted] = React.useState(false)
   const size = isSolved ? 100 : 96
   const [springProps, api] = useSpring(() => ({
     x: initialPosition.x,
     y: initialPosition.y,
     scale: 1,
     config: { tension: 300, friction: 30 },
-    immediate: true, // Ensure no animation during SSR
+    immediate: true,
     transform: '',
   }))
 
   React.useEffect(() => {
-    setIsMounted(true)
     api.start({
       x: initialPosition.x,
       y: initialPosition.y,
@@ -87,7 +83,6 @@ export const PuzzlePiece = ({
       )}
       style={{
         ...springProps,
-        transform: isMounted ? springProps.transform : 'none', // Ensuring SSR and CSR match
       }}
     >
       <Image

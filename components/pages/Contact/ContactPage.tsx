@@ -44,6 +44,7 @@ export const ContactFormContent = () => {
       if (response.success) {
         setFormSuccess(true)
         form.reset()
+        window.scrollTo(0, 0)
       } else {
         setFormError(
           'There was an issue submitting the form. Please try again.',

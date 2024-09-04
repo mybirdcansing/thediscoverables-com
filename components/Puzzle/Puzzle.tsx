@@ -1,11 +1,8 @@
-// components/Puzzle/Puzzle.tsx
-
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 
 import { PuzzlePiece } from './PuzzlePiece'
 
-// Helper function to shuffle an array
 const shuffleArray = (arr: any[]) => {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -26,10 +23,8 @@ export const Puzzle = ({ onCorrectPositions }: PuzzleProps) => {
     { x: 100, y: 100 },
   ]
 
-  // Randomly shuffle the initial positions to start the puzzle in a random state
   const shuffledPositions = shuffleArray([...quadrantPositions])
 
-  // Assign shuffled positions to pieces to ensure they start in a random layout
   const initialPositions = [
     {
       id: 1,
@@ -58,10 +53,9 @@ export const Puzzle = ({ onCorrectPositions }: PuzzleProps) => {
   ]
 
   const [pieces, setPieces] = useState(initialPositions)
-  const [isSolved, setIsSolved] = useState(false) // State to track if the puzzle is solved
+  const [isSolved, setIsSolved] = useState(false)
 
   useEffect(() => {
-    // Check if all pieces are in their correct positions
     const allCorrect = pieces.every(
       (piece) =>
         piece.initialPosition.x === piece.correctPosition.x &&
