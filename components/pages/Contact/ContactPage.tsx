@@ -1,23 +1,26 @@
 'use client'
-
 import { captureException as captureSentryException } from '@sentry/nextjs'
 import { Container } from 'components/Container'
 import { PageHeader } from 'components/PageHeader'
 import { PageLayout } from 'components/PageLayout'
+import { Puzzle } from 'components/Puzzle/Puzzle'
+import { generateCsrfToken } from 'lib/server-actions/generateCsrfToken' // Import the server action
 import { handleContactForm } from 'lib/server-actions/handleContactForm'
 import { useSettings } from 'lib/settingsContext'
-import { useReCAPTCHA } from 'lib/useReCAPTCHA'
 import React, { useState } from 'react'
 
 export const ContactFormContent = () => {
   const { title } = useSettings()
-  const { recaptchaToken, error: recaptchaError } = useReCAPTCHA({
-    action: 'contact_form',
-  })
 
   const [loading, setLoading] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [formSuccess, setFormSuccess] = useState(false)
+  const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
+
+  const handlePuzzleSolved = () => {
+    setIsCaptchaSolved(true)
+    setFormError(null)
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -26,16 +29,18 @@ export const ContactFormContent = () => {
     const form = e.currentTarget
     const formData = new FormData(form)
 
-    if (!recaptchaToken) {
-      setFormError(recaptchaError || 'ReCAPTCHA verification failed.')
+    if (!isCaptchaSolved) {
+      setFormError('Captcha verification failed.')
       setLoading(false)
       return
     }
 
-    formData.append('recaptcha', recaptchaToken)
-
     try {
+      const csrfToken = await generateCsrfToken()
+
+      formData.append('csrfToken', csrfToken)
       const response = await handleContactForm(formData)
+
       if (response.success) {
         setFormSuccess(true)
         form.reset()
@@ -54,10 +59,10 @@ export const ContactFormContent = () => {
     }
   }
 
-  // Function to reset the form state to show the form again
   const resetForm = () => {
     setFormSuccess(false)
     setFormError(null)
+    setIsCaptchaSolved(false)
   }
 
   return (
@@ -133,6 +138,8 @@ export const ContactFormContent = () => {
                 </div>
 
                 {formError && <p className="text-red-600">{formError}</p>}
+
+                <Puzzle onCorrectPositions={handlePuzzleSolved} />
 
                 <button
                   type="submit"
