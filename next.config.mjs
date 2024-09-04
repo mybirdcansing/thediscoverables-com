@@ -30,6 +30,8 @@ export default withSentryConfig(config, {
   org: 'the-discoverables',
   project: 'javascript-nextjs',
   authToken: process.env.SENTRY_AUTH_TOKEN,
+  // Upload a larger set of source maps for prettier stack traces (increases build time)
+  widenClientFileUpload: true,
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
