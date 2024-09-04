@@ -6,12 +6,12 @@ import React, { useEffect, useState } from 'react'
 import { PuzzlePiece } from './PuzzlePiece'
 
 // Helper function to shuffle an array
-const shuffleArray = (array: any[]) => {
-  for (let i = array.length - 1; i > 0; i--) {
+const shuffleArray = (arr: any[]) => {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
   }
-  return array
+  return arr
 }
 
 interface PuzzleProps {

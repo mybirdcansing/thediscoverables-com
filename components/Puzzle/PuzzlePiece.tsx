@@ -24,9 +24,8 @@ export const PuzzlePiece = ({
   isSolved,
 }: PuzzlePieceProps) => {
   const [isDragging, setIsDragging] = React.useState(false)
-  const [isMounted, setIsMounted] = React.useState(false) // Track if the component has mounted on the client
+  const [isMounted, setIsMounted] = React.useState(false)
   const size = isSolved ? 100 : 96
-  // Set static values initially
   const [springProps, api] = useSpring(() => ({
     x: initialPosition.x,
     y: initialPosition.y,
@@ -79,16 +78,16 @@ export const PuzzlePiece = ({
   return (
     <animated.div
       {...bindDrag()}
-      className={cx('absolute', {
-        'cursor-grab': !isSolved,
-      })}
+      className={cx(
+        'absolute touch-none',
+        {
+          'cursor-grab': !isSolved,
+        },
+        isDragging ? 'z-10' : 'z-0',
+      )}
       style={{
+        ...springProps,
         transform: isMounted ? springProps.transform : 'none', // Ensuring SSR and CSR match
-        zIndex: isDragging ? 1 : 0,
-        touchAction: 'none',
-        x: springProps.x,
-        y: springProps.y,
-        scale: springProps.scale,
       }}
     >
       <Image

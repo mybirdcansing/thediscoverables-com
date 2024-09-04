@@ -140,7 +140,7 @@ export const ContactFormContent = () => {
                 {formError && <p className="text-red-600">{formError}</p>}
                 <div>
                   <label className="block text-sm font-medium">
-                    Guitar puzzle to prove you&apos;re a human.
+                    Do the puzzle to prove you&apos;re a human
                   </label>
 
                   <div className="p-2 w-fit mx-auto">
