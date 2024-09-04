@@ -4,7 +4,7 @@ import { animated, useSpring } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 import cx from 'classnames'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 interface PuzzlePieceProps {
   id: number
@@ -23,9 +23,9 @@ export const PuzzlePiece = ({
   onDrop,
   isSolved,
 }: PuzzlePieceProps) => {
-  const [isDragging, setIsDragging] = useState(false)
-  const [isMounted, setIsMounted] = useState(false) // Track if the component has mounted on the client
-
+  const [isDragging, setIsDragging] = React.useState(false)
+  const [isMounted, setIsMounted] = React.useState(false) // Track if the component has mounted on the client
+  const size = isSolved ? 100 : 96
   // Set static values initially
   const [springProps, api] = useSpring(() => ({
     x: initialPosition.x,
@@ -36,8 +36,7 @@ export const PuzzlePiece = ({
     transform: '',
   }))
 
-  // useEffect to update spring properties after mount
-  useEffect(() => {
+  React.useEffect(() => {
     setIsMounted(true)
     api.start({
       x: initialPosition.x,
@@ -64,8 +63,9 @@ export const PuzzlePiece = ({
       if (isSolved) {
         return
       }
-      setIsDragging(!!dragging)
-      if (!!dragging) {
+      const isDragging = !!dragging
+      setIsDragging(isDragging)
+      if (isDragging) {
         api.start({ x, y, scale: 1.2 })
       } else {
         const nearestQuadrant = findNearestQuadrant(x, y)
@@ -94,8 +94,8 @@ export const PuzzlePiece = ({
       <Image
         src={src}
         alt={`Puzzle piece ${id}`}
-        width={96}
-        height={96}
+        width={size}
+        height={size}
         className="select-none pointer-events-none"
       />
     </animated.div>

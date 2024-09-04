@@ -17,7 +17,7 @@ export const Footer = () => {
           <span>|</span>
           <Link href="/contact">Contact</Link>
           <span>|</span>
-          <Link href="/privacy">Privacy</Link>
+          <Link href="/privacy">Privacy policy</Link>
         </div>
 
         <div className="text-center sm:ml-8">

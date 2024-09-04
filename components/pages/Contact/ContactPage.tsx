@@ -148,11 +148,6 @@ export const ContactFormContent = () => {
                 >
                   {loading ? 'Sending...' : 'Send'}
                 </button>
-
-                <p className="mt-4">
-                  We value your privacy. Your personal information and email
-                  address will not be shared or sold to third parties.
-                </p>
               </form>
             )}
           </div>

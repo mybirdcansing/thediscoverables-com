@@ -1,5 +1,6 @@
 // components/Puzzle/Puzzle.tsx
 
+import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 
 import { PuzzlePiece } from './PuzzlePiece'
@@ -114,18 +115,24 @@ export const Puzzle = ({ onCorrectPositions }: PuzzleProps) => {
   }
 
   return (
-    <div className="relative w-48 h-48 mx-auto">
-      {pieces.map((piece) => (
-        <PuzzlePiece
-          key={piece.id}
-          id={piece.id}
-          src={piece.src}
-          initialPosition={piece.initialPosition}
-          quadrantPositions={quadrantPositions}
-          onDrop={handleDrop}
-          isSolved={isSolved} // Pass the solved state to the PuzzlePiece component
-        />
-      ))}
+    <div
+      className={cx({
+        'border-green-500 border-4 border-e-lime-500 mx-auto': isSolved,
+      })}
+    >
+      <div className="relative w-[200px] h-[200px] mx-auto">
+        {pieces.map((piece) => (
+          <PuzzlePiece
+            key={piece.id}
+            id={piece.id}
+            src={piece.src}
+            initialPosition={piece.initialPosition}
+            quadrantPositions={quadrantPositions}
+            onDrop={handleDrop}
+            isSolved={isSolved}
+          />
+        ))}
+      </div>
     </div>
   )
 }
