@@ -1,7 +1,6 @@
 import { usePlayerContext } from 'lib/playerContext'
 import { Playlist } from 'lib/types/playlist'
 import { Song } from 'lib/types/song'
-import { usePathname } from 'next/navigation'
 import React from 'react'
 
 import { useAirPlay } from './useAirPlay'
