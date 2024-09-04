@@ -1,6 +1,7 @@
 import { usePlayerContext } from 'lib/playerContext'
 import { Playlist } from 'lib/types/playlist'
 import { Song } from 'lib/types/song'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 import { useAirPlay } from './useAirPlay'
@@ -8,7 +9,6 @@ import { useAudioEventHandlers } from './useAudioEventHandlers'
 import { useCurrentTimeAndDuration } from './useCurrentTimeAndDuration'
 import { useSongNavigation } from './useSongNavigation'
 import { useVolumeControl } from './useVolumeControl'
-import { usePathname } from 'next/navigation'
 
 export interface PlayerHook {
   activeSong: Song | null
@@ -69,7 +69,7 @@ export const usePlayer = (): PlayerHook => {
     songIndex,
     setIsPlaying,
   )
-  const pathname = usePathname()
+
   useAudioEventHandlers(audioRef, playNext, setIsPlaying)
 
   React.useEffect(() => {
@@ -80,10 +80,13 @@ export const usePlayer = (): PlayerHook => {
 
   const handleKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
-      if (pathname === '/contact') {
-        return
-      }
-      if (event.code === 'Space') {
+      const activeElement = document.activeElement
+      const isFormElement =
+        activeElement instanceof HTMLInputElement ||
+        activeElement instanceof HTMLTextAreaElement ||
+        activeElement instanceof HTMLButtonElement
+
+      if (event.code === 'Space' && !isFormElement) {
         event.preventDefault()
         if (isPlaying) {
           audioRef.current?.pause()
@@ -94,7 +97,7 @@ export const usePlayer = (): PlayerHook => {
         }
       }
     },
-    [isPlaying, pathname],
+    [isPlaying],
   )
   React.useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
