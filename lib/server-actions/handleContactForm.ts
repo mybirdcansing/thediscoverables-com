@@ -1,35 +1,22 @@
 'use server'
 import { captureException as captureSentryException } from '@sentry/nextjs'
+import { cookies } from 'next/headers'
 import nodemailer from 'nodemailer'
 
-import { RecaptchaErrorCode } from './RecaptchaErrorCode'
-
-interface RecaptchaResult {
-  success: true | false
-  'error-codes'?: RecaptchaErrorCode[]
-}
 export async function handleContactForm(data: FormData) {
   const name = data.get('name')?.toString() || ''
   const email = data.get('email')?.toString() || ''
   const message = data.get('message')?.toString() || ''
-  const recaptcha = data.get('recaptcha')?.toString() || ''
+  const csrfToken = data.get('csrfToken')?.toString() || ''
 
-  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
-  const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptcha}`
+  // Retrieve the CSRF token from cookies
+  const csrfTokenCookie = cookies().get('csrfToken')?.value
 
-  const recaptchaResult = (await fetch(recaptchaUrl, { method: 'POST' }).then(
-    (res) => res.json(),
-  )) as RecaptchaResult
-
-  if (!recaptchaResult?.success) {
-    const errorCodes = recaptchaResult['error-codes'] ?? []
-
-    captureSentryException(
-      `reCAPTCHA verification failed with error code${errorCodes.length > 1 ? 's' : ''}: ${errorCodes.join(', ')}`,
-    )
+  // Validate CSRF token
+  if (!csrfToken || csrfToken !== csrfTokenCookie) {
     return {
       success: false,
-      message: 'reCAPTCHA verification failed. Please try again.',
+      message: 'Invalid CSRF token.',
     }
   }
 
