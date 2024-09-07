@@ -4,12 +4,14 @@ import cx from 'classnames'
 import Image from 'next/image'
 import React from 'react'
 
+import { Position } from './Position'
+
 interface PuzzlePieceProps {
   id: number
   src: string
-  initialPosition: { x: number; y: number }
-  quadrantPositions: { x: number; y: number }[]
-  onDrop: (id: number, position: { x: number; y: number }) => void
+  initialPosition: Position
+  quadrantPositions: Position[]
+  onDrop: (id: number, position: Position) => void
   isSolved: boolean
 }
 
@@ -75,9 +77,9 @@ export const PuzzlePiece = ({
     <animated.div
       {...bindDrag()}
       className={cx(
-        'absolute touch-none',
+        'absolute',
         {
-          'cursor-grab': !isSolved,
+          'cursor-grab touch-none': !isSolved,
         },
         isDragging ? 'z-10' : 'z-0',
       )}

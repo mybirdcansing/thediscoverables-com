@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 
+import { Position } from './Position'
 import { PuzzlePiece } from './PuzzlePiece'
 
 const shuffleArray = (arr: any[]) => {
@@ -16,14 +17,14 @@ interface PuzzleProps {
 }
 
 export const Puzzle = ({ onCorrectPositions }: PuzzleProps) => {
-  const quadrantPositions = [
+  const quadrantPositions: Position[] = [
     { x: 0, y: 0 },
     { x: 100, y: 0 },
     { x: 0, y: 100 },
     { x: 100, y: 100 },
   ]
 
-  const shuffledPositions = shuffleArray([...quadrantPositions])
+  const shuffledPositions: Position[] = shuffleArray([...quadrantPositions])
 
   const initialPositions = [
     {
@@ -67,7 +68,7 @@ export const Puzzle = ({ onCorrectPositions }: PuzzleProps) => {
     }
   }, [pieces, onCorrectPositions, isSolved])
 
-  const handleDrop = (id: number, newPosition: { x: number; y: number }) => {
+  const handleDrop = (id: number, newPosition: Position) => {
     if (isSolved) {
       return
     }
