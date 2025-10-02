@@ -1,8 +1,9 @@
 import cx from 'classnames'
+import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
 
 import { Position } from './Position'
-import { PuzzlePiece } from './PuzzlePiece'
+const PuzzlePiece = dynamic(() => import('./PuzzlePiece'), { ssr: false })
 
 const shuffleArray = (arr: any[]) => {
   for (let i = arr.length - 1; i > 0; i--) {

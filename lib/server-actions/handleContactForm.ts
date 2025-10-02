@@ -3,12 +3,10 @@ import { captureException as captureSentryException } from '@sentry/nextjs'
 import { cookies } from 'next/headers'
 import nodemailer from 'nodemailer'
 
-export async function handleContactForm(data: FormData) {
-  const name = data.get('name')?.toString() || ''
-  const email = data.get('email')?.toString() || ''
-  const message = data.get('message')?.toString() || ''
-  const csrfToken = data.get('csrfToken')?.toString() || ''
+import type { FormData } from '../types/contactFormData'
 
+export async function handleContactForm(data: FormData) {
+  const { name, email, message, csrfToken } = data
   // Retrieve the CSRF token from cookies
   const csrfTokenCookie = cookies().get('csrfToken')?.value
 
