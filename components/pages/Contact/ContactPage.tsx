@@ -7,43 +7,101 @@ import { Puzzle } from 'components/Puzzle/Puzzle'
 import { generateCsrfToken } from 'lib/server-actions/generateCsrfToken' // Import the server action
 import { handleContactForm } from 'lib/server-actions/handleContactForm'
 import { useSettings } from 'lib/settingsContext'
-import React, { useState } from 'react'
+import { FormState } from 'lib/types/contactFormData'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+
+type Errors = Partial<Record<keyof FormState, string>>
 
 export const ContactFormContent = () => {
   const { title } = useSettings()
+  const [state, setState] = useState<FormState>({
+    name: '',
+    email: '',
+    message: '',
+    captchaIsValid: false,
+  })
 
   const [loading, setLoading] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [shouldFocusOnSubmit, setShouldFocusOnSubmit] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   const [formSuccess, setFormSuccess] = useState(false)
   const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
+
+  const errors = useMemo<Errors>(() => {
+    const e: Errors = {}
+    const email = state.email.trim()
+    if (!state.name.trim()) e.name = 'Name is required.'
+    if (!email) e.email = 'Email is required.'
+    if (!/(.+)@(.+){2,}\.(.+){2,}/.test(email))
+      e.email = 'Please enter a valid email address.'
+    if (!state.message) e.message = 'Please enter a message.'
+    if (!isCaptchaSolved) e.captchaIsValid = 'Please solve the puzzle.'
+    return e
+  }, [isCaptchaSolved, state])
+
+  const isValid = Object.keys(errors).length === 0
+
+  useEffect(() => {
+    if (!submitted || isValid || !shouldFocusOnSubmit) return
+    if (errors.name) {
+      nameRef.current?.focus()
+    } else if (errors.email) {
+      emailRef.current?.focus()
+    } else if (errors.message) {
+      messageRef.current?.focus()
+    }
+    setShouldFocusOnSubmit(false)
+  }, [submitted, isValid, errors, shouldFocusOnSubmit])
+
+  const assign = <K extends keyof FormState>(key: K, value: FormState[K]) => {
+    setState((s) => ({ ...s, [key]: value }))
+  }
+
+  const onBlur = (key: keyof FormState) =>
+    setTouched((t) => ({ ...t, [key]: true }))
 
   const handlePuzzleSolved = () => {
     setIsCaptchaSolved(true)
-    setFormError(null)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
+    setTouched((t) => ({
+      ...t,
+      name: true,
+      email: true,
+      message: true,
+      captchaIsValid: true,
+    }))
     setFormError(null)
-    const form = e.currentTarget
-    const formData = new FormData(form)
+    setSubmitted(true)
+    setShouldFocusOnSubmit(true)
+    if (!isValid) return
 
-    if (!isCaptchaSolved) {
-      setFormError('Captcha verification failed.')
-      setLoading(false)
-      return
-    }
+    setLoading(true)
 
     try {
       const csrfToken = await generateCsrfToken()
+      const formData: FormState & { csrfToken: string } = {
+        ...state,
+        csrfToken,
+      }
 
-      formData.append('csrfToken', csrfToken)
       const response = await handleContactForm(formData)
 
       if (response.success) {
         setFormSuccess(true)
-        form.reset()
+        setState({
+          name: '',
+          email: '',
+          message: '',
+          captchaIsValid: false,
+        })
         window.scrollTo(0, 0)
       } else {
         setFormError(
@@ -60,10 +118,15 @@ export const ContactFormContent = () => {
     }
   }
 
+  console.log({ errors, touched })
+
   const resetForm = () => {
+    setTouched({})
     setFormSuccess(false)
     setFormError(null)
     setIsCaptchaSolved(false)
+    setSubmitted(false)
+    setShouldFocusOnSubmit(false)
   }
 
   return (
@@ -94,6 +157,7 @@ export const ContactFormContent = () => {
             ) : (
               <form
                 onSubmit={handleSubmit}
+                noValidate
                 className="flex w-full flex-col gap-4"
               >
                 <div>
@@ -101,12 +165,16 @@ export const ContactFormContent = () => {
                     Name
                   </label>
                   <input
+                    ref={nameRef}
                     type="text"
                     id="name"
-                    name="name"
                     className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    required
+                    onChange={(e) => assign('name', e.target.value)}
+                    onBlur={() => onBlur('name')}
                   />
+                  {errors.name && touched.name && (
+                    <div className="mt-1 text-red-200">{errors.name}</div>
+                  )}
                 </div>
 
                 <div>
@@ -114,12 +182,16 @@ export const ContactFormContent = () => {
                     Email
                   </label>
                   <input
+                    ref={emailRef}
                     type="email"
                     id="email"
-                    name="email"
                     className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    required
+                    onChange={(e) => assign('email', e.target.value)}
+                    onBlur={() => onBlur('email')}
                   />
+                  {errors.email && touched.email && (
+                    <div className="mt-1 text-red-200">{errors.email}</div>
+                  )}
                 </div>
 
                 <div>
@@ -130,15 +202,19 @@ export const ContactFormContent = () => {
                     Message
                   </label>
                   <textarea
+                    ref={messageRef}
                     id="message"
                     name="message"
                     rows={4}
                     className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    required
+                    onChange={(e) => assign('message', e.target.value)}
+                    onBlur={() => onBlur('message')}
                   />
+                  {errors.message && touched.message && (
+                    <div className="mt-1 text-red-200">{errors.message}</div>
+                  )}
                 </div>
 
-                {formError && <p className="text-red-600">{formError}</p>}
                 <div>
                   <label className="block text-sm font-medium">
                     Do the puzzle to prove you&apos;re a human
@@ -148,6 +224,11 @@ export const ContactFormContent = () => {
                     <Puzzle onCorrectPositions={handlePuzzleSolved} />
                   </div>
                 </div>
+                {errors.captchaIsValid && touched.captchaIsValid && (
+                  <div className="mt-1 text-red-200">
+                    {errors.captchaIsValid}
+                  </div>
+                )}
 
                 <button
                   type="submit"
@@ -155,6 +236,7 @@ export const ContactFormContent = () => {
                   disabled={loading}
                 >
                   {loading ? 'Sending...' : 'Send'}
+                  {formError && <p className="text-red-600">{formError}</p>}
                 </button>
               </form>
             )}

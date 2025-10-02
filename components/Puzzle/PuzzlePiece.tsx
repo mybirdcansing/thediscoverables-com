@@ -97,3 +97,5 @@ export const PuzzlePiece = ({
     </animated.div>
   )
 }
+
+export default PuzzlePiece
