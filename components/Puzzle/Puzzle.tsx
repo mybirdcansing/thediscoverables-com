@@ -115,7 +115,7 @@ export const Puzzle = ({ onCorrectPositions }: PuzzleProps) => {
         'border-green-500 border-4 border-e-lime-500 mx-auto': isSolved,
       })}
     >
-      <div className="relative w-[200px] h-[200px] mx-auto">
+      <div className="relative mx-auto size-[200px]">
         {pieces.map((piece) => (
           <PuzzlePiece
             key={piece.id}

@@ -47,8 +47,8 @@ export const Homepage = (props: IndexPageProps) => {
   }
   return (
     <PageLayout isDraft={isDraft} loading={loading}>
-      <div className="pb-16 relative">
-        <div className="w-full relative h-[200px] xs:h-[320px] sm:h-[380px] lg:h-[640px] xl:h-[720px] 2xl:h-[750px] -z-50">
+      <div className="relative pb-16">
+        <div className="relative -z-50 h-[200px] w-full xs:h-[320px] sm:h-[380px] lg:h-[640px] xl:h-[720px] 2xl:h-[750px]">
           <Image
             src={
               backgroundImage?.asset?._ref
@@ -63,7 +63,7 @@ export const Homepage = (props: IndexPageProps) => {
           />
 
           <Container className="relative">
-            <div className="absolute -mt-10 md:pt-18 lg:pt-20 xl:pt-28">
+            <div className="absolute -mt-10 md:pt-16 lg:pt-20 xl:pt-28">
               <PageHeader title={title} />
             </div>
           </Container>
@@ -76,7 +76,7 @@ export const Homepage = (props: IndexPageProps) => {
           />
         </div>
         <section className="flex flex-col gap-8">
-          <Container className="flex flex-col gap-8 place-items-center">
+          <Container className="flex flex-col place-items-center gap-8">
             <SongList
               title={songsTitle}
               songs={songs}
@@ -85,7 +85,7 @@ export const Homepage = (props: IndexPageProps) => {
               showAlbumLink
             />
 
-            <div className="max-w-4xl w-full flex flex-col">
+            <div className="flex w-full max-w-4xl flex-col">
               <Link href="/songs" className="hover:underline">
                 ALL SONGS &gt;
               </Link>

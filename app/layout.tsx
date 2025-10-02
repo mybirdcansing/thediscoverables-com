@@ -1,5 +1,4 @@
-import 'tailwindcss/tailwind.css'
-import '../styles.css'
+import './globals.css'
 
 import { PageContainer } from 'components/PageContainer'
 import { PreviewProviderContainer } from 'components/PreviewProviderContainer'

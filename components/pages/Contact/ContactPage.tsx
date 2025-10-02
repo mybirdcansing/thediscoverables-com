@@ -70,23 +70,23 @@ export const ContactFormContent = () => {
     <PageLayout darkBg>
       <Container>
         <PageHeader title={title} isLightFont />
-        <div className="flex flex-col w-full">
-          <div className="max-w-[600px] w-full mx-auto">
-            <h2 className="text-xl font-bold mb-5">Contact Us</h2>
-            <p className="space-y-4 my-4">
+        <div className="flex w-full flex-col">
+          <div className="mx-auto w-full max-w-[600px]">
+            <h2 className="mb-5 text-xl font-bold">Contact Us</h2>
+            <p className="my-4 space-y-4">
               Whether you have questions, feedback, or just want to say hello,
               we’re here to connect with our fans and community.
             </p>
 
             {formSuccess ? (
               <div className="my-4">
-                <p className="text-green-600 mb-4">
+                <p className="mb-4 text-green-600">
                   Thank you for reaching out! We have received your message and
                   will get back to you shortly.
                 </p>
                 <button
                   onClick={resetForm}
-                  className="mt-2 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-2 w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Send Another Message
                 </button>
@@ -94,7 +94,7 @@ export const ContactFormContent = () => {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-4 w-full"
+                className="flex w-full flex-col gap-4"
               >
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium">
@@ -104,7 +104,7 @@ export const ContactFormContent = () => {
                     type="text"
                     id="name"
                     name="name"
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -117,7 +117,7 @@ export const ContactFormContent = () => {
                     type="email"
                     id="email"
                     name="email"
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -133,7 +133,7 @@ export const ContactFormContent = () => {
                     id="message"
                     name="message"
                     rows={4}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 block w-full rounded-md border border-gray-300 p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -144,14 +144,14 @@ export const ContactFormContent = () => {
                     Do the puzzle to prove you&apos;re a human
                   </label>
 
-                  <div className="p-2 w-fit mx-auto">
+                  <div className="mx-auto w-fit p-2">
                     <Puzzle onCorrectPositions={handlePuzzleSolved} />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="mt-2 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-2 w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   disabled={loading}
                 >
                   {loading ? 'Sending...' : 'Send'}

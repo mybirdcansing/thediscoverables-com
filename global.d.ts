@@ -9,3 +9,5 @@ interface WebKitPlaybackTargetAvailabilityEvent extends Event {
 interface HTMLMediaElement {
   webkitShowPlaybackTargetPicker(): void
 }
+
+declare module '*.css'

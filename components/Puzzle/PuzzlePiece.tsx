@@ -2,7 +2,7 @@ import { animated, useSpring } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 import cx from 'classnames'
 import Image from 'next/image'
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 import { Position } from './Position'
 
@@ -23,7 +23,7 @@ export const PuzzlePiece = ({
   onDrop,
   isSolved,
 }: PuzzlePieceProps) => {
-  const [isDragging, setIsDragging] = React.useState(false)
+  const [isDragging, setIsDragging] = useState(false)
   const size = isSolved ? 100 : 96
   const [springProps, api] = useSpring(() => ({
     x: initialPosition.x,
@@ -34,7 +34,7 @@ export const PuzzlePiece = ({
     transform: '',
   }))
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.start({
       x: initialPosition.x,
       y: initialPosition.y,
@@ -92,7 +92,7 @@ export const PuzzlePiece = ({
         alt={`Puzzle piece ${id}`}
         width={size}
         height={size}
-        className="select-none pointer-events-none"
+        className="pointer-events-none select-none"
       />
     </animated.div>
   )

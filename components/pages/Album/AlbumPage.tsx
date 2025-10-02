@@ -41,8 +41,8 @@ export default function AlbumPage(props: AlbumPageProps) {
       <Container>
         <PageHeader title={pageTitle} isLightFont />
         <section className="flex flex-col place-items-center">
-          <div className="max-w-4xl w-full flex flex-col gap-4">
-            <div className="flex flex-col md:flex-row gap-x-8 gap-y-5">
+          <div className="flex w-full max-w-4xl flex-col gap-4">
+            <div className="flex flex-col gap-x-8 gap-y-5 md:flex-row">
               <div className="mb-8 md:mx-0 md:mb-16">
                 <CoverImage
                   title={albumTitle}
