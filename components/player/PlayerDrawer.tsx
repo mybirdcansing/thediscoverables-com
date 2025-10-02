@@ -105,7 +105,7 @@ export const PlayerDrawer = () => {
   return (
     <div
       ref={drawerRef}
-      className="absolute w-full z-50 bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out flex flex-row justify-center overflow-y-auto"
+      className="absolute z-50 flex w-full flex-row justify-center overflow-y-auto bg-[rgb(30,32,35)] transition-[top] duration-400 ease-in-out"
       style={{
         top: isExpanded ? `${scrollY}px` : `${scrollY + height}px`,
         height: `${height - PLAYER_HEIGHT}px`,
@@ -119,10 +119,10 @@ export const PlayerDrawer = () => {
       >
         <Close />
       </button>
-      <div className="w-full flex flex-col lg:flex-row justify-between gap-x-8 gap-y-12 px-4 lg:px-24 pt-11 lg:pt-4">
+      <div className="flex w-full flex-col justify-between gap-x-8 gap-y-12 px-4 pt-11 lg:flex-row lg:px-24 lg:pt-4">
         {album && album.coverImage?.asset?._ref && (
-          <div className="w-full h-auto lg:h-full flex flex-row place-content-center justify-center">
-            <div className="relative max-w-xl w-full aspect-square lg:aspect-auto lg:h-full">
+          <div className="flex h-auto w-full flex-row place-content-center lg:h-full">
+            <div className="relative aspect-square w-full max-w-xl lg:aspect-auto lg:h-full">
               <Image
                 objectFit="contain"
                 layout="fill"
@@ -132,7 +132,7 @@ export const PlayerDrawer = () => {
             </div>
           </div>
         )}
-        <div className="max-w-xl w-full mx-auto lg:mt-11">
+        <div className="mx-auto w-full max-w-xl lg:mt-11">
           <div className="flex border-b border-gray-200">
             {tabs.map((tab, index) => (
               <button
@@ -153,7 +153,7 @@ export const PlayerDrawer = () => {
           {tabs.length > activeTab && (
             <div
               role="tabpanel"
-              className="w-full p-4 overflow-y-auto"
+              className="w-full overflow-y-auto p-4"
               style={{
                 height:
                   width >= Breakpoints.lg

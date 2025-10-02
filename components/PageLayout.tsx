@@ -19,7 +19,7 @@ export const PageLayout = ({
     <>
       <AlertBanner preview={isDraft} loading={loading} />
       <Header darkBg={darkBg} />
-      <main className="min-h-screen relative">{children}</main>
+      <main className="relative min-h-screen">{children}</main>
       <Footer />
     </>
   )

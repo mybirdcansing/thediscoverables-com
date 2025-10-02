@@ -19,7 +19,7 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
 
   return (
     <Container className="flex flex-col place-items-center">
-      <div className="max-w-4xl w-full flex flex-col gap-4">
+      <div className="flex w-full max-w-4xl flex-col gap-4">
         <h2>{albumsTitle}</h2>
         <div
           className={cx(
@@ -36,10 +36,10 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
               : null
 
             return (
-              <div key={_id} className="flex flex-col gap-3 w-full h-fit">
+              <div key={_id} className="flex h-fit w-full flex-col gap-3">
                 <Link
                   href={`/albums/${slug?.current}`}
-                  className="relative block w-full aspect-square"
+                  className="relative block aspect-square w-full"
                 >
                   {artSrc ? (
                     <Image
@@ -50,7 +50,7 @@ export const AlbumList = ({ albumsTitle, albums }: AlbumListProps) => {
                       className="object-cover"
                     />
                   ) : (
-                    <div className="bg-gray-200 flex items-center justify-center w-full aspect-square">
+                    <div className="flex aspect-square w-full items-center justify-center bg-gray-200">
                       <span className="text-gray-500">No Image</span>
                     </div>
                   )}

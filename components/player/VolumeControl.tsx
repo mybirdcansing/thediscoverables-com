@@ -42,7 +42,7 @@ export const VolumeControl = ({
   }
 
   return (
-    <div className="md:flex flex-row gap-2 hidden">
+    <div className="hidden flex-row gap-2 md:flex">
       <button onClick={lowerVolume}>
         <Image
           src="/volume_down.svg"

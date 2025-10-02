@@ -39,27 +39,24 @@ export const Player = () => {
       <PlayerDrawer />
       <div
         id="player-bar"
-        className="fixed bottom-0 w-full h-full z-50 max-h-[82px] min-h-[82px] flex flex-col"
+        className="fixed bottom-0 z-50 flex size-full max-h-[82px] min-h-[82px] flex-col"
       >
         <audio
-          className="hidden absolute -left-[-2000px]"
+          className="absolute left-[-2000px] hidden"
           ref={audioRef}
           preload="auto"
         ></audio>
 
-        <div
-          onClick={toggleExpandDrawer}
-          className="flex flex-col w-full h-full"
-        >
+        <div onClick={toggleExpandDrawer} className="flex size-full flex-col">
           <AudioSlider
             audioRef={audioRef}
             currentTime={currentTime}
             duration={duration}
           />
 
-          <div className="flex-grow flex items-center justify-center">
-            <div className="w-full flex flex-row justify-between items-center px-3">
-              <div className="flex flex-row items-center order-3 md:order-1 gap-2">
+          <div className="flex grow items-center justify-center">
+            <div className="flex w-full flex-row items-center justify-between px-3">
+              <div className="order-3 flex flex-row items-center gap-2 md:order-1">
                 <PlayControls
                   isPlaying={isPlaying}
                   isLoading={isLoading}
@@ -84,7 +81,7 @@ export const Player = () => {
               <div className="order-1 md:order-2">
                 <SongDetails activeSong={activeSong} />
               </div>
-              <div className="order-2 md:order-3 flex flex-row gap-6">
+              <div className="order-2 flex flex-row gap-6 md:order-3">
                 <VolumeControl
                   lowerVolume={(e) => {
                     lowerVolume()
@@ -99,7 +96,7 @@ export const Player = () => {
                   isIOS={isIOS()}
                   airPlayRef={airPlayRef}
                 />
-                <div className="md:block hidden">
+                <div className="hidden md:block">
                   <ToggleDrawerButton
                     toggleExpandDrawer={toggleExpandDrawer}
                     isDrawerExpanded={isDrawerExpanded}

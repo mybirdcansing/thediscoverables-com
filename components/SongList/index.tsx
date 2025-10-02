@@ -34,7 +34,7 @@ export const SongList = ({
     setSong(song, songsForQueue ?? songs)
   }
   return (
-    <div className="max-w-4xl w-full flex flex-col gap-1">
+    <div className="flex w-full max-w-4xl flex-col gap-1">
       {title && <h2 className="pb-2">{title}</h2>}
       {songs?.length &&
         songs.map((song, index) => {
@@ -69,7 +69,7 @@ export const SongList = ({
                 onClick={() => {
                   handleClickSong(song)
                 }}
-                className="cursor-pointer relative"
+                className="relative cursor-pointer"
               >
                 <Image
                   unoptimized
@@ -131,8 +131,8 @@ export const SongList = ({
                     ))}
                 </div>
               </button>
-              <div className="w-full flex flex-row justify-between">
-                <div className="flex flex-col gap-1 justify-center">
+              <div className="flex w-full flex-row justify-between">
+                <div className="flex flex-col justify-center gap-1">
                   <button
                     onClick={() => {
                       handleClickSong(song)

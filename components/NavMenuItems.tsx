@@ -5,7 +5,7 @@ export interface NavMenuItemsProps {
 }
 export const NavMenuItems: React.FC<NavMenuItemsProps> = ({ onClick }) => {
   return (
-    <ul className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 justify-items-center">
+    <ul className="flex flex-col justify-items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
       <li>
         <Link href={'/'} className="hover:underline" onClick={onClick}>
           Home

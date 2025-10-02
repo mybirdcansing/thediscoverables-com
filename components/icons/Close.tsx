@@ -6,7 +6,7 @@ export const Close = () => {
       stroke="currentcolor"
       fill="transparent"
       strokeWidth=".5"
-      className="w-8 h-8 cursor-pointer"
+      className="size-8 cursor-pointer"
       strokeLinecap="round"
     >
       <path d="M2,2 L8,8" />

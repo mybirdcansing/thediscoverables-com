@@ -44,7 +44,7 @@ export const Hamburger = ({ isOpen }: HamburgerProps) => {
       stroke="currentcolor"
       fill="transparent"
       strokeWidth=".5"
-      className="w-8 h-8 cursor-pointer"
+      className="size-8 cursor-pointer"
       strokeLinecap="round"
     >
       <path d="M2,3L5,3L8,3M2,5L8,5M2,7L5,7L8,7">

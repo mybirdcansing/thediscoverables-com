@@ -11,8 +11,8 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="flex flex-col items-top p-6 sm:flex-row justify-center sm:space-x-4">
-        <div className="flex space-x-2 mb-2 sm:mb-0 justify-center footer-links">
+      <footer className="flex flex-col justify-center p-6 sm:flex-row sm:space-x-4">
+        <div className="footer-links mb-2 flex justify-center space-x-2 sm:mb-0">
           <Link href="/">Home</Link>
           <span>|</span>
           <Link href="/contact">Contact</Link>

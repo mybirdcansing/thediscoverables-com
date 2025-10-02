@@ -106,10 +106,10 @@ export const AudioSlider = ({
   }
 
   return (
-    <div className="relative py-1 cursor-pointer w-full" onClick={handleClick}>
+    <div className="relative w-full cursor-pointer py-1" onClick={handleClick}>
       <div
         ref={sliderRef}
-        className="bg-gray-200 hover:bg-gray-300 absolute top-0 w-full h-1 hover:h-[6px] hover:top-[-1px]"
+        className="absolute top-0 h-1 w-full bg-gray-200 hover:-top-px hover:h-[6px] hover:bg-gray-300"
       >
         <div
           className="absolute h-full bg-gray-300"
@@ -127,7 +127,7 @@ export const AudioSlider = ({
         ></animated.div>
         <animated.div
           {...bind()}
-          className="absolute top-[-8px] left-[-10px] w-5 h-5 bg-gray-600 rounded-full cursor-grab"
+          className="absolute left-[-10px] top-[-8px] size-5 cursor-grab rounded-full bg-gray-600"
           style={{ transform: x.to((x) => `translateX(${x}px)`) }}
         ></animated.div>
       </div>

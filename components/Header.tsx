@@ -49,7 +49,7 @@ export const Header = ({ darkBg }: HeaderProps): React.ReactNode => {
           </Link>
         </div>
 
-        <nav className="hidden md:flex flex-row place-content-end items-center h-header">
+        <nav className="hidden h-header flex-row place-content-end items-center md:flex">
           <NavMenuItems />
         </nav>
       </header>
