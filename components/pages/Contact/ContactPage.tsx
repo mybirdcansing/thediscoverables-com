@@ -118,8 +118,6 @@ export const ContactFormContent = () => {
     }
   }
 
-  console.log({ errors, touched })
-
   const resetForm = () => {
     setTouched({})
     setFormSuccess(false)

@@ -32,10 +32,23 @@ export async function handleContactForm(data: FormData) {
   })
 
   const mailOptions = {
-    from: email,
+    from: '"Contact Form" <thediscoverables@gmail.com',
     to: smtpUser,
+    replyTo: email,
     subject: `Fan mail from ${name}`,
-    text: message,
+    text: `
+Name: ${name}
+Email: ${email}
+Message:
+${message}
+  `,
+    html: `
+    <h2>Fan mail</h2>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Message:</strong></p>
+    <p>${message}</p>
+  `,
   }
 
   try {
