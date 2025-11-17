@@ -1,30 +1,6 @@
-# A Next.js Blog with a Native Authoring Experience<!-- omit in toc -->
-
-This is a statically generated website for my band that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content. It has a native Sanity Studio.
-
-[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
-
 ## Features
 
 - Update and manage website for The Discoverables
-
-
-## Table of Contents
-
-- [Features](#features)
-- [Table of Contents](#table-of-contents)
-- [Project Overview](#project-overview)
-  - [Important files and folders](#important-files-and-folders)
-- [Configuration](#configuration)
-  - [Step 1. Set up the environment](#step-1-set-up-the-environment)
-  - [Step 2. Set up the project locally](#step-2-set-up-the-project-locally)
-  - [Step 3. Run Next.js locally in development mode](#step-3-run-nextjs-locally-in-development-mode)
-  - [Step 4. Deploy to production](#step-4-deploy-to-production)
-- [Questions and Answers](#questions-and-answers)
-  - [It doesn't work! Where can I get help?](#it-doesnt-work-where-can-i-get-help)
-  - [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
-  - [How can I set up Incremental Static Revalidation?](#how-can-i-set-up-incremental-static-revalidation)
-- [Next steps](#next-steps)
 
 ## Project Overview
 
